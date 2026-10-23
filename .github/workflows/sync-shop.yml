@@ -1,0 +1,32 @@
+name: sync from jxmath.shop
+
+on:
+  schedule:
+    - cron: "*/5 * * * *"
+  workflow_dispatch:
+  repository_dispatch:
+    types: [shop-updated]
+
+concurrency:
+  group: sync-shop
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+  pages: write
+
+jobs:
+  sync:
+    if: github.repository == 'jxmath/jxmath.github.io'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - id: sync
+        run: bash .github/scripts/sync-shop.sh
+      - name: rebuild pages
+        if: steps.sync.outputs.pushed == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh api -X POST "repos/${{ github.repository }}/pages/builds" || true

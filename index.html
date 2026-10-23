@@ -1,0 +1,3691 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>jxmath</title>
+  <meta name="description" content="free browser games you can play at school. no downloads, no sign up. arcade, io, puzzle, racing, shooter, platformer and 2 player games.">
+  <meta name="keywords" content="jxmath, jaxsons math, school games, free games, browser games, html5 games, games for school, chromebook games, 2 player games, io games, flash games">
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <meta name="theme-color" content="#0b1020">
+  <link rel="canonical" href="https://jxmath.shop/">
+  <link rel="icon" type="image/png" href="/assets/favicon.png">
+  <link rel="apple-touch-icon" href="/assets/favicon.png">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="jxmath">
+  <meta property="og:url" content="https://jxmath.shop/">
+  <meta property="og:title" content="jxmath">
+  <meta property="og:description" content="free browser games you can play at school. no downloads, no sign up. arcade, io, puzzle, racing, shooter, platformer and 2 player games.">
+  <meta property="og:image" content="https://jxmath.shop/assets/og-image.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="jxmath">
+  <meta name="twitter:description" content="free browser games you can play at school. no downloads, no sign up. arcade, io, puzzle, racing, shooter, platformer and 2 player games.">
+  <meta name="twitter:image" content="https://jxmath.shop/assets/og-image.png">
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"WebSite","name":"jxmath","alternateName":"jaxsons math","url":"https://jxmath.shop/","potentialAction":{"@type":"SearchAction","target":"https://jxmath.shop/?q={search_term_string}","query-input":"required name=search_term_string"}}
+  </script>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link rel="dns-prefetch" href="https://api.github.com">
+  <script>try{var t=localStorage.getItem("jm-theme");if(t)document.documentElement.setAttribute("data-theme",t)}catch(e){}try{if("scrollRestoration"in history)history.scrollRestoration="manual"}catch(e){}</script>
+  <style>
+:root {
+  --bg: #0b1020;
+  --bg-card: #151d2e;
+  --text: #ffffff;
+  --chip: #1e293b;
+  --chip-hover: #2a3950;
+  --accent: #4a6fa5;
+  --accent-text: #ffffff;
+  --accent-hover: #5a82b8;
+  --surface: #1a2233;
+  --bar: rgba(15, 20, 32, 0.96);
+  --card-border: rgba(148, 163, 184, 0.28);
+  --card-border-hover: rgba(148, 163, 184, 0.55);
+  --border: rgba(255, 255, 255, 0.1);
+  --radius: 16px;
+  --max-width: 1300px;
+  --gap: 10px;
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body {
+  background: var(--bg);
+  color: var(--text);
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  font-weight: 600;
+  min-height: 100vh;
+  line-height: 1.4;
+  -webkit-font-smoothing: antialiased;
+  position: relative;
+  overflow-x: hidden;
+}
+
+body:not(.play-body) {
+  display: flex;
+  flex-direction: column;
+}
+
+#particles {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  pointer-events: none !important;
+}
+
+.container {
+  position: relative;
+  z-index: 2;
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 24px 0;
+  width: 100%;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  box-sizing: border-box;
+}
+
+#rows {
+  flex: 1;
+}
+
+header {
+  padding-top: 28px;
+  padding-bottom: 8px;
+  animation: fade-down 0.6s var(--ease) both;
+}
+
+.search-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 36px;
+}
+
+.search-bar {
+  width: 560px;
+  max-width: 640px;
+  min-width: 400px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  background: var(--chip);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 10px 18px;
+  gap: 10px;
+  box-sizing: border-box;
+}
+
+.search-bar svg {
+  width: 18px;
+  height: 18px;
+  color: var(--text);
+  stroke: var(--text);
+  flex-shrink: 0;
+}
+
+.search-bar input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: var(--text);
+  font-size: 15px;
+  font-weight: 600;
+  caret-color: var(--text);
+}
+
+.search-bar input::placeholder {
+  color: var(--text);
+  opacity: 1;
+}
+
+.site-title {
+  font-size: 28px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  margin-bottom: 6px;
+  color: var(--text);
+}
+
+.site-title .ver-tag {
+  font-size: 0.42em;
+  font-weight: 800;
+  font-family: inherit;
+  vertical-align: super;
+  position: relative;
+  top: -0.15em;
+  margin-left: 3px;
+  color: var(--text);
+  letter-spacing: -0.02em;
+}
+
+.site-tagline {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 22px;
+}
+
+.categories {
+  position: relative;
+  z-index: 5;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 36px;
+}
+
+.cat-btn {
+  position: relative;
+  z-index: 5;
+  background: var(--chip);
+  border: 1px solid transparent;
+  color: var(--text);
+  font-size: 14px;
+  font-weight: 700;
+  padding: 8px 16px;
+  border-radius: 999px;
+  cursor: pointer;
+  pointer-events: auto;
+  transition: background 0.25s var(--ease), color 0.25s var(--ease), transform 0.25s var(--ease), border-color 0.25s var(--ease);
+}
+
+.cat-btn:hover {
+  background: var(--chip-hover);
+  color: var(--text);
+  transform: translateY(-1px);
+}
+
+.cat-btn.active {
+  background: var(--accent);
+  color: var(--accent-text);
+  border-color: var(--accent);
+}
+
+.cat-btn.active:hover {
+  background: var(--accent-hover);
+  color: var(--accent-text);
+}
+
+.section {
+  margin-bottom: 36px;
+  animation: fade-up 0.55s var(--ease) both;
+}
+
+.section-head {
+  margin-bottom: 14px;
+}
+
+.section-title {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  color: var(--text);
+}
+
+.section-count {
+  display: none;
+}
+
+.section-toggle {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  letter-spacing: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.section-pin {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  flex-shrink: 0;
+}
+
+.section-pin svg {
+  width: 18px;
+  height: 18px;
+  transition: transform 0.15s ease;
+}
+
+.section-toggle[aria-expanded="false"] .section-pin svg {
+  transform: rotate(180deg);
+}
+
+.games-grid[hidden] {
+  display: none;
+}
+
+.games-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+}
+
+.game-card {
+  position: relative;
+  width: 400px;
+  max-width: calc(50% - 16px);
+  height: 100px;
+  max-height: 100px;
+  margin: 8px;
+  border-radius: 16px;
+  border: 3.2px solid var(--card-border);
+  overflow: hidden;
+  cursor: pointer;
+  text-decoration: none;
+  color: var(--text);
+  display: inline-block;
+  background-color: var(--bg-card);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  box-sizing: border-box;
+  animation: card-in 0.5s var(--ease) both;
+  transition: border-color 0.15s ease-in-out;
+}
+
+.game-card:hover {
+  border-color: var(--card-border-hover);
+  z-index: 1;
+  transform: none;
+}
+
+.fav-btn {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  z-index: 3;
+  width: 32px;
+  height: 32px;
+  border: none;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.45);
+  color: rgba(255, 255, 255, 0.55);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  transition: color 0.15s ease, background 0.15s ease, transform 0.15s ease;
+}
+
+.fav-btn:hover {
+  background: rgba(0, 0, 0, 0.7);
+}
+
+.fav-btn.active {
+  color: #ffd166;
+}
+
+.fav-btn svg {
+  display: block;
+  pointer-events: none;
+}
+
+.game-thumb,
+.game-fallback {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+  font-weight: 800;
+  color: var(--text);
+  background: var(--surface);
+}
+
+.game-fallback {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  font-weight: 800;
+  color: var(--text);
+  background: var(--surface);
+}
+
+.game-card:hover .game-thumb,
+.game-card:hover .game-fallback {
+  filter: none;
+}
+
+.game-title {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  padding: 0 10px;
+  text-align: center;
+  font-size: 30px;
+  font-weight: 800;
+  line-height: 1.1;
+  color: var(--text);
+  text-shadow:
+    0 0 10px #000,
+    0 0 20px #000,
+    0 2px 6px #000;
+  background: transparent;
+  opacity: 1;
+  transform: none;
+  pointer-events: none;
+}
+
+.game-card:hover .game-title {
+  background: transparent;
+}
+
+.no-results {
+  text-align: center;
+  color: var(--text);
+  padding: 40px 20px;
+  font-size: 15px;
+  animation: fade-up 0.4s var(--ease) both;
+}
+
+.play-body {
+  min-height: 100vh;
+  background: var(--bg);
+  color: var(--text);
+  position: relative;
+}
+
+.play-shell {
+  position: relative;
+  z-index: 1;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 16px 20px 28px;
+  animation: fade-up 0.45s var(--ease) both;
+}
+
+.play-top {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+.back-btn {
+  color: var(--text);
+  text-decoration: none;
+  background: var(--chip);
+  border: none;
+  border-radius: 999px;
+  padding: 8px 14px;
+  font-size: 14px;
+  font-weight: 700;
+  font-family: inherit;
+  cursor: pointer;
+  transition: background 0.25s var(--ease);
+}
+
+.back-btn:hover {
+  background: var(--chip-hover);
+}
+
+.play-stage {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  max-height: min(78vh, 820px);
+  background: #000;
+  border-radius: 14px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.35);
+  display: flex;
+  flex-direction: column;
+}
+
+.play-frame-wrap {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+  background: #000;
+}
+
+.play-frame-wrap iframe,
+#play-frame {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  background: #000;
+}
+
+.play-bar {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 8px 12px;
+  background: var(--bar);
+  border-top: 1px solid var(--border);
+}
+
+.play-bar-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.play-bar-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.play-action {
+  color: var(--text);
+  background: var(--chip);
+  border: none;
+  border-radius: 999px;
+  padding: 7px 12px;
+  font-size: 13px;
+  font-weight: 700;
+  font-family: inherit;
+  cursor: pointer;
+  transition: background 0.25s var(--ease);
+}
+
+.play-action:hover {
+  background: var(--chip-hover);
+}
+
+.play-vol {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--chip);
+  border-radius: 999px;
+  padding: 4px 10px 4px 6px;
+  height: 32px;
+}
+
+.play-vol-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  border: none;
+  background: transparent;
+  color: var(--text);
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.play-vol-icon svg {
+  display: block;
+}
+
+.play-vol-slider {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 72px;
+  height: 4px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.22);
+  outline: none;
+  cursor: pointer;
+  margin: 0;
+}
+
+.play-vol-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--text);
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.25);
+}
+
+.play-vol-slider::-moz-range-thumb {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--text);
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.25);
+}
+
+.play-vol-slider::-moz-range-track {
+  height: 4px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.22);
+}
+
+.play-stage:fullscreen,
+.play-stage:-webkit-full-screen {
+  max-height: none;
+  aspect-ratio: auto;
+  border-radius: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.play-stage:fullscreen .play-frame-wrap,
+.play-stage:-webkit-full-screen .play-frame-wrap {
+  flex: 1;
+}
+
+.play-title {
+  font-size: 14px;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  color: var(--text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.play-cat {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text);
+  opacity: 0.9;
+}
+
+.recommended {
+  margin-top: 28px;
+  animation: fade-up 0.45s var(--ease) both;
+}
+
+.recommended-title {
+  font-size: 18px;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  color: var(--text);
+  margin-bottom: 12px;
+}
+
+.recommended .games-grid {
+  justify-content: flex-start;
+}
+
+.recommended .game-card {
+  width: calc(25% - 16px);
+  max-width: calc(25% - 16px);
+  height: 80px;
+  max-height: 80px;
+}
+
+.recommended .game-title {
+  font-size: 20px;
+}
+
+@media (max-width: 700px) {
+  .recommended .game-card {
+    width: calc(100% - 16px);
+    max-width: calc(100% - 16px);
+    height: 80px;
+  }
+}
+
+@keyframes fade-down {
+  from {
+    opacity: 0;
+    transform: translateY(-12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes card-in {
+  from {
+    opacity: 0;
+    transform: translateY(14px) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@media (max-width: 900px) {
+  .game-card {
+    width: calc(50% - 16px);
+    max-width: calc(50% - 16px);
+  }
+}
+
+@media (max-width: 700px) {
+  .container,
+  .play-shell {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  .site-title {
+    font-size: 24px;
+  }
+
+  .game-card {
+    width: calc(100% - 16px);
+    max-width: calc(100% - 16px);
+    height: 90px;
+  }
+
+  .game-title {
+    font-size: 22px;
+  }
+
+  .play-stage {
+    max-height: min(70vh, 520px);
+  }
+
+  .play-title {
+    font-size: 20px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
+.top-bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 36px;
+  position: relative;
+  width: 100%;
+}
+
+.top-bar .search-wrap {
+  margin-bottom: 0;
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  max-width: 540px;
+}
+
+.settings-btn {
+  flex-shrink: 0;
+  background: var(--chip);
+  border: 1px solid var(--border);
+  color: var(--text);
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.25s var(--ease), transform 0.25s var(--ease);
+  z-index: 6;
+  padding: 0;
+}
+
+.settings-btn:hover {
+  background: var(--chip-hover);
+  transform: scale(1.05);
+}
+
+.settings-btn svg {
+  display: block;
+  width: 20px;
+  height: 20px;
+}
+
+.play-settings {
+  width: 36px;
+  height: 36px;
+}
+
+.play-settings svg {
+  width: 18px;
+  height: 18px;
+}
+
+.modal {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  opacity: 0;
+  transition: opacity 0.22s ease;
+}
+
+.modal[hidden] {
+  display: none !important;
+}
+
+.modal.open {
+  opacity: 1;
+}
+
+.modal.closing {
+  opacity: 0;
+}
+
+.modal-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.65);
+  backdrop-filter: blur(4px);
+}
+
+.modal-panel {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 560px;
+  max-height: 90vh;
+  overflow-y: auto;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.45);
+  transform: translateY(10px) scale(0.98);
+  transition: transform 0.22s var(--ease);
+}
+
+.modal.open .modal-panel {
+  transform: translateY(0) scale(1);
+}
+
+.modal.closing .modal-panel {
+  transform: translateY(8px) scale(0.98);
+}
+
+.modal-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 22px 12px;
+  border-bottom: 1px solid var(--border);
+}
+
+.modal-head h2 {
+  font-size: 18px;
+  font-weight: 800;
+  color: var(--text);
+}
+
+.modal-close {
+  background: transparent;
+  border: none;
+  color: var(--text);
+  font-size: 28px;
+  line-height: 1;
+  cursor: pointer;
+  opacity: 0.7;
+  padding: 0 4px;
+}
+
+.modal-close:hover {
+  opacity: 1;
+}
+
+.modal-body {
+  padding: 18px 22px 26px;
+}
+
+.switch-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.toggle {
+  position: relative;
+  width: 44px;
+  height: 26px;
+  flex-shrink: 0;
+  border: none;
+  border-radius: 999px;
+  background: var(--chip);
+  cursor: pointer;
+  padding: 0;
+}
+
+.toggle[aria-checked="true"] {
+  background: var(--accent);
+}
+
+.toggle i {
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #fff;
+  transition: transform 0.2s var(--ease);
+  pointer-events: none;
+}
+
+.toggle[aria-checked="true"] i {
+  transform: translateX(18px);
+}
+
+.settings-section {
+  margin-bottom: 22px;
+}
+
+.settings-section:last-child {
+  margin-bottom: 0;
+}
+
+.settings-section h3 {
+  font-size: 14px;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.7);
+  margin-bottom: 10px;
+}
+
+.settings-section select,
+.settings-section input[type="text"],
+.settings-section input[type="url"] {
+  width: 100%;
+  background: var(--chip);
+  border: 1px solid var(--border);
+  color: var(--text);
+  border-radius: 10px;
+  padding: 10px 12px;
+  font-size: 14px;
+  font-family: inherit;
+  margin-bottom: 8px;
+  outline: none;
+}
+
+.settings-section select {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  padding-right: 36px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  background-size: 16px 16px;
+  cursor: pointer;
+}
+
+.settings-section select:focus,
+.settings-section input:focus {
+  border-color: var(--border);
+}
+
+.btn-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.settings-action {
+  background: var(--accent);
+  border: none;
+  color: var(--accent-text);
+  font-size: 13px;
+  font-weight: 700;
+  padding: 8px 14px;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.settings-action:hover {
+  background: var(--accent-hover);
+}
+
+body.modal-open {
+  overflow: hidden;
+}
+
+.toast-wrap {
+  position: fixed;
+  top: 14px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  pointer-events: none;
+}
+
+.toast {
+  background: var(--chip);
+  border: 1px solid var(--border);
+  color: var(--text);
+  padding: 8px 14px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 700;
+  animation: toast-in 0.25s var(--ease) both;
+  pointer-events: none;
+}
+
+.toast.out {
+  animation: toast-out 0.25s var(--ease) both;
+}
+
+@keyframes toast-in {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes toast-out {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+}
+
+.play-stage:fullscreen .play-bar,
+.play-stage:-webkit-full-screen .play-bar {
+  display: none !important;
+}
+
+.play-stage:fullscreen .play-frame-wrap,
+.play-stage:-webkit-full-screen .play-frame-wrap {
+  flex: 1;
+  height: 100%;
+}
+
+.site-footer {
+  display: block;
+  width: 100%;
+  text-align: center;
+  padding: 40px 16px 24px;
+  margin-top: auto;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.play-shell .site-footer {
+  padding: 28px 16px 8px;
+  margin-top: 18px;
+}
+
+html {
+  scrollbar-width: thin;
+  scrollbar-color: var(--chip) transparent;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--chip);
+  border-radius: 999px;
+  border: 2px solid transparent;
+  background-clip: padding-box;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--accent);
+  border: 2px solid transparent;
+  background-clip: padding-box;
+}
+
+.app-loader {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  background: var(--bg);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  transition: opacity 0.35s var(--ease);
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.loading-spinner {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 3px solid rgba(255, 255, 255, 0.15);
+  border-top-color: var(--text);
+  animation: spin 0.7s linear infinite;
+}
+
+.app-loader.done {
+  opacity: 0;
+  pointer-events: none;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.loading-circles {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.loading-circles span {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--text);
+  animation: circlePulse 1s ease-in-out infinite;
+}
+
+.loading-circles span:nth-child(2) { animation-delay: 0.15s; }
+.loading-circles span:nth-child(3) { animation-delay: 0.3s; }
+
+@keyframes circlePulse {
+  0%, 100% { transform: scale(0.55); opacity: 0.35; }
+  50% { transform: scale(1); opacity: 1; }
+}
+
+.page-transition {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: var(--bg);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.35s var(--ease);
+}
+
+.page-transition.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.page-transition-label {
+  font-size: 15px;
+  font-weight: 700;
+  color: rgba(255,255,255,0.75);
+  letter-spacing: 0.03em;
+}
+
+.play-frame-wrap {
+  position: relative;
+}
+
+.frame-loader {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  background: var(--bg);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s var(--ease);
+}
+
+.frame-loader.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.frame-loader-label {
+  font-size: 14px;
+  font-weight: 700;
+  color: rgba(255,255,255,0.7);
+}
+
+.frame-notfound {
+  position: absolute;
+  inset: 0;
+  z-index: 6;
+  background: var(--bg);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.frame-notfound[hidden] {
+  display: none !important;
+}
+
+.frame-notfound-code {
+  font-size: 56px;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  color: var(--text);
+  line-height: 1;
+}
+
+.frame-notfound-text {
+  font-size: 14px;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.55);
+}
+
+/* ---- theme effects ---- */
+:root {
+  --bg-fx: none;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background: var(--bg-fx);
+}
+
+.site-title {
+  color: var(--title, var(--text));
+}
+
+/* ---- theme palettes ---- */
+.site-title,
+.site-title .ver-tag {
+  color: var(--text);
+  background: none;
+  background-image: none;
+  -webkit-text-fill-color: var(--text);
+  filter: none;
+}
+
+:root[data-theme="moonlight"] {
+  --bg: #171a30;
+  --bg-card: #1e2240;
+  --chip: #2a2f55;
+  --chip-hover: #373d6b;
+  --text: #dbe2ff;
+  --accent: #aab8ff;
+  --accent-text: #171a30;
+  --accent-hover: #c4cfff;
+  --border: rgba(205, 214, 255, 0.12);
+  --surface: #2a2f55;
+  --bar: rgba(14, 16, 32, 0.96);
+  --card-border: rgba(150, 165, 255, 0.32);
+  --card-border-hover: rgba(150, 165, 255, 0.65);
+  --bg-fx: radial-gradient(circle at 91% 10%, #f4f6ff 0 15px, rgba(214,222,255,0.5) 16px, rgba(150,165,255,0.16) 64px, transparent 150px), radial-gradient(ellipse 70% 45% at 85% 0%, rgba(140,155,255,0.16), transparent 70%), radial-gradient(ellipse 80% 50% at 0% 100%, rgba(80,95,200,0.18), transparent 70%);
+}
+:root[data-theme="purple"] {
+  --bg: #241833;
+  --bg-card: #2e2142;
+  --chip: #3d2c56;
+  --chip-hover: #4e3a6c;
+  --text: #f6f0ff;
+  --accent: #c4a6f5;
+  --accent-text: #241833;
+  --accent-hover: #d4bdf8;
+  --border: rgba(220, 200, 250, 0.16);
+  --surface: #3d2c56;
+  --bar: rgba(28, 18, 42, 0.96);
+  --card-border: rgba(196, 166, 245, 0.32);
+  --card-border-hover: rgba(196, 166, 245, 0.58);
+  --bg-fx: radial-gradient(ellipse 80% 50% at 50% 0%, rgba(180, 150, 230, 0.12), transparent 70%);
+}
+:root[data-theme="ocean"] {
+  --bg: #102833;
+  --bg-card: #173440;
+  --chip: #214555;
+  --chip-hover: #2c586c;
+  --text: #eef8fb;
+  --accent: #8fd4e4;
+  --accent-text: #102833;
+  --accent-hover: #b3e4ef;
+  --border: rgba(180, 230, 240, 0.16);
+  --surface: #214555;
+  --bar: rgba(12, 32, 40, 0.96);
+  --card-border: rgba(143, 212, 228, 0.32);
+  --card-border-hover: rgba(143, 212, 228, 0.58);
+  --bg-fx: radial-gradient(ellipse 80% 46% at 50% 0%, rgba(143, 212, 228, 0.12), transparent 70%);
+}
+:root[data-theme="forest"] {
+  --bg: #17261c;
+  --bg-card: #1f3226;
+  --chip: #2a4334;
+  --chip-hover: #375644;
+  --text: #f0f7ec;
+  --accent: #a8d492;
+  --accent-text: #17261c;
+  --accent-hover: #c2e4b0;
+  --border: rgba(200, 230, 190, 0.16);
+  --surface: #2a4334;
+  --bar: rgba(16, 30, 20, 0.96);
+  --card-border: rgba(168, 212, 146, 0.32);
+  --card-border-hover: rgba(168, 212, 146, 0.58);
+  --bg-fx: radial-gradient(ellipse 80% 46% at 50% 0%, rgba(168, 212, 146, 0.10), transparent 70%);
+}
+:root[data-theme="ember"] {
+  --bg: #2a1c18;
+  --bg-card: #362420;
+  --chip: #4a322b;
+  --chip-hover: #5c4038;
+  --text: #fff6f1;
+  --accent: #f0b08a;
+  --accent-text: #2a1c18;
+  --accent-hover: #f6c6aa;
+  --border: rgba(255, 210, 190, 0.16);
+  --surface: #4a322b;
+  --bar: rgba(32, 20, 16, 0.96);
+  --card-border: rgba(240, 176, 138, 0.32);
+  --card-border-hover: rgba(240, 176, 138, 0.58);
+  --bg-fx: radial-gradient(ellipse 80% 46% at 50% 100%, rgba(240, 176, 138, 0.12), transparent 70%);
+}
+:root[data-theme="gruvbox"] {
+  --bg: #32302f;
+  --bg-card: #3c3836;
+  --chip: #504945;
+  --chip-hover: #665c54;
+  --text: #fbf1c7;
+  --accent: #fabd2f;
+  --accent-text: #32302f;
+  --accent-hover: #fcd05c;
+  --border: rgba(251, 241, 199, 0.14);
+  --surface: #504945;
+  --bar: rgba(40, 40, 40, 0.96);
+  --card-border: rgba(213, 196, 161, 0.32);
+  --card-border-hover: rgba(213, 196, 161, 0.58);
+  --bg-fx: none;
+}
+:root[data-theme="sakura"] {
+  --bg: #1c1017;
+  --bg-card: #291720;
+  --chip: #3a2130;
+  --chip-hover: #4d2b41;
+  --text: #ffeef4;
+  --accent: #ff8fb8;
+  --accent-text: #2a0f1d;
+  --accent-hover: #ffa8c8;
+  --border: rgba(255, 205, 225, 0.12);
+  --surface: #3a2130;
+  --bar: rgba(24, 12, 19, 0.96);
+  --card-border: rgba(255, 143, 184, 0.32);
+  --card-border-hover: rgba(255, 143, 184, 0.65);
+  --bg-fx: radial-gradient(ellipse 70% 46% at 86% 0%, rgba(255,143,184,0.22), transparent 70%), radial-gradient(ellipse 70% 40% at 0% 100%, rgba(255,120,160,0.13), transparent 70%);
+}
+
+/* ---- theme picker ---- */
+.theme-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(112px, 1fr));
+  gap: 10px;
+}
+
+.theme-opt {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 6px 6px 9px;
+  background: var(--chip);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  color: var(--text);
+  font: inherit;
+  font-size: 13px;
+  font-weight: 700;
+  text-align: center;
+  cursor: pointer;
+  transition: transform 0.2s var(--ease), border-color 0.2s, box-shadow 0.2s, background 0.2s;
+}
+
+.theme-opt:hover {
+  background: var(--chip-hover);
+  transform: translateY(-2px);
+}
+
+.theme-opt:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.theme-opt.active {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 1px var(--accent), 0 6px 20px -8px var(--accent);
+}
+
+.tp {
+  position: relative;
+  display: block;
+  height: 64px;
+  border-radius: 9px;
+  overflow: hidden;
+  background: var(--p-fx, none), var(--p-bg);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.08);
+}
+
+.tp-title {
+  position: absolute;
+  left: 10%;
+  top: 10px;
+  width: 36%;
+  height: 5px;
+  border-radius: 3px;
+  background: var(--p-title);
+}
+
+.tp-chips {
+  position: absolute;
+  left: 10%;
+  top: 22px;
+  display: flex;
+  gap: 4px;
+}
+
+.tp-chips i {
+  display: block;
+  width: 15px;
+  height: 7px;
+  border-radius: 4px;
+  background: var(--p-chip);
+}
+
+.tp-chips i:first-child {
+  width: 19px;
+  background: var(--p-accent);
+}
+
+.tp-cards {
+  position: absolute;
+  left: 10%;
+  right: 10%;
+  bottom: 7px;
+  display: flex;
+  gap: 5px;
+}
+
+.tp-cards i {
+  display: block;
+  flex: 1;
+  height: 17px;
+  border-radius: 5px;
+  background: var(--p-card);
+  box-shadow: inset 0 0 0 1px var(--p-edge);
+}
+
+.tp-fx i {
+  position: absolute;
+  display: block;
+  border-radius: 50%;
+}
+
+.tp-check {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  width: 18px;
+  height: 18px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--accent);
+  color: var(--accent-text);
+  opacity: 0;
+  transform: scale(0.5);
+  transition: opacity 0.2s, transform 0.25s var(--ease);
+}
+
+.theme-opt.active .tp-check {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.tn {
+  line-height: 1;
+  color: #fff;
+}
+
+.theme-opt.active .tn {
+  color: #fff;
+}
+
+.ad-wrap {
+  width: 100%;
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 10px 16px;
+  box-sizing: border-box;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+}
+.ad-unit {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+.ad-unit-728 { width: 728px; max-width: 100%; min-height: 90px; }
+.ad-unit-468 { width: 468px; max-width: 100%; min-height: 60px; }
+.ad-unit-320 { width: 320px; max-width: 100%; min-height: 50px; }
+.ad-unit-300 { width: 300px; max-width: 100%; min-height: 250px; }
+.ad-unit-160 { width: 160px; min-height: 300px; }
+.ad-unit-160t { width: 160px; min-height: 600px; }
+@media (max-width: 760px) {
+  .ad-unit-160, .ad-unit-160t { display: none; }
+}
+  </style>
+  <script src="https://pl31909741.profitableratecpmnetwork.com/ad/e0/f6/ade0f6e09d18cf0696d19ed91c9a96d2.js"></script>
+</head>
+<body>
+  <canvas id="particles"></canvas>
+
+  <div class="app-loader" id="app-loader" aria-label="loading">
+    <div class="loading-spinner"></div>
+    <span>loading boii...</span>
+  </div>
+
+  <div id="view-home">
+  <div class="container">
+    <header>
+      <div class="top-bar">
+        <div class="search-wrap">
+          <div class="search-bar">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+            </svg>
+            <input type="text" id="search-input" placeholder="search through games" autocomplete="off" spellcheck="false">
+          </div>
+        </div>
+        <button type="button" class="settings-btn" id="settings-btn" aria-label="settings" title="settings">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="3"/>
+            <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+          </svg>
+        </button>
+      </div>
+      <h1 class="site-title">jaxsons math!<sup class="ver-tag">v2</sup></h1>
+      <p class="site-tagline"></p>
+      <nav class="categories">
+        <button type="button" class="cat-btn active" data-category="all">all</button>
+        <button type="button" class="cat-btn" data-category="favorites">favorites</button>
+        <button type="button" class="cat-btn" data-category="flash">flash</button>
+        <button type="button" class="cat-btn" data-category="2 player">2 player</button>
+        <button type="button" class="cat-btn" data-category="emulator">emulator</button>
+        <button type="button" class="cat-btn" data-category="apps">apps</button>
+        <button type="button" class="cat-btn" data-category="adventure">adventure</button>
+        <button type="button" class="cat-btn" data-category="arcade">arcade</button>
+        <button type="button" class="cat-btn" data-category="horror">horror</button>
+        <button type="button" class="cat-btn" data-category=".io">.io</button>
+        <button type="button" class="cat-btn" data-category="platformer">platformer</button>
+        <button type="button" class="cat-btn" data-category="puzzle">puzzle</button>
+        <button type="button" class="cat-btn" data-category="racing">racing</button>
+        <button type="button" class="cat-btn" data-category="rpg">rpg</button>
+        <button type="button" class="cat-btn" data-category="shooter">shooter</button>
+        <button type="button" class="cat-btn" data-category="simulation">simulation</button>
+        <button type="button" class="cat-btn" data-category="sports">sports</button>
+        <button type="button" class="cat-btn" data-category="strategy">strategy</button>
+      </nav>
+    </header>
+    <div class="ad-wrap">
+      <div class="ad-unit ad-unit-728">
+        <script>
+          atOptions = {
+            'key' : '73423bc7920d67ce5643893dae21559b',
+            'format' : 'iframe',
+            'height' : 90,
+            'width' : 728,
+            'params' : {}
+          };
+        </script>
+        <script src="https://www.highrevenueformat.com/73423bc7920d67ce5643893dae21559b/invoke.js"></script>
+      </div>
+    </div>
+
+    <noscript><p>jxmath is a free game site. turn on javascript to play.</p></noscript>
+    <main id="rows"></main>
+
+    <div class="ad-wrap">
+      <div class="ad-unit ad-unit-300">
+        <script>
+          atOptions = {
+            'key' : '5eb82448014b51db74e6d1c70b7acf97',
+            'format' : 'iframe',
+            'height' : 250,
+            'width' : 300,
+            'params' : {}
+          };
+        </script>
+        <script src="https://www.highrevenueformat.com/5eb82448014b51db74e6d1c70b7acf97/invoke.js"></script>
+      </div>
+      <div class="ad-unit ad-unit-160">
+        <script>
+          atOptions = {
+            'key' : '1e0778fbaf1ec88cd2f9199e92bdb439',
+            'format' : 'iframe',
+            'height' : 300,
+            'width' : 160,
+            'params' : {}
+          };
+        </script>
+        <script src="https://www.highrevenueformat.com/1e0778fbaf1ec88cd2f9199e92bdb439/invoke.js"></script>
+      </div>
+      <div class="ad-unit ad-unit-160t">
+        <script>
+          atOptions = {
+            'key' : 'eb75838a51be2ee10aecf2a54fca3ab6',
+            'format' : 'iframe',
+            'height' : 600,
+            'width' : 160,
+            'params' : {}
+          };
+        </script>
+        <script src="https://www.highrevenueformat.com/eb75838a51be2ee10aecf2a54fca3ab6/invoke.js"></script>
+      </div>
+    </div>
+
+    <div class="ad-wrap">
+      <script async="async" data-cfasync="false" src="https://pl31909743.profitableratecpmnetwork.com/67420830101fec10dbac40d1c57ef793/invoke.js"></script>
+      <div id="container-67420830101fec10dbac40d1c57ef793"></div>
+    </div>
+
+    <div class="ad-wrap">
+      <div class="ad-unit ad-unit-468">
+        <script>
+          atOptions = {
+            'key' : 'e8e1867864471a18b6f7ec20588f86ac',
+            'format' : 'iframe',
+            'height' : 60,
+            'width' : 468,
+            'params' : {}
+          };
+        </script>
+        <script src="https://www.highrevenueformat.com/e8e1867864471a18b6f7ec20588f86ac/invoke.js"></script>
+      </div>
+      <div class="ad-unit ad-unit-320">
+        <script>
+          atOptions = {
+            'key' : '7d0f21a7d391e306c7779c1cffd62e19',
+            'format' : 'iframe',
+            'height' : 50,
+            'width' : 320,
+            'params' : {}
+          };
+        </script>
+        <script src="https://www.highrevenueformat.com/7d0f21a7d391e306c7779c1cffd62e19/invoke.js"></script>
+      </div>
+    </div>
+
+    <footer class="site-footer">
+      all games playable on this website are complete copyright & property of their respective owners
+      · <a href="https://www.profitableratecpmnetwork.com/fdeqdjx6sb?key=62864191810c26115574186bebf2c2e5" target="_blank" rel="noopener" style="color:inherit;opacity:.7;text-decoration:none">more</a>
+    </footer>
+  </div>
+  </div>
+
+  <div id="view-play" hidden>
+  <div class="page-transition" id="page-transition">
+    <div class="loading-circles" aria-hidden="true">
+      <span></span><span></span><span></span>
+    </div>
+    <div class="page-transition-label">jaxsons math</div>
+  </div>
+  <div class="play-shell">
+    <div class="play-top">
+      <button type="button" class="back-btn" id="back-btn">back</button>
+      <button type="button" class="settings-btn play-settings" id="settings-btn-play" aria-label="settings" title="settings">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="3"/>
+          <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+        </svg>
+      </button>
+    </div>
+    <div class="play-stage" id="stage">
+      <div class="play-frame-wrap">
+        <div class="frame-loader" id="frame-loader">
+          <div class="loading-circles" aria-hidden="true">
+            <span></span><span></span><span></span>
+          </div>
+          <div class="frame-loader-label">jaxsons math</div>
+        </div>
+        <div class="frame-notfound" id="frame-notfound" hidden>
+          <div class="frame-notfound-code">404</div>
+          <div class="frame-notfound-text">game not found</div>
+        </div>
+        <iframe id="play-frame" title="game" allow="autoplay; fullscreen; gamepad; clipboard-read; clipboard-write" allowfullscreen referrerpolicy="no-referrer" sandbox="allow-scripts allow-same-origin allow-forms allow-pointer-lock allow-downloads allow-popups allow-popups-to-escape-sandbox allow-orientation-lock allow-presentation"></iframe>
+      </div>
+      <div class="play-bar">
+        <div class="play-bar-meta">
+          <span id="play-title" class="play-title">loading</span>
+          <span id="play-cat" class="play-cat"></span>
+        </div>
+        <div class="play-bar-actions">
+          <div class="play-vol" id="play-vol">
+            <button type="button" class="play-vol-icon" id="vol-mute" aria-label="mute">
+              <svg id="vol-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg>
+            </button>
+            <input type="range" id="vol-slider" class="play-vol-slider" min="0" max="100" value="100" aria-label="volume">
+          </div>
+          <button class="play-action" id="btn-full" type="button">fullscreen</button>
+          <button class="play-action" id="btn-blank" type="button">open in about:blank</button>
+        </div>
+      </div>
+    </div>
+    <section class="recommended" id="recommended" hidden>
+      <h2 class="recommended-title">recommended</h2>
+      <div class="games-grid" id="recommended-grid"></div>
+    </section>
+    <div class="ad-wrap">
+      <div class="ad-unit ad-unit-320">
+        <script>
+          atOptions = {
+            'key' : '7d0f21a7d391e306c7779c1cffd62e19',
+            'format' : 'iframe',
+            'height' : 50,
+            'width' : 320,
+            'params' : {}
+          };
+        </script>
+        <script src="https://www.highrevenueformat.com/7d0f21a7d391e306c7779c1cffd62e19/invoke.js"></script>
+      </div>
+      <div class="ad-unit ad-unit-300">
+        <script>
+          atOptions = {
+            'key' : '5eb82448014b51db74e6d1c70b7acf97',
+            'format' : 'iframe',
+            'height' : 250,
+            'width' : 300,
+            'params' : {}
+          };
+        </script>
+        <script src="https://www.highrevenueformat.com/5eb82448014b51db74e6d1c70b7acf97/invoke.js"></script>
+      </div>
+    </div>
+    <footer class="site-footer">all games playable on this website are complete copyright & property of their respective owners</footer>
+  </div>
+  </div>
+
+  <div id="settings-modal" class="modal" hidden>
+    <div class="modal-backdrop" id="settings-backdrop"></div>
+    <div class="modal-panel" role="dialog" aria-labelledby="settings-title">
+      <div class="modal-head">
+        <h2 id="settings-title">settings</h2>
+        <button type="button" class="modal-close" id="settings-close" aria-label="close">×</button>
+      </div>
+      <div class="modal-body">
+        <section class="settings-section">
+          <h3>theme</h3>
+          <div class="theme-grid" id="themeGrid" role="radiogroup" aria-label="theme">
+          <button type="button" class="theme-opt" role="radio" aria-checked="false" data-theme="default" style="--p-bg:#0b1020;--p-card:#151d2e;--p-chip:#1e293b;--p-accent:#4a6fa5;--p-edge:rgba(255, 255, 255,0.16);--p-title:#ffffff;--p-fx:none"><span class="tp"><span class="tp-fx"><i style="left:33%;top:19%;width:1.9px;height:1.9px;background:#ffffff;opacity:.55"></i><i style="left:11%;top:52%;width:1.6px;height:1.6px;background:#ffffff;opacity:.55"></i><i style="left:9%;top:50%;width:1.2px;height:1.2px;background:#ffffff;opacity:.55"></i><i style="left:43%;top:12%;width:1.3px;height:1.3px;background:#ffffff;opacity:.55"></i><i style="left:42%;top:77%;width:1.3px;height:1.3px;background:#ffffff;opacity:.55"></i><i style="left:24%;top:60%;width:2.1px;height:2.1px;background:#ffffff;opacity:.55"></i><i style="left:56%;top:40%;width:2.2px;height:2.2px;background:#ffffff;opacity:.55"></i><i style="left:8%;top:80%;width:1.5px;height:1.5px;background:#ffffff;opacity:.55"></i><i style="left:17%;top:16%;width:1.5px;height:1.5px;background:#ffffff;opacity:.55"></i><i style="left:77%;top:22%;width:1.8px;height:1.8px;background:#ffffff;opacity:.55"></i></span><span class="tp-title"></span><span class="tp-chips"><i></i><i></i><i></i></span><span class="tp-cards"><i></i><i></i><i></i></span><span class="tp-check"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span></span><span class="tn">default</span></button>
+          <button type="button" class="theme-opt" role="radio" aria-checked="false" data-theme="moonlight" style="--p-bg:#171a30;--p-card:#1e2240;--p-chip:#2a2f55;--p-accent:#aab8ff;--p-edge:rgba(205, 214, 255,0.16);--p-title:#d6defc;--p-fx:radial-gradient(circle at 91% 10%, #f4f6ff 0 15px, rgba(214,222,255,0.5) 16px, rgba(150,165,255,0.16) 64px, transparent 150px), radial-gradient(ellipse 70% 45% at 85% 0%, rgba(140,155,255,0.16), transparent 70%), radial-gradient(ellipse 80% 50% at 0% 100%, rgba(80,95,200,0.18), transparent 70%)"><span class="tp"><span class="tp-fx"><i style="left:62%;top:38%;width:1.5px;height:1.5px;background:#ffffff;opacity:0.78"></i><i style="left:60%;top:49%;width:2.5px;height:2.5px;background:#ffffff;opacity:0.89"></i><i style="left:46%;top:85%;width:2.0px;height:2.0px;background:#ffffff;opacity:0.65"></i><i style="left:75%;top:66%;width:1.5px;height:1.5px;background:#ffffff;opacity:0.54"></i><i style="left:31%;top:49%;width:2.0px;height:2.0px;background:#ffffff;opacity:0.86"></i><i style="left:30%;top:90%;width:1.5px;height:1.5px;background:#ffffff;opacity:0.76"></i><i style="left:19%;top:35%;width:2.5px;height:2.5px;background:#ffffff;opacity:0.71"></i><i style="left:91%;top:13%;width:2.0px;height:2.0px;background:#ffffff;opacity:0.67"></i><i style="left:36%;top:49%;width:2.5px;height:2.5px;background:#ffffff;opacity:0.53"></i><i style="left:12%;top:29%;width:1.5px;height:1.5px;background:#ffffff;opacity:0.53"></i><i style="left:67%;top:62%;width:2.5px;height:2.5px;background:#ffffff;opacity:0.64"></i><i style="left:39%;top:64%;width:1.5px;height:1.5px;background:#ffffff;opacity:0.97"></i><i style="left:36%;top:59%;width:2.5px;height:2.5px;background:#ffffff;opacity:0.53"></i><i style="left:73%;top:17%;width:1.5px;height:1.5px;background:#ffffff;opacity:0.70"></i></span><span class="tp-title"></span><span class="tp-chips"><i></i><i></i><i></i></span><span class="tp-cards"><i></i><i></i><i></i></span><span class="tp-check"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span></span><span class="tn">moonlight</span></button>
+          <button type="button" class="theme-opt" role="radio" aria-checked="false" data-theme="purple" style="--p-bg:#241833;--p-card:#2e2142;--p-chip:#3d2c56;--p-accent:#c4a6f5;--p-edge:rgba(196,166,245,0.28);--p-title:#f6f0ff;--p-fx:radial-gradient(ellipse 80% 50% at 50% 0%, rgba(180, 150, 230, 0.55), transparent 70%)"><span class="tp"><span class="tp-fx"><i style="left:18%;top:22%;width:1.6px;height:1.6px;background:#fff;opacity:.55"></i><i style="left:42%;top:14%;width:2px;height:2px;background:#fff;opacity:.4"></i><i style="left:70%;top:28%;width:1.4px;height:1.4px;background:#fff;opacity:.6"></i><i style="left:28%;top:48%;width:1.8px;height:1.8px;background:#fff;opacity:.35"></i><i style="left:84%;top:46%;width:1.5px;height:1.5px;background:#fff;opacity:.5"></i><i style="left:55%;top:62%;width:2.1px;height:2.1px;background:#fff;opacity:.45"></i><i style="left:12%;top:70%;width:1.3px;height:1.3px;background:#fff;opacity:.5"></i><i style="left:36%;top:78%;width:1.7px;height:1.7px;background:#fff;opacity:.35"></i></span><span class="tp-title"></span><span class="tp-chips"><i></i><i></i><i></i></span><span class="tp-cards"><i></i><i></i><i></i></span><span class="tp-check"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span></span><span class="tn">purple</span></button>
+          <button type="button" class="theme-opt" role="radio" aria-checked="false" data-theme="ocean" style="--p-bg:#102833;--p-card:#173440;--p-chip:#214555;--p-accent:#8fd4e4;--p-edge:rgba(143,212,228,0.28);--p-title:#eef8fb;--p-fx:radial-gradient(ellipse 80% 46% at 50% 0%, rgba(143, 212, 228, 0.55), transparent 70%)"><span class="tp"><span class="tp-fx"><i style="left:18%;top:22%;width:1.6px;height:1.6px;background:#fff;opacity:.55"></i><i style="left:42%;top:14%;width:2px;height:2px;background:#fff;opacity:.4"></i><i style="left:70%;top:28%;width:1.4px;height:1.4px;background:#fff;opacity:.6"></i><i style="left:28%;top:48%;width:1.8px;height:1.8px;background:#fff;opacity:.35"></i><i style="left:84%;top:46%;width:1.5px;height:1.5px;background:#fff;opacity:.5"></i><i style="left:55%;top:62%;width:2.1px;height:2.1px;background:#fff;opacity:.45"></i><i style="left:12%;top:70%;width:1.3px;height:1.3px;background:#fff;opacity:.5"></i><i style="left:36%;top:78%;width:1.7px;height:1.7px;background:#fff;opacity:.35"></i></span><span class="tp-title"></span><span class="tp-chips"><i></i><i></i><i></i></span><span class="tp-cards"><i></i><i></i><i></i></span><span class="tp-check"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span></span><span class="tn">ocean</span></button>
+          <button type="button" class="theme-opt" role="radio" aria-checked="false" data-theme="forest" style="--p-bg:#17261c;--p-card:#1f3226;--p-chip:#2a4334;--p-accent:#a8d492;--p-edge:rgba(168,212,146,0.28);--p-title:#f0f7ec;--p-fx:radial-gradient(ellipse 80% 46% at 50% 0%, rgba(168, 212, 146, 0.5), transparent 70%)"><span class="tp"><span class="tp-fx"><i style="left:18%;top:22%;width:1.6px;height:1.6px;background:#fff;opacity:.55"></i><i style="left:42%;top:14%;width:2px;height:2px;background:#fff;opacity:.4"></i><i style="left:70%;top:28%;width:1.4px;height:1.4px;background:#fff;opacity:.6"></i><i style="left:28%;top:48%;width:1.8px;height:1.8px;background:#fff;opacity:.35"></i><i style="left:84%;top:46%;width:1.5px;height:1.5px;background:#fff;opacity:.5"></i><i style="left:55%;top:62%;width:2.1px;height:2.1px;background:#fff;opacity:.45"></i><i style="left:12%;top:70%;width:1.3px;height:1.3px;background:#fff;opacity:.5"></i><i style="left:36%;top:78%;width:1.7px;height:1.7px;background:#fff;opacity:.35"></i></span><span class="tp-title"></span><span class="tp-chips"><i></i><i></i><i></i></span><span class="tp-cards"><i></i><i></i><i></i></span><span class="tp-check"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span></span><span class="tn">forest</span></button>
+          <button type="button" class="theme-opt" role="radio" aria-checked="false" data-theme="ember" style="--p-bg:#2a1c18;--p-card:#362420;--p-chip:#4a322b;--p-accent:#f0b08a;--p-edge:rgba(240,176,138,0.28);--p-title:#fff6f1;--p-fx:radial-gradient(ellipse 80% 46% at 50% 100%, rgba(240, 176, 138, 0.55), transparent 70%)"><span class="tp"><span class="tp-fx"><i style="left:18%;top:22%;width:1.6px;height:1.6px;background:#fff;opacity:.55"></i><i style="left:42%;top:14%;width:2px;height:2px;background:#fff;opacity:.4"></i><i style="left:70%;top:28%;width:1.4px;height:1.4px;background:#fff;opacity:.6"></i><i style="left:28%;top:48%;width:1.8px;height:1.8px;background:#fff;opacity:.35"></i><i style="left:84%;top:46%;width:1.5px;height:1.5px;background:#fff;opacity:.5"></i><i style="left:55%;top:62%;width:2.1px;height:2.1px;background:#fff;opacity:.45"></i><i style="left:12%;top:70%;width:1.3px;height:1.3px;background:#fff;opacity:.5"></i><i style="left:36%;top:78%;width:1.7px;height:1.7px;background:#fff;opacity:.35"></i></span><span class="tp-title"></span><span class="tp-chips"><i></i><i></i><i></i></span><span class="tp-cards"><i></i><i></i><i></i></span><span class="tp-check"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span></span><span class="tn">ember</span></button>
+          <button type="button" class="theme-opt" role="radio" aria-checked="false" data-theme="gruvbox" style="--p-bg:#32302f;--p-card:#3c3836;--p-chip:#504945;--p-accent:#fabd2f;--p-edge:rgba(213,196,161,0.28);--p-title:#fbf1c7;--p-fx:none"><span class="tp"><span class="tp-fx"><i style="left:16%;top:30%;width:1.6px;height:1.6px;background:#ebc88c;opacity:.4"></i><i style="left:38%;top:18%;width:1.2px;height:1.2px;background:#ebc88c;opacity:.3"></i><i style="left:62%;top:34%;width:1.8px;height:1.8px;background:#ebc88c;opacity:.35"></i><i style="left:78%;top:52%;width:1.4px;height:1.4px;background:#ebc88c;opacity:.32"></i><i style="left:24%;top:58%;width:1.5px;height:1.5px;background:#ebc88c;opacity:.28"></i><i style="left:48%;top:72%;width:2px;height:2px;background:#ebc88c;opacity:.36"></i><i style="left:88%;top:22%;width:1.3px;height:1.3px;background:#ebc88c;opacity:.3"></i></span><span class="tp-title"></span><span class="tp-chips"><i></i><i></i><i></i></span><span class="tp-cards"><i></i><i></i><i></i></span><span class="tp-check"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span></span><span class="tn">gruvbox</span></button>
+          <button type="button" class="theme-opt" role="radio" aria-checked="false" data-theme="sakura" style="--p-bg:#1c1017;--p-card:#291720;--p-chip:#3a2130;--p-accent:#ff8fb8;--p-edge:rgba(255, 205, 225,0.16);--p-title:#ffc2d9;--p-fx:radial-gradient(ellipse 70% 46% at 86% 0%, rgba(255,143,184,0.22), transparent 70%), radial-gradient(ellipse 70% 40% at 0% 100%, rgba(255,120,160,0.13), transparent 70%)"><span class="tp"><span class="tp-fx"><i style="left:68%;top:23%;width:5.8px;background:#ffb7d1;height:3.5px;transform:rotate(111deg);opacity:.85"></i><i style="left:75%;top:35%;width:5.6px;background:#ffb7d1;height:3.4px;transform:rotate(101deg);opacity:.85"></i><i style="left:46%;top:70%;width:4.2px;background:#ffb7d1;height:2.5px;transform:rotate(40deg);opacity:.85"></i><i style="left:19%;top:17%;width:4.3px;background:#ffb7d1;height:2.6px;transform:rotate(119deg);opacity:.85"></i><i style="left:77%;top:19%;width:5.7px;background:#ffb7d1;height:3.4px;transform:rotate(121deg);opacity:.85"></i><i style="left:63%;top:36%;width:5.1px;background:#ffb7d1;height:3.1px;transform:rotate(33deg);opacity:.85"></i><i style="left:6%;top:75%;width:5.5px;background:#ffb7d1;height:3.3px;transform:rotate(26deg);opacity:.85"></i><i style="left:51%;top:86%;width:4.9px;background:#ffb7d1;height:2.9px;transform:rotate(49deg);opacity:.85"></i></span><span class="tp-title"></span><span class="tp-chips"><i></i><i></i><i></i></span><span class="tp-cards"><i></i><i></i><i></i></span><span class="tp-check"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span></span><span class="tn">sakura</span></button>
+          </div>
+        </section>
+
+        <section class="settings-section">
+          <h3>tab cloaking</h3>
+          <select id="presetSelect">
+            <option value="">none</option>
+            <option value="google">google</option>
+            <option value="googleclassroom">google classroom</option>
+            <option value="googledrive">google drive</option>
+            <option value="chrometab">chrome new tab</option>
+            <option value="gmail">gmail</option>
+            <option value="bing">bing</option>
+            <option value="desmos">desmos calculator</option>
+            <option value="wikipedia">wikipedia</option>
+          </select>
+          <div class="btn-row">
+            <button type="button" id="saveButton" class="settings-action">select cloak</button>
+            <button type="button" id="resetButton" class="settings-action">reset cloak</button>
+          </div>
+        </section>
+
+        <section class="settings-section">
+          <h3>panic mode</h3>
+          <input type="text" id="panicKey" placeholder="key combination" readonly>
+          <input type="url" id="panicUrl" placeholder="https://www.desmos.com/scientific">
+          <button type="button" id="panicSave" class="settings-action">set panic key</button>
+        </section>
+
+        <section class="settings-section">
+          <h3>data</h3>
+          <div class="btn-row">
+            <button type="button" id="exportData" class="settings-action">export data</button>
+            <button type="button" id="importData" class="settings-action">import data</button>
+            <button type="button" id="clearData" class="settings-action">clear data</button>
+          </div>
+        </section>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast-wrap" id="toast-wrap"></div>
+
+  <script>
+var JM_REPO = "jxmath/assets";
+var JM_ASSETS = "";
+var JM_ASSETS_READY = null;
+
+function jmResolveAssets() {
+  if (JM_ASSETS_READY) return JM_ASSETS_READY;
+  JM_ASSETS_READY = fetch("https://api.github.com/repos/" + JM_REPO + "/commits?per_page=1", {
+    headers: { Accept: "application/vnd.github+json" }
+  })
+    .then(function (r) {
+      if (!r.ok) throw new Error("github " + r.status);
+      return r.json();
+    })
+    .then(function (data) {
+      var sha = data && data[0] && data[0].sha;
+      if (!sha) throw new Error("no commit");
+      JM_ASSETS = "https://cdn.jsdelivr.net/gh/" + JM_REPO + "@" + sha;
+      return JM_ASSETS;
+    });
+  return JM_ASSETS_READY;
+}
+
+var JM_BG_IO = ("IntersectionObserver" in window) ? new IntersectionObserver(function (entries) {
+  entries.forEach(function (en) {
+    if (!en.isIntersecting) return;
+    var el = en.target;
+    JM_BG_IO.unobserve(el);
+    var u = el.getAttribute("data-bg");
+    if (u) { el.style.backgroundImage = "url('" + u.replace(/'/g, "%27") + "')"; el.removeAttribute("data-bg"); }
+  });
+}, { rootMargin: "600px 0px" }) : null;
+
+function jmLazyBg(el, url) {
+  if (!JM_BG_IO) { el.style.backgroundImage = "url('" + String(url).replace(/'/g, "%27") + "')"; return; }
+  el.setAttribute("data-bg", String(url));
+  JM_BG_IO.observe(el);
+}
+
+var JM_SW_READY = (function () {
+  if (!("serviceWorker" in navigator) || !window.isSecureContext) return Promise.resolve(false);
+  var reg = navigator.serviceWorker.register("sw.js").then(function () {
+    return navigator.serviceWorker.ready;
+  }).then(function () { return true; });
+  return Promise.race([
+    reg,
+    new Promise(function (res) { setTimeout(function () { res(false); }, 6000); })
+  ]).catch(function () { return false; });
+})();
+
+function jmGameUrl(game) {
+  var p = game && game.path ? String(game.path) : "g/" + game.id + "/index.html";
+  if (p.charAt(0) === "/") p = p.slice(1);
+  if (!/\.html?$/i.test(p)) p = p.replace(/\/?$/, "/") + "index.html";
+  var sha = String(JM_ASSETS).split("@").pop();
+  return new URL("_g/" + sha + "/" + p, location.href).href;
+}
+
+function jmFetchGames() {
+  return jmResolveAssets().then(function () {
+    return fetch(JM_ASSETS + "/games.json").then(function (r) {
+      if (!r.ok) return r;
+      return r.json().then(function (list) {
+        list = Array.isArray(list) ? list : [];
+        list.forEach(function (g) {
+          if (g && g.thumbnail && !/^(https?:)?\/\//.test(g.thumbnail)) {
+            g.thumbnail = JM_ASSETS + "/" + String(g.thumbnail).replace(/^\//, "");
+          }
+        });
+        return { ok: true, status: r.status, json: function () { return Promise.resolve(list); } };
+      });
+    });
+  });
+}
+  </script>
+  <script>
+const quotes = [
+  "peak games boiiii",
+  "yooooooo",
+  "as a real street 🥷 myself"
+];
+
+function pickQuote() {
+  return quotes[Math.floor(Math.random() * quotes.length)];
+}
+
+function applyQuote() {
+  const el = document.querySelector(".site-tagline");
+  if (el) el.textContent = pickQuote();
+}
+
+if (document.readyState === "loading") {
+  document.addEventListener("DOMContentLoaded", applyQuote);
+} else {
+  applyQuote();
+}
+  </script>
+  <script>
+(function () {
+  const PRESETS = {
+    google: { title: "Google", favicon: "https://www.google.com/favicon.ico" },
+    googleclassroom: { title: "Classes", favicon: "https://ssl.gstatic.com/classroom/favicon.png" },
+    googledrive: { title: "My Drive - Google Drive", favicon: "https://ssl.gstatic.com/docs/doclist/images/drive_2022q3_32dp.png" },
+    chrometab: { title: "New Tab", favicon: "https://www.google.com/chrome/static/images/chrome-logo-m100.svg" },
+    gmail: { title: "Gmail", favicon: "https://ssl.gstatic.com/ui/v1/icons/mail/rfr/gmail.ico" },
+    bing: { title: "Bing", favicon: "https://www.bing.com/sa/simg/favicon-trans-bg-blue-mg.ico" },
+    desmos: { title: "Desmos | Scientific Calculator", favicon: "https://www.desmos.com/assets/img/apps/scientific/favicon.ico" },
+    wikipedia: { title: "Wikipedia", favicon: "https://en.wikipedia.org/static/favicon/wikipedia.ico" }
+  };
+
+  function cookie(name, value, days) {
+    if (value !== undefined && value !== null) {
+      let expires = "";
+      if (days) {
+        const d = new Date();
+        d.setTime(d.getTime() + days * 864e5);
+        expires = "; expires=" + d.toUTCString();
+      }
+      document.cookie = name + "=" + encodeURIComponent(value) + expires + "; path=/";
+      return;
+    }
+    const m = document.cookie.match(new RegExp("(?:^|; )" + name.replace(/([.$?*|{}()[\]\\/+^])/g, "\\$1") + "=([^;]*)"));
+    return m ? decodeURIComponent(m[1]) : null;
+  }
+
+  function toast(msg) {
+    const wrap = document.getElementById("toast-wrap");
+    if (!wrap) return;
+    const el = document.createElement("div");
+    el.className = "toast";
+    el.textContent = msg;
+    wrap.appendChild(el);
+    setTimeout(function () {
+      el.classList.add("out");
+      setTimeout(function () {
+        if (el.parentNode) el.parentNode.removeChild(el);
+      }, 350);
+    }, 1800);
+  }
+
+  function setFavicon(href) {
+    let link = document.querySelector("link[rel*='icon']");
+    if (!link) {
+      link = document.createElement("link");
+      link.rel = "icon";
+      document.head.appendChild(link);
+    }
+    link.href = href || "";
+  }
+
+  function applyCloak(preset) {
+    if (preset === undefined) {
+      preset = cookie("tabCloakPreset");
+    }
+    if (!preset || !PRESETS[preset]) {
+      document.title = "jxmath";
+      var links = document.querySelectorAll("link[rel*='icon']");
+      for (var i = 0; i < links.length; i++) {
+        links[i].parentNode.removeChild(links[i]);
+      }
+      var blank = document.createElement("link");
+      blank.rel = "icon";
+      blank.type = "image/png";
+      blank.href = "/assets/favicon.png";
+      document.head.appendChild(blank);
+      return;
+    }
+    const p = PRESETS[preset];
+    document.title = p.title;
+    setFavicon(p.favicon);
+  }
+
+  window.jmApplyCloak = function () {
+    applyCloak();
+  };
+
+  function initCloak() {
+    const preset = cookie("tabCloakPreset");
+    applyCloak(preset);
+    const sel = document.getElementById("presetSelect");
+    if (sel && preset) sel.value = preset;
+    setInterval(function () {
+      const current = cookie("tabCloakPreset");
+      if (current && PRESETS[current] && document.title !== PRESETS[current].title) {
+        applyCloak(current);
+      }
+    }, 1000);
+  }
+
+  function initPanic() {
+    const key = localStorage.getItem("panicKey");
+    const url = localStorage.getItem("panicUrl") || "https://www.desmos.com/scientific";
+    const input = document.getElementById("panicKey");
+    const urlInput = document.getElementById("panicUrl");
+    if (input) input.value = key || "";
+    if (urlInput) urlInput.value = url;
+
+    if (!key) return;
+
+    const needed = new Set(key.split("+"));
+    const pressed = new Set();
+
+    function down(e) {
+      pressed.add(e.key);
+      for (const k of needed) {
+        if (!pressed.has(k)) return;
+      }
+      document.body.innerHTML = "";
+      window.location.href = url;
+    }
+    function up(e) {
+      pressed.delete(e.key);
+    }
+    document.addEventListener("keydown", down);
+    document.addEventListener("keyup", up);
+  }
+
+  function openModal() {
+    const m = document.getElementById("settings-modal");
+    if (!m) return;
+    m.hidden = false;
+    m.classList.remove("closing");
+    document.body.classList.add("modal-open");
+    try { localStorage.setItem("jm-modal-open", "1"); } catch (e) {}
+    requestAnimationFrame(function () {
+      m.classList.add("open");
+    });
+  }
+
+  function closeModal() {
+    const m = document.getElementById("settings-modal");
+    if (!m || m.hidden) return;
+    m.classList.remove("open");
+    m.classList.add("closing");
+    try { localStorage.removeItem("jm-modal-open"); } catch (e) {}
+    setTimeout(function () {
+      m.hidden = true;
+      m.classList.remove("closing");
+      document.body.classList.remove("modal-open");
+    }, 220);
+  }
+
+  function bindModal() {
+    const btn = document.getElementById("settings-btn");
+    const close = document.getElementById("settings-close");
+    const back = document.getElementById("settings-backdrop");
+    if (btn) btn.addEventListener("click", openModal);
+    if (close) close.addEventListener("click", closeModal);
+    if (back) back.addEventListener("click", closeModal);
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape") closeModal();
+    });
+  }
+
+  function bindCloakUI() {
+    const save = document.getElementById("saveButton");
+    const reset = document.getElementById("resetButton");
+    const sel = document.getElementById("presetSelect");
+    if (save) {
+      save.addEventListener("click", function () {
+        const v = sel ? sel.value : "";
+        if (v) cookie("tabCloakPreset", v, 365);
+        else cookie("tabCloakPreset", "", -1);
+        applyCloak(v);
+        toast(v ? "cloak saved" : "cloak removed");
+      });
+    }
+    if (reset) {
+      reset.addEventListener("click", function () {
+        cookie("tabCloakPreset", "", -1);
+        if (sel) sel.value = "";
+        applyCloak("");
+        toast("cloak removed");
+      });
+    }
+  }
+
+  function bindPanicUI() {
+    const input = document.getElementById("panicKey");
+    const combo = new Set();
+    if (input) {
+      input.addEventListener("focus", function () {
+        combo.clear();
+        input.value = "";
+      });
+      document.addEventListener("keydown", function (e) {
+        if (document.activeElement !== input) return;
+        e.preventDefault();
+        combo.add(e.key);
+        input.value = Array.from(combo).join("+");
+      });
+      document.addEventListener("keyup", function (e) {
+        if (document.activeElement !== input) return;
+        combo.delete(e.key);
+      });
+    }
+    const saveBtn = document.getElementById("panicSave");
+    if (saveBtn) {
+      saveBtn.addEventListener("click", function () {
+        const k = (input && input.value) || "Control+Shift+P";
+        const u = (document.getElementById("panicUrl") && document.getElementById("panicUrl").value) || "https://www.desmos.com/scientific";
+        localStorage.setItem("panicKey", k);
+        localStorage.setItem("panicUrl", u);
+        toast("panic settings saved, reload to apply");
+      });
+    }
+  }
+
+  function bindDataUI() {
+    const exp = document.getElementById("exportData");
+    if (exp) {
+      exp.addEventListener("click", function () {
+        const data = {
+          panicKey: localStorage.getItem("panicKey"),
+          panicUrl: localStorage.getItem("panicUrl"),
+          tabCloakPreset: cookie("tabCloakPreset"),
+          favorites: localStorage.getItem("jm-favorites"),
+          recent: localStorage.getItem("jm-recent"),
+          collapsed: localStorage.getItem("jm-collapsed"),
+          lastCat: localStorage.getItem("jm-last-cat"),
+          lastQuery: localStorage.getItem("jm-last-query"),
+          theme: localStorage.getItem("jm-theme")
+        };
+        const blob = new Blob([JSON.stringify(data, null, 2)], { type: "application/json" });
+        const a = document.createElement("a");
+        a.href = URL.createObjectURL(blob);
+        a.download = "jaxsons-math-data.json";
+        a.click();
+        URL.revokeObjectURL(a.href);
+        toast("exported");
+      });
+    }
+    const imp = document.getElementById("importData");
+    if (imp) {
+      imp.addEventListener("click", function () {
+        const input = document.createElement("input");
+        input.type = "file";
+        input.accept = ".json,application/json";
+        input.addEventListener("change", function () {
+          const f = input.files[0];
+          if (!f) return;
+          const r = new FileReader();
+          r.onload = function () {
+            try {
+              const d = JSON.parse(r.result);
+              if (d.panicKey) localStorage.setItem("panicKey", d.panicKey);
+              if (d.panicUrl) localStorage.setItem("panicUrl", d.panicUrl);
+              if (d.tabCloakPreset) cookie("tabCloakPreset", d.tabCloakPreset, 365);
+              if (d.theme && window.jmApplyTheme) window.jmApplyTheme(d.theme);
+              if (d.favorites != null) localStorage.setItem("jm-favorites", typeof d.favorites === "string" ? d.favorites : JSON.stringify(d.favorites));
+              if (d.recent != null) localStorage.setItem("jm-recent", typeof d.recent === "string" ? d.recent : JSON.stringify(d.recent));
+              if (d.collapsed != null) localStorage.setItem("jm-collapsed", typeof d.collapsed === "string" ? d.collapsed : JSON.stringify(d.collapsed));
+              if (d.lastCat) localStorage.setItem("jm-last-cat", d.lastCat);
+              if (d.lastQuery != null) localStorage.setItem("jm-last-query", d.lastQuery);
+              toast("imported, reload recommended");
+            } catch (e) {
+              toast("invalid file");
+            }
+          };
+          r.readAsText(f);
+        });
+        input.click();
+      });
+    }
+    const clr = document.getElementById("clearData");
+    if (clr) {
+      clr.addEventListener("click", function () {
+        localStorage.removeItem("panicKey");
+        localStorage.removeItem("panicUrl");
+        localStorage.removeItem("jm-favorites");
+        localStorage.removeItem("jm-recent");
+        localStorage.removeItem("jm-collapsed");
+        localStorage.removeItem("jm-last-cat");
+        localStorage.removeItem("jm-last-query");
+        localStorage.removeItem("jm-last-play");
+        localStorage.removeItem("jm-modal-open");
+        if (window.jmApplyTheme) window.jmApplyTheme("default");
+        cookie("tabCloakPreset", "", -1);
+        toast("cleared");
+      });
+    }
+  }
+
+  function init() {
+    initCloak();
+    initPanic();
+    bindModal();
+    bindCloakUI();
+    bindPanicUI();
+    bindDataUI();
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", init);
+  } else {
+    init();
+  }
+})();
+  </script>
+  <script>
+(function () {
+let allGames = [];
+let currentCategory = "all";
+let currentQuery = "";
+let favorites = [];
+let recentIds = [];
+let collapsedSections = [];
+let currentPlayGame = null;
+
+function loadCollapsed() {
+  try {
+    var raw = localStorage.getItem("jm-collapsed");
+    collapsedSections = raw ? JSON.parse(raw) : [];
+    if (!Array.isArray(collapsedSections)) collapsedSections = [];
+  } catch (e) {
+    collapsedSections = [];
+  }
+}
+
+function saveCollapsed() {
+  try {
+    localStorage.setItem("jm-collapsed", JSON.stringify(collapsedSections));
+  } catch (e) {}
+}
+
+function loadFavorites() {
+  try {
+    const raw = localStorage.getItem("jm-favorites");
+    favorites = raw ? JSON.parse(raw) : [];
+    if (!Array.isArray(favorites)) favorites = [];
+  } catch (e) {
+    favorites = [];
+  }
+}
+
+function saveFavorites() {
+  try {
+    localStorage.setItem("jm-favorites", JSON.stringify(favorites));
+  } catch (e) {}
+}
+
+function isFavorite(id) {
+  return favorites.indexOf(String(id)) !== -1;
+}
+
+function toggleFavorite(id) {
+  id = String(id);
+  const i = favorites.indexOf(id);
+  if (i === -1) {
+    favorites.push(id);
+  } else {
+    favorites.splice(i, 1);
+  }
+  saveFavorites();
+  updateCategoryCounts();
+}
+
+function loadRecent() {
+  try {
+    const raw = localStorage.getItem("jm-recent");
+    recentIds = raw ? JSON.parse(raw) : [];
+    if (!Array.isArray(recentIds)) recentIds = [];
+    recentIds = recentIds.slice(0, 6);
+  } catch (e) {
+    recentIds = [];
+  }
+}
+
+function saveRecent() {
+  try {
+    localStorage.setItem("jm-recent", JSON.stringify(recentIds.slice(0, 6)));
+  } catch (e) {}
+}
+
+function pushRecent(id) {
+  id = String(id);
+  recentIds = recentIds.filter(function (x) { return x !== id; });
+  recentIds.unshift(id);
+  if (recentIds.length > 6) recentIds = recentIds.slice(0, 6);
+  saveRecent();
+}
+
+function getRecentGames() {
+  var out = [];
+  for (var i = 0; i < recentIds.length; i++) {
+    var id = recentIds[i];
+    for (var j = 0; j < allGames.length; j++) {
+      if (String(allGames[j].id) === id) {
+        out.push(allGames[j]);
+        break;
+      }
+    }
+    if (out.length >= 6) break;
+  }
+  return out;
+}
+
+function saveViewState() {
+  try {
+    localStorage.setItem("jm-last-cat", currentCategory);
+    localStorage.setItem("jm-last-query", currentQuery);
+  } catch (e) {}
+}
+
+function loadViewState() {
+  try {
+    var c = localStorage.getItem("jm-last-cat");
+    if (c) currentCategory = c;
+    var q = localStorage.getItem("jm-last-query");
+    if (q != null) currentQuery = q;
+  } catch (e) {}
+}
+
+function normalizeGamePath(game) {
+  var id = game && game.id ? String(game.id) : "";
+  if (!id) return "";
+  var path = game.path ? String(game.path) : "g/" + id + "/";
+  if (path.charAt(0) === "/") path = path.slice(1);
+  path = path.replace(/\/index\.html?$/i, "/");
+  if (path.slice(-1) !== "/") path += "/";
+  return path;
+}
+
+function createCard(game, index) {
+  const a = document.createElement("div");
+  a.className = "game-card";
+  a.style.animationDelay = (index % 20) * 25 + "ms";
+  a.setAttribute("data-id", game.id || "");
+  a.setAttribute("role", "button");
+  a.tabIndex = 0;
+
+  a.addEventListener("click", function () {
+    goPlay(game);
+  });
+
+  a.addEventListener("keydown", function (e) {
+    if (e.key === "Enter" || e.key === " ") {
+      e.preventDefault();
+      goPlay(game);
+    }
+  });
+
+  if (game.thumbnail) {
+    jmLazyBg(a, game.thumbnail);
+  }
+
+  const title = document.createElement("h2");
+  title.className = "game-title";
+  title.textContent = game.title || game.id;
+  a.appendChild(title);
+
+  const fav = document.createElement("button");
+  fav.type = "button";
+  fav.className = "fav-btn" + (isFavorite(game.id) ? " active" : "");
+  fav.setAttribute("aria-label", "favorite");
+  fav.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="1.5"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>';
+  fav.addEventListener("click", function (e) {
+    e.preventDefault();
+    e.stopPropagation();
+    toggleFavorite(game.id);
+    fav.classList.toggle("active", isFavorite(game.id));
+    if (currentCategory === "favorites") {
+      render();
+    }
+  });
+  a.appendChild(fav);
+  return a;
+}
+
+function matches(game) {
+  const q = currentQuery;
+  const okQ =
+    !q ||
+    (game.title && game.title.toLowerCase().includes(q)) ||
+    (game.id && game.id.toLowerCase().includes(q));
+  let okC;
+  if (currentCategory === "favorites") {
+    okC = isFavorite(game.id);
+  } else {
+    okC =
+      currentCategory === "all" ||
+      game.category === currentCategory ||
+      (Array.isArray(game.categories) &&
+        game.categories.indexOf(currentCategory) !== -1);
+  }
+  return okQ && okC;
+}
+
+function seriesKey(game) {
+  var t = String(game.title || game.id || "")
+    .toLowerCase()
+    .replace(/[^a-z0-9\s]/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+  t = t
+    .replace(
+      /\b(unblocked|online|free|html5|game|the|official)\b/g,
+      " ",
+    )
+    .replace(/\s+/g, " ")
+    .trim();
+  t = t
+    .replace(
+      /\b(1|2|3|4|5|6|7|8|9|10|11|12|13|14|15|i|ii|iii|iv|v|vi|vii|viii|ix|x|college|pro|plus|remastered|deluxe|hd|classic|edition|world|cup)\b/g,
+      " ",
+    )
+    .replace(/\s+/g, " ")
+    .trim();
+  return t || String(game.id || game.title || "").toLowerCase();
+}
+
+function seriesOrder(game) {
+  var t = String(game.title || game.id || "")
+    .toLowerCase()
+    .replace(/[^a-z0-9\s]/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+  var roman = { i: 1, ii: 2, iii: 3, iv: 4, v: 5, vi: 6, vii: 7, viii: 8, ix: 9, x: 10 };
+  var m = t.match(/\b(\d{1,2})\b/);
+  if (m) return parseInt(m[1], 10);
+  m = t.match(/\b(i{1,3}|iv|vi{0,3}|ix|x)\b/);
+  if (m && roman[m[1]] != null) return roman[m[1]];
+  return 0;
+}
+
+function groupRelated(games) {
+  var groups = {};
+  var order = [];
+  for (var i = 0; i < games.length; i++) {
+    var g = games[i];
+    var key = seriesKey(g);
+    if (!groups[key]) {
+      groups[key] = [];
+      order.push(key);
+    }
+    groups[key].push(g);
+  }
+  var out = [];
+  for (var j = 0; j < order.length; j++) {
+    var list = groups[order[j]];
+    list.sort(function (a, b) {
+      var na = seriesOrder(a);
+      var nb = seriesOrder(b);
+      if (na !== nb) return na - nb;
+      var ta = String(a.title || a.id || "").toLowerCase();
+      var tb = String(b.title || b.id || "").toLowerCase();
+      if (ta < tb) return -1;
+      if (ta > tb) return 1;
+      return 0;
+    });
+    for (var k = 0; k < list.length; k++) {
+      out.push(list[k]);
+    }
+  }
+  return out;
+}
+
+function gameIndex(game) {
+  for (var i = 0; i < allGames.length; i++) {
+    if (allGames[i] === game || String(allGames[i].id) === String(game.id)) return i;
+  }
+  return 0;
+}
+
+function gridSection(title, games) {
+  const section = document.createElement("section");
+  section.className = "section";
+  const head = document.createElement("div");
+  head.className = "section-head";
+  const h2 = document.createElement("h2");
+  h2.className = "section-title";
+  const toggle = document.createElement("button");
+  toggle.type = "button";
+  toggle.className = "section-toggle";
+  const label = document.createElement("span");
+  label.textContent = title + " (" + games.length + ")";
+  const pin = document.createElement("span");
+  pin.className = "section-pin";
+  pin.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>';
+  toggle.appendChild(label);
+  toggle.appendChild(pin);
+  h2.appendChild(toggle);
+  head.appendChild(h2);
+  const grid = document.createElement("div");
+  grid.className = "games-grid";
+  grid.hidden = collapsedSections.indexOf(title) !== -1;
+  toggle.setAttribute("aria-expanded", String(!grid.hidden));
+  toggle.setAttribute("aria-label", (grid.hidden ? "expand " : "collapse ") + title);
+  toggle.title = (grid.hidden ? "expand " : "collapse ") + title;
+  toggle.addEventListener("click", function () {
+    grid.hidden = !grid.hidden;
+    var i = collapsedSections.indexOf(title);
+    if (grid.hidden && i === -1) collapsedSections.push(title);
+    else if (!grid.hidden && i !== -1) collapsedSections.splice(i, 1);
+    saveCollapsed();
+    toggle.setAttribute("aria-expanded", String(!grid.hidden));
+    toggle.setAttribute("aria-label", (grid.hidden ? "expand " : "collapse ") + title);
+    toggle.title = (grid.hidden ? "expand " : "collapse ") + title;
+  });
+  games.forEach(function (g, i) {
+    grid.appendChild(createCard(g, i));
+  });
+  section.appendChild(head);
+  section.appendChild(grid);
+  return section;
+}
+
+function updateCategoryCounts() {
+  var buttons = document.querySelectorAll(".cat-btn");
+  for (var i = 0; i < buttons.length; i++) {
+    var btn = buttons[i];
+    var cat = btn.getAttribute("data-category") || "all";
+    var n = 0;
+    if (cat === "all") {
+      n = allGames.length;
+    } else if (cat === "favorites") {
+      n = favorites.length;
+    } else {
+      for (var j = 0; j < allGames.length; j++) {
+        var g = allGames[j];
+        if (g.category === cat || (Array.isArray(g.categories) && g.categories.indexOf(cat) !== -1)) n++;
+      }
+    }
+    var label = cat;
+    btn.textContent = label + " (" + n + ")";
+  }
+}
+
+function hideAppLoader() {
+  const loader = document.getElementById("app-loader");
+  if (!loader) return;
+  loader.classList.add("done");
+  setTimeout(function () {
+    loader.remove();
+  }, 400);
+}
+
+function setSearchPlaceholder() {
+  const input = document.getElementById("search-input");
+  if (input) {
+    input.placeholder = "search through " + allGames.length + " games";
+  }
+}
+
+function render() {
+  const root = document.getElementById("rows");
+  if (!root) return;
+  root.innerHTML = "";
+  var showRecent =
+    currentCategory === "all" && !currentQuery && recentIds.length > 0;
+  if (showRecent) {
+    var recent = getRecentGames();
+    if (recent.length) {
+      root.appendChild(gridSection("recently played", recent));
+    }
+  }
+  const filtered = groupRelated(allGames.filter(matches));
+  if (filtered.length === 0) {
+    if (!showRecent || !getRecentGames().length) {
+      const empty = document.createElement("div");
+      empty.className = "no-results";
+      if (currentCategory === "favorites") {
+        empty.textContent = currentQuery
+          ? "no favorites"
+          : "no favorites yet, click the star on a game";
+      } else {
+        empty.textContent = "no games found";
+      }
+      root.appendChild(empty);
+    }
+    return;
+  }
+  const title =
+    currentCategory === "all"
+      ? "all games"
+      : currentCategory === "favorites"
+        ? "favorites"
+        : currentCategory;
+  root.appendChild(gridSection(title, filtered));
+}
+
+function setCategory(cat, btn) {
+  currentCategory = cat;
+  document.querySelectorAll(".cat-btn").forEach(function (b) {
+    b.classList.toggle(
+      "active",
+      b === btn || b.getAttribute("data-category") === cat,
+    );
+  });
+  saveViewState();
+  render();
+}
+
+var JM_FX = {
+  default: "snow", moonlight: "stars", purple: "snow", ocean: "snow",
+  forest: "snow", ember: "snow", gruvbox: "dust", sakura: "petals"
+};
+
+function initParticles() {
+  const canvas = document.getElementById("particles");
+  if (!canvas) return;
+  const ctx = canvas.getContext("2d");
+  if (!ctx) return;
+  const reduce = !!(window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches);
+  let w = 0;
+  let h = 0;
+  let particles = [];
+  let kind = "snow";
+  let shoot = null;
+  let nextShoot = 0;
+  let running = false;
+  const R = function (a, b) { return a + Math.random() * (b - a); };
+  const pick = function (arr) { return arr[Math.floor(Math.random() * arr.length)]; };
+  function themeKind() {
+    return JM_FX[document.documentElement.getAttribute("data-theme") || "default"] || "snow";
+  }
+  function resize() {
+    w = canvas.width = window.innerWidth;
+    h = canvas.height = window.innerHeight;
+  }
+  function glow(x, y, r, rgb, a) {
+    const g = ctx.createRadialGradient(x, y, 0, x, y, r);
+    g.addColorStop(0, "rgba(" + rgb + "," + a + ")");
+    g.addColorStop(1, "rgba(" + rgb + ",0)");
+    ctx.fillStyle = g;
+    ctx.beginPath();
+    ctx.arc(x, y, r, 0, Math.PI * 2);
+    ctx.fill();
+  }
+  function spawn() {
+    kind = themeKind();
+    particles = [];
+    shoot = null;
+    nextShoot = performance.now() / 1000 + R(3, 7);
+    let i;
+    if (kind === "snow") {
+      for (i = 0; i < 55; i++) {
+        particles.push({ x: Math.random() * w, y: Math.random() * h, r: Math.random() * 3.2 + 1.4,
+          vx: (Math.random() - 0.5) * 0.15, vy: Math.random() * 0.9 + 0.35, a: Math.random() * 0.4 + 0.15 });
+      }
+    } else if (kind === "stars") {
+      const n = Math.max(90, Math.min(240, Math.round((w * h) / 9000)));
+      for (i = 0; i < n; i++) {
+        const big = Math.random() < 0.06;
+        particles.push({ x: R(0, w), y: R(0, h), r: big ? R(1.6, 2.4) : R(0.4, 1.5), a: R(0.3, 0.95), ph: R(0, 6.28),
+          sp: R(0.6, 2.2), big: big, c: pick(["255,255,255", "214,222,255", "170,184,255"]) });
+      }
+    } else if (kind === "orbs") {
+      const cols = ["124,58,237", "217,70,239", "79,70,229", "168,85,247"];
+      for (i = 0; i < 6; i++) {
+        particles.push({ orb: true, x: R(0, w), y: R(0, h), r: R(150, 300), vx: R(-0.18, 0.18), vy: R(-0.14, 0.14),
+          c: pick(cols), a: R(0.1, 0.18) });
+      }
+      for (i = 0; i < 40; i++) {
+        particles.push({ x: R(0, w), y: R(0, h), r: R(0.5, 1.7), vy: -R(0.08, 0.34), a: R(0.3, 0.85), ph: R(0, 6.28), sp: R(0.8, 2.4) });
+      }
+    } else if (kind === "bubbles") {
+      for (i = 0; i < 28; i++) {
+        particles.push({ x: R(0, w), y: R(0, h), r: R(3, 13), vy: R(0.35, 1.1), ph: R(0, 6.28), sw: R(0.25, 0.7) });
+      }
+    } else if (kind === "fireflies") {
+      for (i = 0; i < 36; i++) {
+        particles.push({ x: R(0, w), y: R(0, h), r: R(1.4, 2.6), ang: R(0, 6.28), sp: R(0.15, 0.45), ph: R(0, 6.28), ps: R(0.8, 2) });
+      }
+    } else if (kind === "embers") {
+      for (i = 0; i < 68; i++) {
+        particles.push({ x: R(0, w), y: R(0, h), r: R(0.7, 2.4), vy: -R(0.5, 1.7), vx: R(-0.25, 0.25), life: R(0, 1),
+          decay: R(0.002, 0.007), ph: R(0, 6.28) });
+      }
+    } else if (kind === "dust") {
+      for (i = 0; i < 50; i++) {
+        particles.push({ x: R(0, w), y: R(0, h), r: R(0.7, 2.1), vx: R(0.05, 0.25), vy: R(-0.04, 0.09), a: R(0.08, 0.28), ph: R(0, 6.28) });
+      }
+    } else if (kind === "petals") {
+      for (i = 0; i < 30; i++) {
+        const pw = R(4, 8);
+        particles.push({ x: R(0, w), y: R(0, h), pw: pw, ph2: pw * R(0.5, 0.7), rot: R(0, 6.28), vr: R(-0.02, 0.02),
+          vy: R(0.35, 0.9), vx: -R(0.1, 0.5), ph: R(0, 6.28), a: R(0.5, 0.85), c: pick(["255,170,200", "255,205,222"]) });
+      }
+    }
+  }
+  function frame(t, move) {
+    ctx.clearRect(0, 0, w, h);
+    let i, p;
+    if (kind === "snow") {
+      for (i = 0; i < particles.length; i++) {
+        p = particles[i];
+        if (move) {
+          p.x += p.vx;
+          p.y += p.vy;
+          if (p.x < 0) p.x = w;
+          if (p.x > w) p.x = 0;
+          if (p.y > h) {
+            p.y = -4;
+            p.x = Math.random() * w;
+          }
+        }
+        ctx.beginPath();
+        ctx.fillStyle = "rgba(255,255,255," + p.a + ")";
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        ctx.fill();
+      }
+    } else if (kind === "stars") {
+      for (i = 0; i < particles.length; i++) {
+        p = particles[i];
+        const a = p.a * (0.55 + 0.45 * Math.sin(t * p.sp + p.ph));
+        if (p.big) glow(p.x, p.y, p.r * 5, p.c, a * 0.35);
+        ctx.beginPath();
+        ctx.fillStyle = "rgba(" + p.c + "," + a + ")";
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        ctx.fill();
+      }
+      if (move) {
+        if (!shoot && t > nextShoot) {
+          shoot = { x: R(w * 0.35, w), y: R(0, h * 0.35), vx: -R(8, 11), vy: R(3.5, 5), life: 1 };
+          nextShoot = t + R(6, 12);
+        }
+        if (shoot) {
+          const sx = shoot.x - shoot.vx * 7;
+          const sy = shoot.y - shoot.vy * 7;
+          const g = ctx.createLinearGradient(shoot.x, shoot.y, sx, sy);
+          g.addColorStop(0, "rgba(255,255,255," + 0.9 * shoot.life + ")");
+          g.addColorStop(1, "rgba(170,184,255,0)");
+          ctx.strokeStyle = g;
+          ctx.lineWidth = 1.6;
+          ctx.beginPath();
+          ctx.moveTo(shoot.x, shoot.y);
+          ctx.lineTo(sx, sy);
+          ctx.stroke();
+          shoot.x += shoot.vx;
+          shoot.y += shoot.vy;
+          shoot.life -= 0.012;
+          if (shoot.life <= 0 || shoot.x < -80 || shoot.y > h + 80) shoot = null;
+        }
+      }
+    } else if (kind === "orbs") {
+      for (i = 0; i < particles.length; i++) {
+        p = particles[i];
+        if (move) {
+          p.x += p.vx;
+          p.y += p.vy;
+          if (p.orb) {
+            if (p.x < -p.r) p.x = w + p.r;
+            if (p.x > w + p.r) p.x = -p.r;
+            if (p.y < -p.r) p.y = h + p.r;
+            if (p.y > h + p.r) p.y = -p.r;
+          } else if (p.y < -4) {
+            p.y = h + 4;
+            p.x = Math.random() * w;
+          }
+        }
+        if (p.orb) {
+          glow(p.x, p.y, p.r, p.c, p.a);
+        } else {
+          ctx.beginPath();
+          ctx.fillStyle = "rgba(233,213,255," + p.a * (0.5 + 0.5 * Math.sin(t * p.sp + p.ph)) + ")";
+          ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+          ctx.fill();
+        }
+      }
+    } else if (kind === "bubbles") {
+      for (i = 0; i < particles.length; i++) {
+        p = particles[i];
+        if (move) {
+          p.y -= p.vy;
+          p.x += Math.sin(t * 0.8 + p.ph) * p.sw;
+          if (p.y < -p.r * 2) {
+            p.y = h + p.r * 2;
+            p.x = Math.random() * w;
+          }
+        }
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        ctx.fillStyle = "rgba(150,235,255,0.05)";
+        ctx.fill();
+        ctx.strokeStyle = "rgba(150,235,255,0.34)";
+        ctx.lineWidth = 1.2;
+        ctx.stroke();
+        ctx.beginPath();
+        ctx.arc(p.x - p.r * 0.35, p.y - p.r * 0.35, p.r * 0.35, Math.PI * 1.1, Math.PI * 1.6);
+        ctx.strokeStyle = "rgba(255,255,255,0.4)";
+        ctx.stroke();
+      }
+    } else if (kind === "fireflies") {
+      for (i = 0; i < particles.length; i++) {
+        p = particles[i];
+        if (move) {
+          p.ang += R(-0.08, 0.08);
+          p.x += Math.cos(p.ang) * p.sp;
+          p.y += Math.sin(p.ang) * p.sp;
+          if (p.x < -10) p.x = w + 10;
+          if (p.x > w + 10) p.x = -10;
+          if (p.y < -10) p.y = h + 10;
+          if (p.y > h + 10) p.y = -10;
+        }
+        const pulse = 0.25 + 0.75 * (0.5 + 0.5 * Math.sin(t * p.ps + p.ph));
+        glow(p.x, p.y, 16, "214,255,120", pulse * 0.5);
+        ctx.beginPath();
+        ctx.fillStyle = "rgba(240,255,170," + pulse + ")";
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        ctx.fill();
+      }
+    } else if (kind === "embers") {
+      for (i = 0; i < particles.length; i++) {
+        p = particles[i];
+        if (move) {
+          p.y += p.vy;
+          p.x += p.vx + Math.sin(t * 1.5 + p.ph) * 0.25;
+          p.life -= p.decay;
+          if (p.life <= 0 || p.y < -10) {
+            p.y = h + R(0, 40);
+            p.x = Math.random() * w;
+            p.life = 1;
+          }
+        }
+        const rgb = p.life > 0.6 ? "255,200,90" : p.life > 0.3 ? "255,120,50" : "220,60,30";
+        glow(p.x, p.y, p.r * 5, rgb, p.life * 0.35);
+        ctx.beginPath();
+        ctx.fillStyle = "rgba(" + rgb + "," + Math.min(1, p.life * (0.75 + 0.25 * Math.sin(t * 9 + p.ph))) + ")";
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        ctx.fill();
+      }
+    } else if (kind === "dust") {
+      for (i = 0; i < particles.length; i++) {
+        p = particles[i];
+        if (move) {
+          p.x += p.vx;
+          p.y += p.vy;
+          if (p.x > w + 4) p.x = -4;
+          if (p.y < -4) p.y = h + 4;
+          if (p.y > h + 4) p.y = -4;
+        }
+        ctx.beginPath();
+        ctx.fillStyle = "rgba(235,200,140," + p.a * (0.7 + 0.3 * Math.sin(t * 0.9 + p.ph)) + ")";
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        ctx.fill();
+      }
+    } else if (kind === "petals") {
+      for (i = 0; i < particles.length; i++) {
+        p = particles[i];
+        if (move) {
+          p.y += p.vy;
+          p.x += p.vx + Math.sin(t * 0.9 + p.ph) * 0.5;
+          p.rot += p.vr;
+          if (p.y > h + 12 || p.x < -14) {
+            p.y = -12;
+            p.x = R(0, w + 120);
+          }
+        }
+        ctx.save();
+        ctx.translate(p.x, p.y);
+        ctx.rotate(p.rot);
+        ctx.fillStyle = "rgba(" + p.c + "," + p.a + ")";
+        ctx.beginPath();
+        ctx.ellipse(0, 0, p.pw, p.ph2, 0, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.restore();
+      }
+    }
+  }
+  function tick() {
+    frame(performance.now() / 1000, true);
+    requestAnimationFrame(tick);
+  }
+  function start() {
+    spawn();
+    if (kind !== "snow" && reduce) {
+      frame(0, false);
+      return;
+    }
+    if (!running) {
+      running = true;
+      tick();
+    }
+  }
+  resize();
+  start();
+  window.jmFxRefresh = function () {
+    spawn();
+    if (kind !== "snow" && reduce) frame(0, false);
+    else if (!running) start();
+  };
+  window.addEventListener("resize", function () {
+    resize();
+    spawn();
+    if (kind !== "snow" && reduce) frame(0, false);
+  });
+}
+
+function goHome() {
+  const home = document.getElementById("view-home");
+  const play = document.getElementById("view-play");
+  if (home) home.hidden = false;
+  if (play) play.hidden = true;
+  document.body.classList.remove("play-body");
+  currentPlayGame = null;
+  try { localStorage.removeItem("jm-last-play"); } catch (e) {}
+  if (window.jmCancelGame) window.jmCancelGame();
+  const frame = document.getElementById("play-frame");
+  if (frame) {
+    try { frame.src = "about:blank"; } catch (e) {}
+  }
+  if (typeof window.jmApplyCloak === "function") window.jmApplyCloak();
+  render();
+  window.scrollTo(0, 0);
+}
+
+function goPlay(game) {
+  if (!game || !game.id) return;
+  pushRecent(game.id);
+  currentPlayGame = game;
+  try { localStorage.setItem("jm-last-play", String(game.id)); } catch (e) {}
+  const home = document.getElementById("view-home");
+  const play = document.getElementById("view-play");
+  if (home) home.hidden = true;
+  if (play) play.hidden = false;
+  document.body.classList.add("play-body");
+  if (!window.__jmPlayStarted) {
+    window.__jmPlayStarted = true;
+    if (window.jmPlay && window.jmPlay.init) window.jmPlay.init();
+  }
+  if (window.jmPlay && window.jmPlay.enter) window.jmPlay.enter(game);
+  window.scrollTo(0, 0);
+}
+
+window.jmGoPlay = goPlay;
+window.jmGoHome = goHome;
+window.jmGetCurrentPlay = function () { return currentPlayGame; };
+
+window.addEventListener("pageshow", function () {
+  window.scrollTo(0, 0);
+});
+
+function init() {
+  loadFavorites();
+  loadRecent();
+  loadCollapsed();
+  loadViewState();
+  window.scrollTo(0, 0);
+  const nav = document.querySelector(".categories");
+  if (nav) {
+    nav.addEventListener("click", function (e) {
+      const btn = e.target.closest(".cat-btn");
+      if (!btn) return;
+      e.preventDefault();
+      setCategory(btn.getAttribute("data-category") || "all", btn);
+    });
+  }
+  const search = document.getElementById("search-input");
+  if (search) {
+    try { var qp = new URLSearchParams(location.search).get("q"); if (qp) currentQuery = qp.trim().toLowerCase(); } catch (e) {}
+    if (currentQuery) search.value = currentQuery;
+    search.addEventListener("input", function (e) {
+      currentQuery = e.target.value.trim().toLowerCase();
+      saveViewState();
+      render();
+    });
+  }
+  const back = document.getElementById("back-btn");
+  if (back) {
+    back.addEventListener("click", function () {
+      goHome();
+    });
+  }
+  initParticles();
+  jmFetchGames()
+    .then(function (r) {
+      if (!r.ok) throw new Error("games.json " + r.status);
+      return r.json();
+    })
+    .then(function (data) {
+      allGames = Array.isArray(data) ? data : [];
+      setSearchPlaceholder();
+      updateCategoryCounts();
+      document.querySelectorAll(".cat-btn").forEach(function (b) {
+        b.classList.toggle(
+          "active",
+          b.getAttribute("data-category") === currentCategory,
+        );
+      });
+      render();
+      var lastPlay = null;
+      try { lastPlay = localStorage.getItem("jm-last-play"); } catch (e) {}
+      if (lastPlay) {
+        var found = null;
+        for (var i = 0; i < allGames.length; i++) {
+          if (String(allGames[i].id) === String(lastPlay)) { found = allGames[i]; break; }
+        }
+        if (found) goPlay(found);
+      }
+      try {
+        if (localStorage.getItem("jm-modal-open") === "1") {
+          var btn = document.getElementById("settings-btn");
+          if (btn) btn.click();
+        }
+      } catch (e) {}
+      window.scrollTo(0, 0);
+    })
+    .catch(function () {
+      const root = document.getElementById("rows");
+      if (root) {
+        root.innerHTML =
+          '<div class="no-results">could not load games.json</div>';
+      }
+    })
+    .finally(function () {
+      hideAppLoader();
+      window.scrollTo(0, 0);
+    });
+}
+
+if (document.readyState === "loading") {
+  document.addEventListener("DOMContentLoaded", init);
+} else {
+  init();
+}
+})();
+  </script>
+  <script>
+(function () {
+function gameDir(game) {
+  var p = game && game.path ? String(game.path) : "g/" + game.id + "/";
+  if (p.charAt(0) === "/") p = p.slice(1);
+  p = p.replace(/index\.html?$/i, "");
+  if (p && p.slice(-1) !== "/") p += "/";
+  return JM_ASSETS + "/" + p;
+}
+
+function jmFixStorage(html) {
+  // emulator games point at ../../storage/emulatorjs/ which isn't in the assets repo: use the official EmulatorJS CDN
+  return html
+    .replace(/(?:\.\.\/)+storage\/emulatorjs\/data\//g, "https://cdn.emulatorjs.org/stable/data/")
+    .replace(/(?:\.\.\/)+storage\/ruffle\/ruffle\.js/g, "https://unpkg.com/@ruffle-rs/ruffle");
+}
+
+function jmInjectBase(html, dir, extra) {
+  html = jmFixStorage(html);
+  var tag = '<base href="' + dir + '">' + (extra || "");
+  if (/<head[^>]*>/i.test(html)) return html.replace(/<head[^>]*>/i, function (m) { return m + tag; });
+  return tag + html;
+}
+
+var jmGameToken = 0;
+var jmGameAbort = null;
+var jmReadyTimer = null;
+var jmFrameOnLoad = null;
+
+function jmCancelGame() {
+  jmGameToken++;
+  if (jmGameAbort) { try { jmGameAbort.abort(); } catch (e) {} jmGameAbort = null; }
+  if (jmReadyTimer) { clearInterval(jmReadyTimer); jmReadyTimer = null; }
+  var frame = document.getElementById("play-frame");
+  if (frame && jmFrameOnLoad) { frame.removeEventListener("load", jmFrameOnLoad); jmFrameOnLoad = null; }
+  var loader = document.getElementById("frame-loader");
+  if (loader) loader.classList.remove("active");
+}
+
+function jmLoadGame(frame, game, token) {
+  JM_SW_READY.then(function (ok) {
+    if (token !== jmGameToken) return;
+    if (ok) {
+      try { frame.removeAttribute("srcdoc"); } catch (e) {}
+      frame.src = jmGameUrl(game);
+    } else {
+      jmLoadGameDoc(frame, game, token);
+    }
+  });
+}
+
+function jmLoadGameDoc(frame, game, token) {
+  var dir = gameDir(game);
+  var ctl = new AbortController();
+  jmGameAbort = ctl;
+  fetch(dir + "index.html", { signal: ctl.signal })
+    .then(function (r) {
+      if (!r.ok) throw new Error("game " + r.status);
+      return r.text();
+    })
+    .then(function (html) {
+      if (token !== jmGameToken) return;
+      html = jmInjectBase(html, dir);
+      var doc = frame.contentDocument || (frame.contentWindow && frame.contentWindow.document);
+      doc.open();
+      doc.write(html);
+      doc.close();
+    })
+    .catch(function () {
+      if (token === jmGameToken && !ctl.signal.aborted) go404();
+    });
+}
+
+window.jmCancelGame = jmCancelGame;
+
+function jmEngineReady(win) {
+  try {
+    var doc = win.document;
+    if (typeof win.cr_getC2Runtime === "function") {
+      var rt = win.cr_getC2Runtime();
+      if (rt) return rt.isloading === false || rt.isLoading === false;
+    }
+    if (win.unityInstance || win.gameInstance) return true;
+    if (win.Module && win.Module.calledRun) return true;
+    if (win.EJS_emulator) return !!win.EJS_emulator.started;
+    var rp = doc.querySelector("ruffle-player, ruffle-embed");
+    if (rp) return !!rp.metadata;
+    var cv = doc.querySelector("canvas");
+    if (cv) return cv.width > 0 && cv.height > 0 && cv.getBoundingClientRect().width > 0;
+    var b = doc.body;
+    return !!(b && (b.innerText || "").trim().length > 0 && doc.readyState === "complete");
+  } catch (e) {
+    return true;
+  }
+}
+
+function jmWatchReady(frame, token) {
+  var loader = document.getElementById("frame-loader");
+  var label = loader ? loader.querySelector(".frame-loader-label") : null;
+  var base = label ? label.textContent : "";
+  var t0 = Date.now();
+  var stable = 0;
+  if (jmReadyTimer) clearInterval(jmReadyTimer);
+  jmReadyTimer = setInterval(function () {
+    if (token !== jmGameToken) { clearInterval(jmReadyTimer); jmReadyTimer = null; return; }
+    var waited = Date.now() - t0;
+    var win = frame.contentWindow;
+    if (win && jmEngineReady(win)) stable++; else stable = 0;
+    if (stable >= 2) {
+      clearInterval(jmReadyTimer);
+      jmReadyTimer = null;
+      if (loader) loader.classList.remove("active");
+      if (label) label.textContent = base;
+    } else if (waited > 25000 && label) {
+      label.textContent = "still loading...";
+    }
+    if (waited > 120000) {
+      clearInterval(jmReadyTimer);
+      jmReadyTimer = null;
+      if (loader) loader.classList.remove("active");
+      if (label) label.textContent = base;
+    }
+  }, 500);
+}
+
+function shuffle(arr) {
+  const a = arr.slice();
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    const t = a[i];
+    a[i] = a[j];
+    a[j] = t;
+  }
+  return a;
+}
+
+function pickRecommended(current, list, limit) {
+  if (!current || !current.id || !list || !list.length) return [];
+  limit = limit || 8;
+  const id = String(current.id);
+  const cat = String((Array.isArray(current.categories) && current.categories[0]) || current.category || "").toLowerCase();
+  const same = [];
+  const other = [];
+
+  for (let i = 0; i < list.length; i++) {
+    const g = list[i];
+    if (!g || !g.id || String(g.id) === id) continue;
+    if (cat && String((Array.isArray(g.categories) && g.categories[0]) || g.category || "").toLowerCase() === cat) same.push(g);
+    else other.push(g);
+  }
+
+  const out = shuffle(same).slice(0, limit);
+  if (out.length < limit) {
+    const more = shuffle(other).slice(0, limit - out.length);
+    for (let i = 0; i < more.length; i++) out.push(more[i]);
+  }
+  return out;
+}
+
+function getTransition() {
+  return document.getElementById("page-transition");
+}
+
+function showTransition() {
+  const el = getTransition();
+  if (el) el.classList.add("active");
+}
+
+function hideTransition() {
+  const el = getTransition();
+  if (el) el.classList.remove("active");
+}
+
+function runTransition(cb) {
+  showTransition();
+  setTimeout(function () {
+    if (typeof cb === "function") cb();
+    setTimeout(hideTransition, 180);
+  }, 220);
+}
+
+function createRecCard(game, index) {
+  const a = document.createElement("div");
+  a.className = "game-card";
+  a.style.animationDelay = ((index % 12) * 25) + "ms";
+  a.setAttribute("data-id", game.id || "");
+  a.setAttribute("role", "button");
+  a.tabIndex = 0;
+
+  a.addEventListener("click", function () {
+    runTransition(function () {
+      if (window.jmGoPlay) window.jmGoPlay(game);
+    });
+  });
+
+  a.addEventListener("keydown", function (e) {
+    if (e.key === "Enter" || e.key === " ") {
+      e.preventDefault();
+      runTransition(function () {
+        if (window.jmGoPlay) window.jmGoPlay(game);
+      });
+    }
+  });
+
+  if (game.thumbnail) {
+    jmLazyBg(a, game.thumbnail);
+  }
+
+  const title = document.createElement("h2");
+  title.className = "game-title";
+  title.textContent = game.title || game.id;
+  a.appendChild(title);
+  return a;
+}
+
+function renderRecommended(current, list) {
+  const section = document.getElementById("recommended");
+  const grid = document.getElementById("recommended-grid");
+  if (!section || !grid) return;
+
+  const picks = pickRecommended(current, list, 8);
+  grid.innerHTML = "";
+  if (!picks.length) {
+    section.hidden = true;
+    return;
+  }
+
+  for (let i = 0; i < picks.length; i++) {
+    grid.appendChild(createRecCard(picks[i], i));
+  }
+  section.hidden = false;
+}
+
+function loadRecommended(current) {
+  jmFetchGames()
+    .then(function (r) {
+      if (!r.ok) throw new Error("games.json");
+      return r.json();
+    })
+    .then(function (data) {
+      const list = Array.isArray(data) ? data : [];
+      renderRecommended(current, list);
+    })
+    .catch(function () {});
+}
+
+function muteAlerts(win) {
+  if (!win) return;
+  try {
+    win.alert = function () {};
+    win.confirm = function () { return false; };
+    win.prompt = function () { return null; };
+  } catch (e) {}
+}
+
+function bindFrameMute(frame) {
+  if (!frame || frame.__jmMuteBound) return;
+  frame.__jmMuteBound = true;
+  frame.addEventListener("load", function () {
+    try { muteAlerts(frame.contentWindow); } catch (e) {}
+    try {
+      var win = frame.contentWindow;
+      if (win) {
+        win.__jmVol = jmVolume;
+        patchFrameAudio(win);
+      }
+    } catch (e) {}
+    applyFrameVolume();
+  });
+}
+
+var jmVolume = 1;
+var jmVolumePrev = 1;
+var jmVolTimer = null;
+
+var VOL_ICON_ON = '<polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/>';
+var VOL_ICON_OFF = '<polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/>';
+
+function readVolume() {
+  try {
+    var v = parseFloat(localStorage.getItem("jm-volume"));
+    if (!isNaN(v) && v >= 0 && v <= 1) return v;
+  } catch (e) {}
+  return 1;
+}
+
+function saveVolume(v) {
+  try { localStorage.setItem("jm-volume", String(v)); } catch (e) {}
+}
+
+function patchFrameAudio(win) {
+  if (!win || win.__jmAudioPatched) return;
+  try {
+    var Orig = win.AudioContext || win.webkitAudioContext;
+    if (!Orig) {
+      win.__jmAudioPatched = true;
+      return;
+    }
+    win.__jmAudioPatched = true;
+    win.__jmMasterGains = [];
+    win.__jmVol = jmVolume;
+
+    function wrapCtx(ctx) {
+      try {
+        if (ctx.__jmMaster) return ctx;
+        var realDest = ctx.destination;
+        var master = ctx.createGain();
+        master.gain.value = win.__jmVol;
+        master.connect(realDest);
+        Object.defineProperty(ctx, "destination", {
+          configurable: true,
+          get: function () { return master; }
+        });
+        ctx.__jmMaster = master;
+        win.__jmMasterGains.push(master);
+      } catch (e) {}
+      return ctx;
+    }
+
+    function PatchedAC(opts) {
+      var ctx = opts !== undefined ? new Orig(opts) : new Orig();
+      return wrapCtx(ctx);
+    }
+    PatchedAC.prototype = Orig.prototype;
+    try { Object.setPrototypeOf(PatchedAC, Orig); } catch (e) {}
+    try {
+      Object.defineProperty(PatchedAC, "length", { value: Orig.length });
+      Object.defineProperty(PatchedAC, "name", { value: "AudioContext" });
+    } catch (e) {}
+
+    win.AudioContext = PatchedAC;
+    if ("webkitAudioContext" in win) win.webkitAudioContext = PatchedAC;
+  } catch (e) {}
+}
+
+function applyFrameVolume() {
+  var frame = document.getElementById("play-frame");
+  if (!frame) return;
+  var vol = jmVolume;
+  try {
+    var win = frame.contentWindow;
+    var doc = frame.contentDocument || (win && win.document);
+    if (!win || !doc) return;
+
+    win.__jmVol = vol;
+    patchFrameAudio(win);
+
+    var nodes = doc.querySelectorAll("audio, video");
+    for (var i = 0; i < nodes.length; i++) {
+      try {
+        nodes[i].volume = vol;
+        nodes[i].muted = vol === 0;
+      } catch (e) {}
+    }
+
+    if (win.__jmMasterGains) {
+      for (var g = 0; g < win.__jmMasterGains.length; g++) {
+        try { win.__jmMasterGains[g].gain.value = vol; } catch (e) {}
+      }
+    }
+
+    try {
+      if (win.Howler && typeof win.Howler.volume === "function") win.Howler.volume(vol);
+    } catch (e) {}
+    try {
+      if (win.createjs && win.createjs.Sound) win.createjs.Sound.volume = vol;
+    } catch (e) {}
+    try {
+      if (win.PIXI && win.PIXI.sound) win.PIXI.sound.volume = vol;
+    } catch (e) {}
+  } catch (e) {}
+}
+
+function setVolume(v) {
+  if (v < 0) v = 0;
+  if (v > 1) v = 1;
+  jmVolume = v;
+  saveVolume(v);
+  applyFrameVolume();
+  syncVolUI();
+}
+
+function syncVolUI() {
+  var slider = document.getElementById("vol-slider");
+  var icon = document.getElementById("vol-icon");
+  if (slider) slider.value = String(Math.round(jmVolume * 100));
+  if (icon) {
+    icon.innerHTML = jmVolume === 0 ? VOL_ICON_OFF : VOL_ICON_ON;
+  }
+}
+
+function startVolWatch() {
+  if (jmVolTimer) return;
+  jmVolTimer = setInterval(applyFrameVolume, 800);
+}
+
+function bindVolumeUI() {
+  jmVolume = readVolume();
+  jmVolumePrev = jmVolume > 0 ? jmVolume : 1;
+  syncVolUI();
+  startVolWatch();
+
+  var slider = document.getElementById("vol-slider");
+  if (slider) {
+    slider.addEventListener("input", function () {
+      var v = parseInt(slider.value, 10) / 100;
+      if (v > 0) jmVolumePrev = v;
+      setVolume(v);
+    });
+  }
+
+  var muteBtn = document.getElementById("vol-mute");
+  if (muteBtn) {
+    muteBtn.addEventListener("click", function () {
+      if (jmVolume > 0) {
+        jmVolumePrev = jmVolume;
+        setVolume(0);
+      } else {
+        setVolume(jmVolumePrev > 0 ? jmVolumePrev : 1);
+      }
+    });
+  }
+}
+
+function go404() {
+  jmCancelGame();
+  const frame = document.getElementById("play-frame");
+  const loader = document.getElementById("frame-loader");
+  const nf = document.getElementById("frame-notfound");
+  const titleEl = document.getElementById("play-title");
+  const catEl = document.getElementById("play-cat");
+  const section = document.getElementById("recommended");
+  if (titleEl) titleEl.textContent = "not found";
+  if (catEl) catEl.textContent = "";
+  if (section) section.hidden = true;
+  if (loader) loader.classList.remove("active");
+  if (frame) {
+    try { frame.removeAttribute("src"); frame.src = "about:blank"; } catch (e) {}
+  }
+  if (nf) nf.hidden = false;
+  hideTransition();
+}
+
+function show(game) {
+  if (!game || !game.id) {
+    go404();
+    return;
+  }
+
+  const title = game.title || game.id || "";
+  const titleEl = document.getElementById("play-title");
+  const catEl = document.getElementById("play-cat");
+  const frame = document.getElementById("play-frame");
+  const loader = document.getElementById("frame-loader");
+
+  if (titleEl) titleEl.textContent = title;
+  if (catEl) {
+    var cats = [];
+    if (Array.isArray(game.categories) && game.categories.length) {
+      cats = game.categories.slice();
+    } else if (game.category) {
+      cats = [game.category];
+    }
+    var seen = {};
+    var labels = [];
+    for (var ci = 0; ci < cats.length; ci++) {
+      var c = String(cats[ci] || "").trim();
+      if (!c) continue;
+      var k = c.toLowerCase();
+      if (seen[k]) continue;
+      seen[k] = 1;
+      labels.push(c);
+    }
+    catEl.textContent = labels.join(", ");
+  }
+
+  if (frame) {
+    const nf = document.getElementById("frame-notfound");
+    if (nf) nf.hidden = true;
+    bindFrameMute(frame);
+    jmCancelGame();
+    const token = jmGameToken;
+    if (loader) loader.classList.add("active");
+
+    function onLoad() {
+      frame.removeEventListener("load", onLoad);
+      if (jmFrameOnLoad === onLoad) jmFrameOnLoad = null;
+      if (token !== jmGameToken) return;
+      try {
+        const doc = frame.contentDocument || (frame.contentWindow && frame.contentWindow.document);
+        if (doc) {
+          const t = (doc.title || "").toLowerCase();
+          const h1 = doc.querySelector("h1");
+          const h1t = h1 ? (h1.textContent || "").trim() : "";
+          if (t.indexOf("404") !== -1 || h1t === "404") {
+            go404();
+            return;
+          }
+        }
+        muteAlerts(frame.contentWindow);
+        applyFrameVolume();
+      } catch (e) {}
+      jmWatchReady(frame, token);
+    }
+    jmFrameOnLoad = onLoad;
+    frame.addEventListener("load", onLoad);
+
+    jmLoadGame(frame, game, token);
+  } else {
+    go404();
+    return;
+  }
+
+  if (typeof window.jmApplyCloak === "function") window.jmApplyCloak();
+  setTimeout(hideTransition, 120);
+}
+
+function openAboutBlank(game) {
+  const w = window.open("about:blank", "_blank");
+  if (!w) return;
+  JM_SW_READY.then(function (ok) {
+    if (ok) {
+      w.document.open();
+      w.document.write('<!DOCTYPE html><html><head><title>' + (game.title || "") + '</title><style>html,body{margin:0;height:100%;background:#000}iframe{border:0;width:100%;height:100%}</style></head><body><iframe src="' + jmGameUrl(game) + '" allow="autoplay; fullscreen; gamepad; clipboard-read; clipboard-write" allowfullscreen></iframe></body></html>');
+      w.document.close();
+      return;
+    }
+    const dir = gameDir(game);
+    fetch(dir + "index.html")
+      .then(function (r) { if (!r.ok) throw new Error("game"); return r.text(); })
+      .then(function (html) {
+        html = jmInjectBase(html, dir, "<script>window.alert=function(){};window.confirm=function(){return false};window.prompt=function(){return null};<\/script>");
+        w.document.open();
+        w.document.write(html);
+        w.document.close();
+      })
+      .catch(function () { try { w.close(); } catch (e) {} });
+  });
+}
+
+function enter(game) {
+  hideTransition();
+  if (!game || !game.id) {
+    go404();
+    return;
+  }
+  show(game);
+  loadRecommended(game);
+}
+
+function init() {
+  muteAlerts(window);
+  bindVolumeUI();
+
+  const fullBtn = document.getElementById("btn-full");
+  if (fullBtn) {
+    fullBtn.addEventListener("click", function () {
+      const stage = document.getElementById("stage");
+      if (!stage) return;
+      if (stage.requestFullscreen) stage.requestFullscreen();
+      else if (stage.webkitRequestFullscreen) stage.webkitRequestFullscreen();
+    });
+  }
+
+  const blankBtn = document.getElementById("btn-blank");
+  if (blankBtn) {
+    blankBtn.addEventListener("click", function () {
+      const game = window.jmGetCurrentPlay ? window.jmGetCurrentPlay() : null;
+      if (!game) return;
+      openAboutBlank(game);
+    });
+  }
+}
+
+function leave() {
+  jmCancelGame();
+  const frame = document.getElementById("play-frame");
+  if (frame) { try { frame.src = "about:blank"; } catch (e) {} }
+}
+
+window.jmPlay = { init: init, enter: enter, leave: leave };
+
+})();
+  </script>
+  <script>
+(function () {
+  var ps = document.getElementById("settings-btn-play");
+  if (ps) ps.addEventListener("click", function () {
+    var btn = document.getElementById("settings-btn");
+    if (btn) btn.click();
+  });
+})();
+  </script>
+  <script>
+(function () {
+  var NAMES = ["default", "moonlight", "purple", "ocean", "forest", "ember", "gruvbox", "sakura"];
+  function apply(name) {
+    if (NAMES.indexOf(name) === -1) name = "default";
+    var root = document.documentElement;
+    if (name === "default") root.removeAttribute("data-theme");
+    else root.setAttribute("data-theme", name);
+    try {
+      if (name === "default") localStorage.removeItem("jm-theme");
+      else localStorage.setItem("jm-theme", name);
+    } catch (e) {}
+    var opts = document.querySelectorAll(".theme-opt");
+    for (var i = 0; i < opts.length; i++) {
+      var on = opts[i].getAttribute("data-theme") === name;
+      opts[i].classList.toggle("active", on);
+      opts[i].setAttribute("aria-checked", on ? "true" : "false");
+    }
+    if (window.jmFxRefresh) window.jmFxRefresh();
+  }
+  window.jmApplyTheme = apply;
+  var grid = document.getElementById("themeGrid");
+  if (grid) {
+    grid.addEventListener("click", function (e) {
+      var b = e.target.closest(".theme-opt");
+      if (b) apply(b.getAttribute("data-theme"));
+    });
+  }
+  var cur = "default";
+  try { cur = localStorage.getItem("jm-theme") || "default"; } catch (e) {}
+  apply(cur);
+})();
+  </script>
+
+  <script src="https://pl31909744.profitableratecpmnetwork.com/b6/e4/89/b6e489ab07f638f349fbaafb25137bc6.js"></script>
+</body>
+</html>

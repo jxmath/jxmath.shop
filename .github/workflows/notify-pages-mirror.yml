@@ -1,0 +1,24 @@
+name: trigger jxmath.github.io sync
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  notify:
+    if: github.repository == 'jxmath/jxmath.shop'
+    runs-on: ubuntu-latest
+    steps:
+      - name: dispatch
+        env:
+          SYNC_TOKEN: ${{ secrets.SYNC_TOKEN }}
+        run: |
+          if [ -z "$SYNC_TOKEN" ]; then
+            echo "SYNC_TOKEN secret not set, relying on the 5 minute schedule"
+            exit 0
+          fi
+          curl -fsS -X POST \
+            -H "Authorization: Bearer $SYNC_TOKEN" \
+            -H "Accept: application/vnd.github+json" \
+            https://api.github.com/repos/jxmath/jxmath.github.io/dispatches \
+            -d '{"event_type":"shop-updated"}'
