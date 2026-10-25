@@ -4,31 +4,21 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>404 | jaxsons math</title>
-  <meta name="theme-color" content="#0b1020">
+  <meta name="theme-color" content="#171a30">
   <link rel="icon" type="image/png" href="/assets/favicon.png">
-  <script>try{var t=localStorage.getItem("jm-theme");if(t)document.documentElement.setAttribute("data-theme",t)}catch(e){}</script>
+  <script>try{var t=localStorage.getItem("jm-theme");if(t&&t!=="moonlight")document.documentElement.setAttribute("data-theme",t)}catch(e){}</script>
   <style>
 :root {
-  --bg: #0b1020;
-  --bg-card: #151d2e;
-  --chip: #1e293b;
-  --chip-hover: #2a3950;
-  --text: #ffffff;
-  --accent: #4a6fa5;
-  --accent-text: #ffffff;
-  --border: rgba(255, 255, 255, 0.1);
-  --bg-fx: none;
-  --ease: cubic-bezier(0.22, 1, 0.36, 1);
-}
-:root[data-theme="moonlight"] {
   --bg: #171a30;
   --bg-card: #1e2240;
   --chip: #2a2f55;
+  --chip-hover: #373d6b;
   --text: #dbe2ff;
   --accent: #aab8ff;
   --accent-text: #171a30;
   --border: rgba(205, 214, 255, 0.12);
   --bg-fx: radial-gradient(circle at 91% 10%, #f4f6ff 0 15px, rgba(214,222,255,0.5) 16px, rgba(150,165,255,0.16) 64px, transparent 150px), radial-gradient(ellipse 70% 45% at 85% 0%, rgba(140,155,255,0.16), transparent 70%), radial-gradient(ellipse 80% 50% at 0% 100%, rgba(80,95,200,0.18), transparent 70%);
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
 }
 :root[data-theme="purple"] {
   --bg: #241833;
@@ -38,7 +28,7 @@
   --accent: #c4a6f5;
   --accent-text: #241833;
   --border: rgba(220, 200, 250, 0.16);
-  --bg-fx: radial-gradient(ellipse 80% 50% at 50% 0%, rgba(180, 150, 230, 0.12), transparent 70%);
+  --bg-fx: radial-gradient(circle at 91% 10%, #f1e6ff 0 9px, rgba(196,166,245,0.32) 10px, rgba(196,166,245,0.12) 58px, transparent 140px), radial-gradient(ellipse 70% 45% at 85% 0%, rgba(196,166,245,0.13), transparent 70%), radial-gradient(ellipse 80% 50% at 0% 100%, rgba(196,166,245,0.12), transparent 70%);
 }
 :root[data-theme="ocean"] {
   --bg: #102833;
@@ -48,7 +38,7 @@
   --accent: #8fd4e4;
   --accent-text: #102833;
   --border: rgba(180, 230, 240, 0.16);
-  --bg-fx: radial-gradient(ellipse 80% 46% at 50% 0%, rgba(143, 212, 228, 0.12), transparent 70%);
+  --bg-fx: radial-gradient(circle at 91% 10%, #e6f9ff 0 9px, rgba(143,212,228,0.32) 10px, rgba(143,212,228,0.12) 58px, transparent 140px), radial-gradient(ellipse 70% 45% at 85% 0%, rgba(143,212,228,0.13), transparent 70%), radial-gradient(ellipse 80% 50% at 0% 100%, rgba(143,212,228,0.12), transparent 70%);
 }
 :root[data-theme="forest"] {
   --bg: #17261c;
@@ -58,7 +48,7 @@
   --accent: #a8d492;
   --accent-text: #17261c;
   --border: rgba(200, 230, 190, 0.16);
-  --bg-fx: radial-gradient(ellipse 80% 46% at 50% 0%, rgba(168, 212, 146, 0.10), transparent 70%);
+  --bg-fx: radial-gradient(circle at 91% 10%, #f1ffe6 0 9px, rgba(168,212,146,0.32) 10px, rgba(168,212,146,0.12) 58px, transparent 140px), radial-gradient(ellipse 70% 45% at 85% 0%, rgba(168,212,146,0.13), transparent 70%), radial-gradient(ellipse 80% 50% at 0% 100%, rgba(168,212,146,0.12), transparent 70%);
 }
 :root[data-theme="ember"] {
   --bg: #2a1c18;
@@ -68,7 +58,7 @@
   --accent: #f0b08a;
   --accent-text: #2a1c18;
   --border: rgba(255, 210, 190, 0.16);
-  --bg-fx: radial-gradient(ellipse 80% 46% at 50% 100%, rgba(240, 176, 138, 0.12), transparent 70%);
+  --bg-fx: radial-gradient(circle at 91% 10%, #fff0e6 0 9px, rgba(240,176,138,0.32) 10px, rgba(240,176,138,0.12) 58px, transparent 140px), radial-gradient(ellipse 80% 46% at 50% 100%, rgba(240,140,90,0.22), transparent 70%);
 }
 :root[data-theme="gruvbox"] {
   --bg: #32302f;
@@ -78,7 +68,7 @@
   --accent: #fabd2f;
   --accent-text: #32302f;
   --border: rgba(251, 241, 199, 0.14);
-  --bg-fx: none;
+  --bg-fx: radial-gradient(circle at 91% 10%, #fff2c4 0 9px, rgba(250,189,47,0.32) 10px, rgba(250,189,47,0.12) 58px, transparent 140px), radial-gradient(ellipse 70% 45% at 85% 0%, rgba(250,189,47,0.13), transparent 70%), radial-gradient(ellipse 80% 50% at 0% 100%, rgba(250,189,47,0.12), transparent 70%);
 }
 :root[data-theme="sakura"] {
   --bg: #1c1017;
@@ -189,8 +179,8 @@ body::before {
       var canvas = document.getElementById("particles");
       var ctx = canvas && canvas.getContext("2d");
       if (!ctx) return;
-      var kinds = { moonlight: "stars", gruvbox: "dust", sakura: "petals" };
-      var kind = kinds[document.documentElement.getAttribute("data-theme")] || "snow";
+      var kinds = { purple: "snow", ocean: "snow", forest: "snow", ember: "snow", gruvbox: "dust", sakura: "petals" };
+      var kind = kinds[document.documentElement.getAttribute("data-theme")] || "stars";
       var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
       var w = 0, h = 0, ps = [];
       var count = kind === "stars" ? 70 : kind === "petals" ? 28 : 50;

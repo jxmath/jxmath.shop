@@ -7,7 +7,7 @@
   <meta name="description" content="free browser games you can play at school. no downloads, no sign up. arcade, io, puzzle, racing, shooter, platformer and 2 player games.">
   <meta name="keywords" content="jxmath, jaxsons math, school games, free games, browser games, html5 games, games for school, chromebook games, 2 player games, io games, flash games">
   <meta name="robots" content="index, follow, max-image-preview:large">
-  <meta name="theme-color" content="#0b1020">
+  <meta name="theme-color" content="#171a30">
   <link rel="canonical" href="https://jxmath.shop/">
   <link rel="icon" type="image/png" href="/assets/favicon.png">
   <link rel="apple-touch-icon" href="/assets/favicon.png">
@@ -26,22 +26,22 @@
   </script>
   <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
   <link rel="dns-prefetch" href="https://api.github.com">
-  <script>try{var t=localStorage.getItem("jm-theme");if(t)document.documentElement.setAttribute("data-theme",t)}catch(e){}try{if("scrollRestoration"in history)history.scrollRestoration="manual"}catch(e){}</script>
+  <script>try{var t=localStorage.getItem("jm-theme");if(t&&t!=="moonlight")document.documentElement.setAttribute("data-theme",t)}catch(e){}try{if("scrollRestoration"in history)history.scrollRestoration="manual"}catch(e){}</script>
   <style>
 :root {
-  --bg: #0b1020;
-  --bg-card: #151d2e;
-  --text: #ffffff;
-  --chip: #1e293b;
-  --chip-hover: #2a3950;
-  --accent: #4a6fa5;
-  --accent-text: #ffffff;
-  --accent-hover: #5a82b8;
-  --surface: #1a2233;
-  --bar: rgba(15, 20, 32, 0.96);
-  --card-border: rgba(148, 163, 184, 0.28);
-  --card-border-hover: rgba(148, 163, 184, 0.55);
-  --border: rgba(255, 255, 255, 0.1);
+  --bg: #171a30;
+  --bg-card: #1e2240;
+  --text: #dbe2ff;
+  --chip: #2a2f55;
+  --chip-hover: #373d6b;
+  --accent: #aab8ff;
+  --accent-text: #171a30;
+  --accent-hover: #c4cfff;
+  --surface: #2a2f55;
+  --bar: rgba(14, 16, 32, 0.96);
+  --card-border: rgba(150, 165, 255, 0.32);
+  --card-border-hover: rgba(150, 165, 255, 0.65);
+  --border: rgba(205, 214, 255, 0.12);
   --radius: 16px;
   --max-width: 1300px;
   --gap: 10px;
@@ -1263,7 +1263,7 @@ html {
 
 /* ---- theme effects ---- */
 :root {
-  --bg-fx: none;
+  --bg-fx: radial-gradient(circle at 91% 10%, #f4f6ff 0 15px, rgba(214,222,255,0.5) 16px, rgba(150,165,255,0.16) 64px, transparent 150px), radial-gradient(ellipse 70% 45% at 85% 0%, rgba(140,155,255,0.16), transparent 70%), radial-gradient(ellipse 80% 50% at 0% 100%, rgba(80,95,200,0.18), transparent 70%);
 }
 
 body::before {
@@ -1289,22 +1289,6 @@ body::before {
   filter: none;
 }
 
-:root[data-theme="moonlight"] {
-  --bg: #171a30;
-  --bg-card: #1e2240;
-  --chip: #2a2f55;
-  --chip-hover: #373d6b;
-  --text: #dbe2ff;
-  --accent: #aab8ff;
-  --accent-text: #171a30;
-  --accent-hover: #c4cfff;
-  --border: rgba(205, 214, 255, 0.12);
-  --surface: #2a2f55;
-  --bar: rgba(14, 16, 32, 0.96);
-  --card-border: rgba(150, 165, 255, 0.32);
-  --card-border-hover: rgba(150, 165, 255, 0.65);
-  --bg-fx: radial-gradient(circle at 91% 10%, #f4f6ff 0 15px, rgba(214,222,255,0.5) 16px, rgba(150,165,255,0.16) 64px, transparent 150px), radial-gradient(ellipse 70% 45% at 85% 0%, rgba(140,155,255,0.16), transparent 70%), radial-gradient(ellipse 80% 50% at 0% 100%, rgba(80,95,200,0.18), transparent 70%);
-}
 :root[data-theme="purple"] {
   --bg: #241833;
   --bg-card: #2e2142;
@@ -1319,7 +1303,7 @@ body::before {
   --bar: rgba(28, 18, 42, 0.96);
   --card-border: rgba(196, 166, 245, 0.32);
   --card-border-hover: rgba(196, 166, 245, 0.58);
-  --bg-fx: radial-gradient(ellipse 80% 50% at 50% 0%, rgba(180, 150, 230, 0.12), transparent 70%);
+  --bg-fx: radial-gradient(circle at 91% 10%, #f1e6ff 0 9px, rgba(196,166,245,0.32) 10px, rgba(196,166,245,0.12) 58px, transparent 140px), radial-gradient(ellipse 70% 45% at 85% 0%, rgba(196,166,245,0.13), transparent 70%), radial-gradient(ellipse 80% 50% at 0% 100%, rgba(196,166,245,0.12), transparent 70%);
 }
 :root[data-theme="ocean"] {
   --bg: #102833;
@@ -1335,7 +1319,7 @@ body::before {
   --bar: rgba(12, 32, 40, 0.96);
   --card-border: rgba(143, 212, 228, 0.32);
   --card-border-hover: rgba(143, 212, 228, 0.58);
-  --bg-fx: radial-gradient(ellipse 80% 46% at 50% 0%, rgba(143, 212, 228, 0.12), transparent 70%);
+  --bg-fx: radial-gradient(circle at 91% 10%, #e6f9ff 0 9px, rgba(143,212,228,0.32) 10px, rgba(143,212,228,0.12) 58px, transparent 140px), radial-gradient(ellipse 70% 45% at 85% 0%, rgba(143,212,228,0.13), transparent 70%), radial-gradient(ellipse 80% 50% at 0% 100%, rgba(143,212,228,0.12), transparent 70%);
 }
 :root[data-theme="forest"] {
   --bg: #17261c;
@@ -1351,7 +1335,7 @@ body::before {
   --bar: rgba(16, 30, 20, 0.96);
   --card-border: rgba(168, 212, 146, 0.32);
   --card-border-hover: rgba(168, 212, 146, 0.58);
-  --bg-fx: radial-gradient(ellipse 80% 46% at 50% 0%, rgba(168, 212, 146, 0.10), transparent 70%);
+  --bg-fx: radial-gradient(circle at 91% 10%, #f1ffe6 0 9px, rgba(168,212,146,0.32) 10px, rgba(168,212,146,0.12) 58px, transparent 140px), radial-gradient(ellipse 70% 45% at 85% 0%, rgba(168,212,146,0.13), transparent 70%), radial-gradient(ellipse 80% 50% at 0% 100%, rgba(168,212,146,0.12), transparent 70%);
 }
 :root[data-theme="ember"] {
   --bg: #2a1c18;
@@ -1367,7 +1351,7 @@ body::before {
   --bar: rgba(32, 20, 16, 0.96);
   --card-border: rgba(240, 176, 138, 0.32);
   --card-border-hover: rgba(240, 176, 138, 0.58);
-  --bg-fx: radial-gradient(ellipse 80% 46% at 50% 100%, rgba(240, 176, 138, 0.12), transparent 70%);
+  --bg-fx: radial-gradient(circle at 91% 10%, #fff0e6 0 9px, rgba(240,176,138,0.32) 10px, rgba(240,176,138,0.12) 58px, transparent 140px), radial-gradient(ellipse 80% 46% at 50% 100%, rgba(240,140,90,0.22), transparent 70%);
 }
 :root[data-theme="gruvbox"] {
   --bg: #32302f;
@@ -1383,7 +1367,7 @@ body::before {
   --bar: rgba(40, 40, 40, 0.96);
   --card-border: rgba(213, 196, 161, 0.32);
   --card-border-hover: rgba(213, 196, 161, 0.58);
-  --bg-fx: none;
+  --bg-fx: radial-gradient(circle at 91% 10%, #fff2c4 0 9px, rgba(250,189,47,0.32) 10px, rgba(250,189,47,0.12) 58px, transparent 140px), radial-gradient(ellipse 70% 45% at 85% 0%, rgba(250,189,47,0.13), transparent 70%), radial-gradient(ellipse 80% 50% at 0% 100%, rgba(250,189,47,0.12), transparent 70%);
 }
 :root[data-theme="sakura"] {
   --bg: #1c1017;
@@ -1808,8 +1792,7 @@ body::before {
         <section class="settings-section">
           <h3>theme</h3>
           <div class="theme-grid" id="themeGrid" role="radiogroup" aria-label="theme">
-          <button type="button" class="theme-opt" role="radio" aria-checked="false" data-theme="default" style="--p-bg:#0b1020;--p-card:#151d2e;--p-chip:#1e293b;--p-accent:#4a6fa5;--p-edge:rgba(255, 255, 255,0.16);--p-title:#ffffff;--p-fx:none"><span class="tp"><span class="tp-fx"><i style="left:33%;top:19%;width:1.9px;height:1.9px;background:#ffffff;opacity:.55"></i><i style="left:11%;top:52%;width:1.6px;height:1.6px;background:#ffffff;opacity:.55"></i><i style="left:9%;top:50%;width:1.2px;height:1.2px;background:#ffffff;opacity:.55"></i><i style="left:43%;top:12%;width:1.3px;height:1.3px;background:#ffffff;opacity:.55"></i><i style="left:42%;top:77%;width:1.3px;height:1.3px;background:#ffffff;opacity:.55"></i><i style="left:24%;top:60%;width:2.1px;height:2.1px;background:#ffffff;opacity:.55"></i><i style="left:56%;top:40%;width:2.2px;height:2.2px;background:#ffffff;opacity:.55"></i><i style="left:8%;top:80%;width:1.5px;height:1.5px;background:#ffffff;opacity:.55"></i><i style="left:17%;top:16%;width:1.5px;height:1.5px;background:#ffffff;opacity:.55"></i><i style="left:77%;top:22%;width:1.8px;height:1.8px;background:#ffffff;opacity:.55"></i></span><span class="tp-title"></span><span class="tp-chips"><i></i><i></i><i></i></span><span class="tp-cards"><i></i><i></i><i></i></span><span class="tp-check"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span></span><span class="tn">default</span></button>
-          <button type="button" class="theme-opt" role="radio" aria-checked="false" data-theme="moonlight" style="--p-bg:#171a30;--p-card:#1e2240;--p-chip:#2a2f55;--p-accent:#aab8ff;--p-edge:rgba(205, 214, 255,0.16);--p-title:#d6defc;--p-fx:radial-gradient(circle at 91% 10%, #f4f6ff 0 15px, rgba(214,222,255,0.5) 16px, rgba(150,165,255,0.16) 64px, transparent 150px), radial-gradient(ellipse 70% 45% at 85% 0%, rgba(140,155,255,0.16), transparent 70%), radial-gradient(ellipse 80% 50% at 0% 100%, rgba(80,95,200,0.18), transparent 70%)"><span class="tp"><span class="tp-fx"><i style="left:62%;top:38%;width:1.5px;height:1.5px;background:#ffffff;opacity:0.78"></i><i style="left:60%;top:49%;width:2.5px;height:2.5px;background:#ffffff;opacity:0.89"></i><i style="left:46%;top:85%;width:2.0px;height:2.0px;background:#ffffff;opacity:0.65"></i><i style="left:75%;top:66%;width:1.5px;height:1.5px;background:#ffffff;opacity:0.54"></i><i style="left:31%;top:49%;width:2.0px;height:2.0px;background:#ffffff;opacity:0.86"></i><i style="left:30%;top:90%;width:1.5px;height:1.5px;background:#ffffff;opacity:0.76"></i><i style="left:19%;top:35%;width:2.5px;height:2.5px;background:#ffffff;opacity:0.71"></i><i style="left:91%;top:13%;width:2.0px;height:2.0px;background:#ffffff;opacity:0.67"></i><i style="left:36%;top:49%;width:2.5px;height:2.5px;background:#ffffff;opacity:0.53"></i><i style="left:12%;top:29%;width:1.5px;height:1.5px;background:#ffffff;opacity:0.53"></i><i style="left:67%;top:62%;width:2.5px;height:2.5px;background:#ffffff;opacity:0.64"></i><i style="left:39%;top:64%;width:1.5px;height:1.5px;background:#ffffff;opacity:0.97"></i><i style="left:36%;top:59%;width:2.5px;height:2.5px;background:#ffffff;opacity:0.53"></i><i style="left:73%;top:17%;width:1.5px;height:1.5px;background:#ffffff;opacity:0.70"></i></span><span class="tp-title"></span><span class="tp-chips"><i></i><i></i><i></i></span><span class="tp-cards"><i></i><i></i><i></i></span><span class="tp-check"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span></span><span class="tn">moonlight</span></button>
+          <button type="button" class="theme-opt" role="radio" aria-checked="false" data-theme="default" style="--p-bg:#171a30;--p-card:#1e2240;--p-chip:#2a2f55;--p-accent:#aab8ff;--p-edge:rgba(205, 214, 255,0.16);--p-title:#d6defc;--p-fx:radial-gradient(circle at 91% 10%, #f4f6ff 0 15px, rgba(214,222,255,0.5) 16px, rgba(150,165,255,0.16) 64px, transparent 150px), radial-gradient(ellipse 70% 45% at 85% 0%, rgba(140,155,255,0.16), transparent 70%), radial-gradient(ellipse 80% 50% at 0% 100%, rgba(80,95,200,0.18), transparent 70%)"><span class="tp"><span class="tp-fx"><i style="left:62%;top:38%;width:1.5px;height:1.5px;background:#ffffff;opacity:0.78"></i><i style="left:60%;top:49%;width:2.5px;height:2.5px;background:#ffffff;opacity:0.89"></i><i style="left:46%;top:85%;width:2.0px;height:2.0px;background:#ffffff;opacity:0.65"></i><i style="left:75%;top:66%;width:1.5px;height:1.5px;background:#ffffff;opacity:0.54"></i><i style="left:31%;top:49%;width:2.0px;height:2.0px;background:#ffffff;opacity:0.86"></i><i style="left:30%;top:90%;width:1.5px;height:1.5px;background:#ffffff;opacity:0.76"></i><i style="left:19%;top:35%;width:2.5px;height:2.5px;background:#ffffff;opacity:0.71"></i><i style="left:91%;top:13%;width:2.0px;height:2.0px;background:#ffffff;opacity:0.67"></i><i style="left:36%;top:49%;width:2.5px;height:2.5px;background:#ffffff;opacity:0.53"></i><i style="left:12%;top:29%;width:1.5px;height:1.5px;background:#ffffff;opacity:0.53"></i><i style="left:67%;top:62%;width:2.5px;height:2.5px;background:#ffffff;opacity:0.64"></i><i style="left:39%;top:64%;width:1.5px;height:1.5px;background:#ffffff;opacity:0.97"></i><i style="left:36%;top:59%;width:2.5px;height:2.5px;background:#ffffff;opacity:0.53"></i><i style="left:73%;top:17%;width:1.5px;height:1.5px;background:#ffffff;opacity:0.70"></i></span><span class="tp-title"></span><span class="tp-chips"><i></i><i></i><i></i></span><span class="tp-cards"><i></i><i></i><i></i></span><span class="tp-check"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span></span><span class="tn">default</span></button>
           <button type="button" class="theme-opt" role="radio" aria-checked="false" data-theme="purple" style="--p-bg:#241833;--p-card:#2e2142;--p-chip:#3d2c56;--p-accent:#c4a6f5;--p-edge:rgba(196,166,245,0.28);--p-title:#f6f0ff;--p-fx:radial-gradient(ellipse 80% 50% at 50% 0%, rgba(180, 150, 230, 0.55), transparent 70%)"><span class="tp"><span class="tp-fx"><i style="left:18%;top:22%;width:1.6px;height:1.6px;background:#fff;opacity:.55"></i><i style="left:42%;top:14%;width:2px;height:2px;background:#fff;opacity:.4"></i><i style="left:70%;top:28%;width:1.4px;height:1.4px;background:#fff;opacity:.6"></i><i style="left:28%;top:48%;width:1.8px;height:1.8px;background:#fff;opacity:.35"></i><i style="left:84%;top:46%;width:1.5px;height:1.5px;background:#fff;opacity:.5"></i><i style="left:55%;top:62%;width:2.1px;height:2.1px;background:#fff;opacity:.45"></i><i style="left:12%;top:70%;width:1.3px;height:1.3px;background:#fff;opacity:.5"></i><i style="left:36%;top:78%;width:1.7px;height:1.7px;background:#fff;opacity:.35"></i></span><span class="tp-title"></span><span class="tp-chips"><i></i><i></i><i></i></span><span class="tp-cards"><i></i><i></i><i></i></span><span class="tp-check"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span></span><span class="tn">purple</span></button>
           <button type="button" class="theme-opt" role="radio" aria-checked="false" data-theme="ocean" style="--p-bg:#102833;--p-card:#173440;--p-chip:#214555;--p-accent:#8fd4e4;--p-edge:rgba(143,212,228,0.28);--p-title:#eef8fb;--p-fx:radial-gradient(ellipse 80% 46% at 50% 0%, rgba(143, 212, 228, 0.55), transparent 70%)"><span class="tp"><span class="tp-fx"><i style="left:18%;top:22%;width:1.6px;height:1.6px;background:#fff;opacity:.55"></i><i style="left:42%;top:14%;width:2px;height:2px;background:#fff;opacity:.4"></i><i style="left:70%;top:28%;width:1.4px;height:1.4px;background:#fff;opacity:.6"></i><i style="left:28%;top:48%;width:1.8px;height:1.8px;background:#fff;opacity:.35"></i><i style="left:84%;top:46%;width:1.5px;height:1.5px;background:#fff;opacity:.5"></i><i style="left:55%;top:62%;width:2.1px;height:2.1px;background:#fff;opacity:.45"></i><i style="left:12%;top:70%;width:1.3px;height:1.3px;background:#fff;opacity:.5"></i><i style="left:36%;top:78%;width:1.7px;height:1.7px;background:#fff;opacity:.35"></i></span><span class="tp-title"></span><span class="tp-chips"><i></i><i></i><i></i></span><span class="tp-cards"><i></i><i></i><i></i></span><span class="tp-check"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span></span><span class="tn">ocean</span></button>
           <button type="button" class="theme-opt" role="radio" aria-checked="false" data-theme="forest" style="--p-bg:#17261c;--p-card:#1f3226;--p-chip:#2a4334;--p-accent:#a8d492;--p-edge:rgba(168,212,146,0.28);--p-title:#f0f7ec;--p-fx:radial-gradient(ellipse 80% 46% at 50% 0%, rgba(168, 212, 146, 0.5), transparent 70%)"><span class="tp"><span class="tp-fx"><i style="left:18%;top:22%;width:1.6px;height:1.6px;background:#fff;opacity:.55"></i><i style="left:42%;top:14%;width:2px;height:2px;background:#fff;opacity:.4"></i><i style="left:70%;top:28%;width:1.4px;height:1.4px;background:#fff;opacity:.6"></i><i style="left:28%;top:48%;width:1.8px;height:1.8px;background:#fff;opacity:.35"></i><i style="left:84%;top:46%;width:1.5px;height:1.5px;background:#fff;opacity:.5"></i><i style="left:55%;top:62%;width:2.1px;height:2.1px;background:#fff;opacity:.45"></i><i style="left:12%;top:70%;width:1.3px;height:1.3px;background:#fff;opacity:.5"></i><i style="left:36%;top:78%;width:1.7px;height:1.7px;background:#fff;opacity:.35"></i></span><span class="tp-title"></span><span class="tp-chips"><i></i><i></i><i></i></span><span class="tp-cards"><i></i><i></i><i></i></span><span class="tp-check"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span></span><span class="tn">forest</span></button>
@@ -2653,8 +2636,8 @@ function setCategory(cat, btn) {
 }
 
 var JM_FX = {
-  default: "snow", moonlight: "stars", purple: "snow", ocean: "snow",
-  forest: "snow", ember: "snow", gruvbox: "dust", sakura: "petals"
+  default: "stars", purple: "orbs", ocean: "bubbles",
+  forest: "fireflies", ember: "embers", gruvbox: "dust", sakura: "petals"
 };
 
 function initParticles() {
@@ -2703,8 +2686,8 @@ function initParticles() {
       const n = Math.max(90, Math.min(240, Math.round((w * h) / 9000)));
       for (i = 0; i < n; i++) {
         const big = Math.random() < 0.06;
-        particles.push({ x: R(0, w), y: R(0, h), r: big ? R(1.6, 2.4) : R(0.4, 1.5), a: R(0.3, 0.95), ph: R(0, 6.28),
-          sp: R(0.6, 2.2), big: big, c: pick(["255,255,255", "214,222,255", "170,184,255"]) });
+        particles.push({ x: R(0, w), y: R(0, h), r: big ? R(1.6, 2.4) : R(0.4, 1.5), a: R(0.35, 1), ph: R(0, 6.28),
+          sp: R(1.4, 4.2), big: big, c: pick(["255,255,255", "214,222,255", "170,184,255"]) });
       }
     } else if (kind === "orbs") {
       const cols = ["124,58,237", "217,70,239", "79,70,229", "168,85,247"];
@@ -2764,7 +2747,7 @@ function initParticles() {
     } else if (kind === "stars") {
       for (i = 0; i < particles.length; i++) {
         p = particles[i];
-        const a = p.a * (0.55 + 0.45 * Math.sin(t * p.sp + p.ph));
+        const a = p.a * (0.35 + 0.65 * (0.5 + 0.5 * Math.sin(t * p.sp + p.ph)));
         if (p.big) glow(p.x, p.y, p.r * 5, p.c, a * 0.35);
         ctx.beginPath();
         ctx.fillStyle = "rgba(" + p.c + "," + a + ")";
@@ -3672,7 +3655,7 @@ window.jmPlay = { init: init, enter: enter, leave: leave };
   </script>
   <script>
 (function () {
-  var NAMES = ["default", "moonlight", "purple", "ocean", "forest", "ember", "gruvbox", "sakura"];
+  var NAMES = ["default", "purple", "ocean", "forest", "ember", "gruvbox", "sakura"];
   function apply(name) {
     if (NAMES.indexOf(name) === -1) name = "default";
     var root = document.documentElement;
