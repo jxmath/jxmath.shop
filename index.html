@@ -26,7 +26,7 @@
   </script>
   <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
   <link rel="dns-prefetch" href="https://api.github.com">
-  <script>try{var t=localStorage.getItem("jm-theme");if(t&&t!=="moonlight")document.documentElement.setAttribute("data-theme",t)}catch(e){}try{if("scrollRestoration"in history)history.scrollRestoration="manual"}catch(e){}</script>
+  <script>try{if("scrollRestoration"in history)history.scrollRestoration="manual"}catch(e){}</script>
   <style>
 :root {
   --bg: #171a30;
@@ -1289,238 +1289,6 @@ body::before {
   filter: none;
 }
 
-:root[data-theme="purple"] {
-  --bg: #241833;
-  --bg-card: #2e2142;
-  --chip: #3d2c56;
-  --chip-hover: #4e3a6c;
-  --text: #f6f0ff;
-  --accent: #c4a6f5;
-  --accent-text: #241833;
-  --accent-hover: #d4bdf8;
-  --border: rgba(220, 200, 250, 0.16);
-  --surface: #3d2c56;
-  --bar: rgba(28, 18, 42, 0.96);
-  --card-border: rgba(196, 166, 245, 0.32);
-  --card-border-hover: rgba(196, 166, 245, 0.58);
-  --bg-fx: radial-gradient(circle at 91% 10%, #f1e6ff 0 9px, rgba(196,166,245,0.32) 10px, rgba(196,166,245,0.12) 58px, transparent 140px), radial-gradient(ellipse 70% 45% at 85% 0%, rgba(196,166,245,0.13), transparent 70%), radial-gradient(ellipse 80% 50% at 0% 100%, rgba(196,166,245,0.12), transparent 70%);
-}
-:root[data-theme="ocean"] {
-  --bg: #102833;
-  --bg-card: #173440;
-  --chip: #214555;
-  --chip-hover: #2c586c;
-  --text: #eef8fb;
-  --accent: #8fd4e4;
-  --accent-text: #102833;
-  --accent-hover: #b3e4ef;
-  --border: rgba(180, 230, 240, 0.16);
-  --surface: #214555;
-  --bar: rgba(12, 32, 40, 0.96);
-  --card-border: rgba(143, 212, 228, 0.32);
-  --card-border-hover: rgba(143, 212, 228, 0.58);
-  --bg-fx: radial-gradient(circle at 91% 10%, #e6f9ff 0 9px, rgba(143,212,228,0.32) 10px, rgba(143,212,228,0.12) 58px, transparent 140px), radial-gradient(ellipse 70% 45% at 85% 0%, rgba(143,212,228,0.13), transparent 70%), radial-gradient(ellipse 80% 50% at 0% 100%, rgba(143,212,228,0.12), transparent 70%);
-}
-:root[data-theme="forest"] {
-  --bg: #17261c;
-  --bg-card: #1f3226;
-  --chip: #2a4334;
-  --chip-hover: #375644;
-  --text: #f0f7ec;
-  --accent: #a8d492;
-  --accent-text: #17261c;
-  --accent-hover: #c2e4b0;
-  --border: rgba(200, 230, 190, 0.16);
-  --surface: #2a4334;
-  --bar: rgba(16, 30, 20, 0.96);
-  --card-border: rgba(168, 212, 146, 0.32);
-  --card-border-hover: rgba(168, 212, 146, 0.58);
-  --bg-fx: radial-gradient(circle at 91% 10%, #f1ffe6 0 9px, rgba(168,212,146,0.32) 10px, rgba(168,212,146,0.12) 58px, transparent 140px), radial-gradient(ellipse 70% 45% at 85% 0%, rgba(168,212,146,0.13), transparent 70%), radial-gradient(ellipse 80% 50% at 0% 100%, rgba(168,212,146,0.12), transparent 70%);
-}
-:root[data-theme="ember"] {
-  --bg: #2a1c18;
-  --bg-card: #362420;
-  --chip: #4a322b;
-  --chip-hover: #5c4038;
-  --text: #fff6f1;
-  --accent: #f0b08a;
-  --accent-text: #2a1c18;
-  --accent-hover: #f6c6aa;
-  --border: rgba(255, 210, 190, 0.16);
-  --surface: #4a322b;
-  --bar: rgba(32, 20, 16, 0.96);
-  --card-border: rgba(240, 176, 138, 0.32);
-  --card-border-hover: rgba(240, 176, 138, 0.58);
-  --bg-fx: radial-gradient(circle at 91% 10%, #fff0e6 0 9px, rgba(240,176,138,0.32) 10px, rgba(240,176,138,0.12) 58px, transparent 140px), radial-gradient(ellipse 80% 46% at 50% 100%, rgba(240,140,90,0.22), transparent 70%);
-}
-:root[data-theme="gruvbox"] {
-  --bg: #32302f;
-  --bg-card: #3c3836;
-  --chip: #504945;
-  --chip-hover: #665c54;
-  --text: #fbf1c7;
-  --accent: #fabd2f;
-  --accent-text: #32302f;
-  --accent-hover: #fcd05c;
-  --border: rgba(251, 241, 199, 0.14);
-  --surface: #504945;
-  --bar: rgba(40, 40, 40, 0.96);
-  --card-border: rgba(213, 196, 161, 0.32);
-  --card-border-hover: rgba(213, 196, 161, 0.58);
-  --bg-fx: radial-gradient(circle at 91% 10%, #fff2c4 0 9px, rgba(250,189,47,0.32) 10px, rgba(250,189,47,0.12) 58px, transparent 140px), radial-gradient(ellipse 70% 45% at 85% 0%, rgba(250,189,47,0.13), transparent 70%), radial-gradient(ellipse 80% 50% at 0% 100%, rgba(250,189,47,0.12), transparent 70%);
-}
-:root[data-theme="sakura"] {
-  --bg: #1c1017;
-  --bg-card: #291720;
-  --chip: #3a2130;
-  --chip-hover: #4d2b41;
-  --text: #ffeef4;
-  --accent: #ff8fb8;
-  --accent-text: #2a0f1d;
-  --accent-hover: #ffa8c8;
-  --border: rgba(255, 205, 225, 0.12);
-  --surface: #3a2130;
-  --bar: rgba(24, 12, 19, 0.96);
-  --card-border: rgba(255, 143, 184, 0.32);
-  --card-border-hover: rgba(255, 143, 184, 0.65);
-  --bg-fx: radial-gradient(ellipse 70% 46% at 86% 0%, rgba(255,143,184,0.22), transparent 70%), radial-gradient(ellipse 70% 40% at 0% 100%, rgba(255,120,160,0.13), transparent 70%);
-}
-
-/* ---- theme picker ---- */
-.theme-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(112px, 1fr));
-  gap: 10px;
-}
-
-.theme-opt {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  padding: 6px 6px 9px;
-  background: var(--chip);
-  border: 1px solid var(--border);
-  border-radius: 14px;
-  color: var(--text);
-  font: inherit;
-  font-size: 13px;
-  font-weight: 700;
-  text-align: center;
-  cursor: pointer;
-  transition: transform 0.2s var(--ease), border-color 0.2s, box-shadow 0.2s, background 0.2s;
-}
-
-.theme-opt:hover {
-  background: var(--chip-hover);
-  transform: translateY(-2px);
-}
-
-.theme-opt:focus-visible {
-  outline: 2px solid var(--accent);
-  outline-offset: 2px;
-}
-
-.theme-opt.active {
-  border-color: var(--accent);
-  box-shadow: 0 0 0 1px var(--accent), 0 6px 20px -8px var(--accent);
-}
-
-.tp {
-  position: relative;
-  display: block;
-  height: 64px;
-  border-radius: 9px;
-  overflow: hidden;
-  background: var(--p-fx, none), var(--p-bg);
-  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.08);
-}
-
-.tp-title {
-  position: absolute;
-  left: 10%;
-  top: 10px;
-  width: 36%;
-  height: 5px;
-  border-radius: 3px;
-  background: var(--p-title);
-}
-
-.tp-chips {
-  position: absolute;
-  left: 10%;
-  top: 22px;
-  display: flex;
-  gap: 4px;
-}
-
-.tp-chips i {
-  display: block;
-  width: 15px;
-  height: 7px;
-  border-radius: 4px;
-  background: var(--p-chip);
-}
-
-.tp-chips i:first-child {
-  width: 19px;
-  background: var(--p-accent);
-}
-
-.tp-cards {
-  position: absolute;
-  left: 10%;
-  right: 10%;
-  bottom: 7px;
-  display: flex;
-  gap: 5px;
-}
-
-.tp-cards i {
-  display: block;
-  flex: 1;
-  height: 17px;
-  border-radius: 5px;
-  background: var(--p-card);
-  box-shadow: inset 0 0 0 1px var(--p-edge);
-}
-
-.tp-fx i {
-  position: absolute;
-  display: block;
-  border-radius: 50%;
-}
-
-.tp-check {
-  position: absolute;
-  top: 6px;
-  right: 6px;
-  width: 18px;
-  height: 18px;
-  display: grid;
-  place-items: center;
-  border-radius: 50%;
-  background: var(--accent);
-  color: var(--accent-text);
-  opacity: 0;
-  transform: scale(0.5);
-  transition: opacity 0.2s, transform 0.25s var(--ease);
-}
-
-.theme-opt.active .tp-check {
-  opacity: 1;
-  transform: scale(1);
-}
-
-.tn {
-  line-height: 1;
-  color: #fff;
-}
-
-.theme-opt.active .tn {
-  color: #fff;
-}
-
 .ad-wrap {
   width: 100%;
   max-width: var(--max-width);
@@ -1789,19 +1557,6 @@ body::before {
         <button type="button" class="modal-close" id="settings-close" aria-label="close">×</button>
       </div>
       <div class="modal-body">
-        <section class="settings-section">
-          <h3>theme</h3>
-          <div class="theme-grid" id="themeGrid" role="radiogroup" aria-label="theme">
-          <button type="button" class="theme-opt" role="radio" aria-checked="false" data-theme="default" style="--p-bg:#171a30;--p-card:#1e2240;--p-chip:#2a2f55;--p-accent:#aab8ff;--p-edge:rgba(205, 214, 255,0.16);--p-title:#d6defc;--p-fx:radial-gradient(circle at 91% 10%, #f4f6ff 0 15px, rgba(214,222,255,0.5) 16px, rgba(150,165,255,0.16) 64px, transparent 150px), radial-gradient(ellipse 70% 45% at 85% 0%, rgba(140,155,255,0.16), transparent 70%), radial-gradient(ellipse 80% 50% at 0% 100%, rgba(80,95,200,0.18), transparent 70%)"><span class="tp"><span class="tp-fx"><i style="left:62%;top:38%;width:1.5px;height:1.5px;background:#ffffff;opacity:0.78"></i><i style="left:60%;top:49%;width:2.5px;height:2.5px;background:#ffffff;opacity:0.89"></i><i style="left:46%;top:85%;width:2.0px;height:2.0px;background:#ffffff;opacity:0.65"></i><i style="left:75%;top:66%;width:1.5px;height:1.5px;background:#ffffff;opacity:0.54"></i><i style="left:31%;top:49%;width:2.0px;height:2.0px;background:#ffffff;opacity:0.86"></i><i style="left:30%;top:90%;width:1.5px;height:1.5px;background:#ffffff;opacity:0.76"></i><i style="left:19%;top:35%;width:2.5px;height:2.5px;background:#ffffff;opacity:0.71"></i><i style="left:91%;top:13%;width:2.0px;height:2.0px;background:#ffffff;opacity:0.67"></i><i style="left:36%;top:49%;width:2.5px;height:2.5px;background:#ffffff;opacity:0.53"></i><i style="left:12%;top:29%;width:1.5px;height:1.5px;background:#ffffff;opacity:0.53"></i><i style="left:67%;top:62%;width:2.5px;height:2.5px;background:#ffffff;opacity:0.64"></i><i style="left:39%;top:64%;width:1.5px;height:1.5px;background:#ffffff;opacity:0.97"></i><i style="left:36%;top:59%;width:2.5px;height:2.5px;background:#ffffff;opacity:0.53"></i><i style="left:73%;top:17%;width:1.5px;height:1.5px;background:#ffffff;opacity:0.70"></i></span><span class="tp-title"></span><span class="tp-chips"><i></i><i></i><i></i></span><span class="tp-cards"><i></i><i></i><i></i></span><span class="tp-check"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span></span><span class="tn">default</span></button>
-          <button type="button" class="theme-opt" role="radio" aria-checked="false" data-theme="purple" style="--p-bg:#241833;--p-card:#2e2142;--p-chip:#3d2c56;--p-accent:#c4a6f5;--p-edge:rgba(196,166,245,0.28);--p-title:#f6f0ff;--p-fx:radial-gradient(ellipse 80% 50% at 50% 0%, rgba(180, 150, 230, 0.55), transparent 70%)"><span class="tp"><span class="tp-fx"><i style="left:18%;top:22%;width:1.6px;height:1.6px;background:#fff;opacity:.55"></i><i style="left:42%;top:14%;width:2px;height:2px;background:#fff;opacity:.4"></i><i style="left:70%;top:28%;width:1.4px;height:1.4px;background:#fff;opacity:.6"></i><i style="left:28%;top:48%;width:1.8px;height:1.8px;background:#fff;opacity:.35"></i><i style="left:84%;top:46%;width:1.5px;height:1.5px;background:#fff;opacity:.5"></i><i style="left:55%;top:62%;width:2.1px;height:2.1px;background:#fff;opacity:.45"></i><i style="left:12%;top:70%;width:1.3px;height:1.3px;background:#fff;opacity:.5"></i><i style="left:36%;top:78%;width:1.7px;height:1.7px;background:#fff;opacity:.35"></i></span><span class="tp-title"></span><span class="tp-chips"><i></i><i></i><i></i></span><span class="tp-cards"><i></i><i></i><i></i></span><span class="tp-check"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span></span><span class="tn">purple</span></button>
-          <button type="button" class="theme-opt" role="radio" aria-checked="false" data-theme="ocean" style="--p-bg:#102833;--p-card:#173440;--p-chip:#214555;--p-accent:#8fd4e4;--p-edge:rgba(143,212,228,0.28);--p-title:#eef8fb;--p-fx:radial-gradient(ellipse 80% 46% at 50% 0%, rgba(143, 212, 228, 0.55), transparent 70%)"><span class="tp"><span class="tp-fx"><i style="left:18%;top:22%;width:1.6px;height:1.6px;background:#fff;opacity:.55"></i><i style="left:42%;top:14%;width:2px;height:2px;background:#fff;opacity:.4"></i><i style="left:70%;top:28%;width:1.4px;height:1.4px;background:#fff;opacity:.6"></i><i style="left:28%;top:48%;width:1.8px;height:1.8px;background:#fff;opacity:.35"></i><i style="left:84%;top:46%;width:1.5px;height:1.5px;background:#fff;opacity:.5"></i><i style="left:55%;top:62%;width:2.1px;height:2.1px;background:#fff;opacity:.45"></i><i style="left:12%;top:70%;width:1.3px;height:1.3px;background:#fff;opacity:.5"></i><i style="left:36%;top:78%;width:1.7px;height:1.7px;background:#fff;opacity:.35"></i></span><span class="tp-title"></span><span class="tp-chips"><i></i><i></i><i></i></span><span class="tp-cards"><i></i><i></i><i></i></span><span class="tp-check"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span></span><span class="tn">ocean</span></button>
-          <button type="button" class="theme-opt" role="radio" aria-checked="false" data-theme="forest" style="--p-bg:#17261c;--p-card:#1f3226;--p-chip:#2a4334;--p-accent:#a8d492;--p-edge:rgba(168,212,146,0.28);--p-title:#f0f7ec;--p-fx:radial-gradient(ellipse 80% 46% at 50% 0%, rgba(168, 212, 146, 0.5), transparent 70%)"><span class="tp"><span class="tp-fx"><i style="left:18%;top:22%;width:1.6px;height:1.6px;background:#fff;opacity:.55"></i><i style="left:42%;top:14%;width:2px;height:2px;background:#fff;opacity:.4"></i><i style="left:70%;top:28%;width:1.4px;height:1.4px;background:#fff;opacity:.6"></i><i style="left:28%;top:48%;width:1.8px;height:1.8px;background:#fff;opacity:.35"></i><i style="left:84%;top:46%;width:1.5px;height:1.5px;background:#fff;opacity:.5"></i><i style="left:55%;top:62%;width:2.1px;height:2.1px;background:#fff;opacity:.45"></i><i style="left:12%;top:70%;width:1.3px;height:1.3px;background:#fff;opacity:.5"></i><i style="left:36%;top:78%;width:1.7px;height:1.7px;background:#fff;opacity:.35"></i></span><span class="tp-title"></span><span class="tp-chips"><i></i><i></i><i></i></span><span class="tp-cards"><i></i><i></i><i></i></span><span class="tp-check"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span></span><span class="tn">forest</span></button>
-          <button type="button" class="theme-opt" role="radio" aria-checked="false" data-theme="ember" style="--p-bg:#2a1c18;--p-card:#362420;--p-chip:#4a322b;--p-accent:#f0b08a;--p-edge:rgba(240,176,138,0.28);--p-title:#fff6f1;--p-fx:radial-gradient(ellipse 80% 46% at 50% 100%, rgba(240, 176, 138, 0.55), transparent 70%)"><span class="tp"><span class="tp-fx"><i style="left:18%;top:22%;width:1.6px;height:1.6px;background:#fff;opacity:.55"></i><i style="left:42%;top:14%;width:2px;height:2px;background:#fff;opacity:.4"></i><i style="left:70%;top:28%;width:1.4px;height:1.4px;background:#fff;opacity:.6"></i><i style="left:28%;top:48%;width:1.8px;height:1.8px;background:#fff;opacity:.35"></i><i style="left:84%;top:46%;width:1.5px;height:1.5px;background:#fff;opacity:.5"></i><i style="left:55%;top:62%;width:2.1px;height:2.1px;background:#fff;opacity:.45"></i><i style="left:12%;top:70%;width:1.3px;height:1.3px;background:#fff;opacity:.5"></i><i style="left:36%;top:78%;width:1.7px;height:1.7px;background:#fff;opacity:.35"></i></span><span class="tp-title"></span><span class="tp-chips"><i></i><i></i><i></i></span><span class="tp-cards"><i></i><i></i><i></i></span><span class="tp-check"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span></span><span class="tn">ember</span></button>
-          <button type="button" class="theme-opt" role="radio" aria-checked="false" data-theme="gruvbox" style="--p-bg:#32302f;--p-card:#3c3836;--p-chip:#504945;--p-accent:#fabd2f;--p-edge:rgba(213,196,161,0.28);--p-title:#fbf1c7;--p-fx:none"><span class="tp"><span class="tp-fx"><i style="left:16%;top:30%;width:1.6px;height:1.6px;background:#ebc88c;opacity:.4"></i><i style="left:38%;top:18%;width:1.2px;height:1.2px;background:#ebc88c;opacity:.3"></i><i style="left:62%;top:34%;width:1.8px;height:1.8px;background:#ebc88c;opacity:.35"></i><i style="left:78%;top:52%;width:1.4px;height:1.4px;background:#ebc88c;opacity:.32"></i><i style="left:24%;top:58%;width:1.5px;height:1.5px;background:#ebc88c;opacity:.28"></i><i style="left:48%;top:72%;width:2px;height:2px;background:#ebc88c;opacity:.36"></i><i style="left:88%;top:22%;width:1.3px;height:1.3px;background:#ebc88c;opacity:.3"></i></span><span class="tp-title"></span><span class="tp-chips"><i></i><i></i><i></i></span><span class="tp-cards"><i></i><i></i><i></i></span><span class="tp-check"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span></span><span class="tn">gruvbox</span></button>
-          <button type="button" class="theme-opt" role="radio" aria-checked="false" data-theme="sakura" style="--p-bg:#1c1017;--p-card:#291720;--p-chip:#3a2130;--p-accent:#ff8fb8;--p-edge:rgba(255, 205, 225,0.16);--p-title:#ffc2d9;--p-fx:radial-gradient(ellipse 70% 46% at 86% 0%, rgba(255,143,184,0.22), transparent 70%), radial-gradient(ellipse 70% 40% at 0% 100%, rgba(255,120,160,0.13), transparent 70%)"><span class="tp"><span class="tp-fx"><i style="left:68%;top:23%;width:5.8px;background:#ffb7d1;height:3.5px;transform:rotate(111deg);opacity:.85"></i><i style="left:75%;top:35%;width:5.6px;background:#ffb7d1;height:3.4px;transform:rotate(101deg);opacity:.85"></i><i style="left:46%;top:70%;width:4.2px;background:#ffb7d1;height:2.5px;transform:rotate(40deg);opacity:.85"></i><i style="left:19%;top:17%;width:4.3px;background:#ffb7d1;height:2.6px;transform:rotate(119deg);opacity:.85"></i><i style="left:77%;top:19%;width:5.7px;background:#ffb7d1;height:3.4px;transform:rotate(121deg);opacity:.85"></i><i style="left:63%;top:36%;width:5.1px;background:#ffb7d1;height:3.1px;transform:rotate(33deg);opacity:.85"></i><i style="left:6%;top:75%;width:5.5px;background:#ffb7d1;height:3.3px;transform:rotate(26deg);opacity:.85"></i><i style="left:51%;top:86%;width:4.9px;background:#ffb7d1;height:2.9px;transform:rotate(49deg);opacity:.85"></i></span><span class="tp-title"></span><span class="tp-chips"><i></i><i></i><i></i></span><span class="tp-cards"><i></i><i></i><i></i></span><span class="tp-check"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span></span><span class="tn">sakura</span></button>
-          </div>
-        </section>
-
         <section class="settings-section">
           <h3>tab cloaking</h3>
           <select id="presetSelect">
@@ -2162,8 +1917,7 @@ if (document.readyState === "loading") {
           recent: localStorage.getItem("jm-recent"),
           collapsed: localStorage.getItem("jm-collapsed"),
           lastCat: localStorage.getItem("jm-last-cat"),
-          lastQuery: localStorage.getItem("jm-last-query"),
-          theme: localStorage.getItem("jm-theme")
+          lastQuery: localStorage.getItem("jm-last-query")
         };
         const blob = new Blob([JSON.stringify(data, null, 2)], { type: "application/json" });
         const a = document.createElement("a");
@@ -2190,7 +1944,6 @@ if (document.readyState === "loading") {
               if (d.panicKey) localStorage.setItem("panicKey", d.panicKey);
               if (d.panicUrl) localStorage.setItem("panicUrl", d.panicUrl);
               if (d.tabCloakPreset) cookie("tabCloakPreset", d.tabCloakPreset, 365);
-              if (d.theme && window.jmApplyTheme) window.jmApplyTheme(d.theme);
               if (d.favorites != null) localStorage.setItem("jm-favorites", typeof d.favorites === "string" ? d.favorites : JSON.stringify(d.favorites));
               if (d.recent != null) localStorage.setItem("jm-recent", typeof d.recent === "string" ? d.recent : JSON.stringify(d.recent));
               if (d.collapsed != null) localStorage.setItem("jm-collapsed", typeof d.collapsed === "string" ? d.collapsed : JSON.stringify(d.collapsed));
@@ -2218,7 +1971,6 @@ if (document.readyState === "loading") {
         localStorage.removeItem("jm-last-query");
         localStorage.removeItem("jm-last-play");
         localStorage.removeItem("jm-modal-open");
-        if (window.jmApplyTheme) window.jmApplyTheme("default");
         cookie("tabCloakPreset", "", -1);
         toast("cleared");
       });
@@ -2635,10 +2387,6 @@ function setCategory(cat, btn) {
   render();
 }
 
-var JM_FX = {
-  default: "stars", purple: "orbs", ocean: "bubbles",
-  forest: "fireflies", ember: "embers", gruvbox: "dust", sakura: "petals"
-};
 
 function initParticles() {
   const canvas = document.getElementById("particles");
@@ -2656,7 +2404,7 @@ function initParticles() {
   const R = function (a, b) { return a + Math.random() * (b - a); };
   const pick = function (arr) { return arr[Math.floor(Math.random() * arr.length)]; };
   function themeKind() {
-    return JM_FX[document.documentElement.getAttribute("data-theme") || "default"] || "snow";
+    return "stars";
   }
   function resize() {
     w = canvas.width = window.innerWidth;
@@ -3651,39 +3399,6 @@ window.jmPlay = { init: init, enter: enter, leave: leave };
     var btn = document.getElementById("settings-btn");
     if (btn) btn.click();
   });
-})();
-  </script>
-  <script>
-(function () {
-  var NAMES = ["default", "purple", "ocean", "forest", "ember", "gruvbox", "sakura"];
-  function apply(name) {
-    if (NAMES.indexOf(name) === -1) name = "default";
-    var root = document.documentElement;
-    if (name === "default") root.removeAttribute("data-theme");
-    else root.setAttribute("data-theme", name);
-    try {
-      if (name === "default") localStorage.removeItem("jm-theme");
-      else localStorage.setItem("jm-theme", name);
-    } catch (e) {}
-    var opts = document.querySelectorAll(".theme-opt");
-    for (var i = 0; i < opts.length; i++) {
-      var on = opts[i].getAttribute("data-theme") === name;
-      opts[i].classList.toggle("active", on);
-      opts[i].setAttribute("aria-checked", on ? "true" : "false");
-    }
-    if (window.jmFxRefresh) window.jmFxRefresh();
-  }
-  window.jmApplyTheme = apply;
-  var grid = document.getElementById("themeGrid");
-  if (grid) {
-    grid.addEventListener("click", function (e) {
-      var b = e.target.closest(".theme-opt");
-      if (b) apply(b.getAttribute("data-theme"));
-    });
-  }
-  var cur = "default";
-  try { cur = localStorage.getItem("jm-theme") || "default"; } catch (e) {}
-  apply(cur);
 })();
   </script>
 
