@@ -639,22 +639,13 @@ header {
   justify-content: flex-start;
 }
 
-.recommended .game-card {
-  width: calc(25% - 16px);
-  max-width: calc(25% - 16px);
-  height: 80px;
-  max-height: 80px;
-}
-
-.recommended .game-title {
-  font-size: 20px;
+.recommended .games-grid {
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
 }
 
 @media (max-width: 700px) {
-  .recommended .game-card {
-    width: calc(100% - 16px);
-    max-width: calc(100% - 16px);
-    height: 80px;
+  .recommended .games-grid {
+    grid-template-columns: 1fr;
   }
 }
 
@@ -1292,7 +1283,8 @@ body::before {
 .ad-wrap {
   width: 100%;
   max-width: var(--max-width);
-  margin: 0 auto;
+  margin: 12px auto;
+  align-items: flex-start;
   padding: 10px 16px;
   box-sizing: border-box;
   display: flex;
@@ -1300,20 +1292,673 @@ body::before {
   justify-content: center;
   gap: 12px;
 }
+.ad-zone {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 16px;
+  margin: 28px auto 20px;
+  max-width: var(--max-width);
+}
+.ad-zone {
+  max-width: 100%;
+  overflow-x: clip;
+}
+.ad-zone .ad-wrap {
+  max-width: 100%;
+  width: auto;
+  margin: 0;
+  padding: 0;
+}
 .ad-unit {
   display: flex;
   align-items: center;
   justify-content: center;
   overflow: hidden;
 }
-.ad-unit-728 { width: 728px; max-width: 100%; min-height: 90px; }
-.ad-unit-468 { width: 468px; max-width: 100%; min-height: 60px; }
-.ad-unit-320 { width: 320px; max-width: 100%; min-height: 50px; }
-.ad-unit-300 { width: 300px; max-width: 100%; min-height: 250px; }
-.ad-unit-160 { width: 160px; min-height: 300px; }
-.ad-unit-160t { width: 160px; min-height: 600px; }
+.ad-unit-728 { width: 728px; max-width: 100%; }
+.ad-unit-468 { width: 468px; max-width: 100%; }
+.ad-unit-320 { width: 320px; max-width: 100%; }
+.ad-unit-300 { width: 300px; max-width: 100%; }
+.ad-unit-160 { width: 160px; }
+.ad-unit-160t { width: 160px; }
 @media (max-width: 760px) {
   .ad-unit-160, .ad-unit-160t { display: none; }
+}
+
+:root {
+  --topbar-h: 68px;
+  --side-w: 254px;
+}
+
+.topbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 30;
+  height: var(--topbar-h);
+  padding: 0 28px 0 16px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: var(--bar);
+  border-bottom: 1px solid var(--border);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  animation: none;
+}
+
+.menu-btn {
+  flex-shrink: 0;
+  width: 44px;
+  height: 44px;
+  border: 0;
+  border-radius: 12px;
+  background: transparent;
+  color: var(--text);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  padding: 0;
+  transition: background 0.2s var(--ease);
+}
+
+.menu-btn:hover {
+  background: var(--chip);
+}
+
+.menu-btn svg {
+  width: 24px;
+  height: 24px;
+}
+
+.topbar .site-title {
+  font-size: 32px;
+  line-height: 1;
+  margin: 0 18px 0 0;
+  white-space: nowrap;
+  letter-spacing: -0.02em;
+}
+
+.topbar .site-title .ver-tag {
+  font-size: 0.45em;
+  top: -0.1em;
+}
+
+.topbar .search-wrap {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: min(696px, calc(100% - 700px));
+  margin: 0;
+  min-width: 0;
+  justify-content: center;
+}
+
+.topbar .search-bar {
+  width: 100%;
+  min-width: 0;
+  max-width: none;
+  height: 46px;
+}
+
+.top-actions {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.top-actions .settings-btn {
+  width: 44px;
+  height: 44px;
+}
+
+.sidebar {
+  position: fixed;
+  top: calc(var(--topbar-h) + 14px);
+  left: 14px;
+  bottom: 14px;
+  width: var(--side-w);
+  z-index: 25;
+  background: var(--bar);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 10px;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-width: thin;
+  scrollbar-color: var(--chip) transparent;
+  transition: transform 0.3s var(--ease), opacity 0.3s var(--ease);
+}
+
+.sidebar .categories {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  gap: 4px;
+  margin: 0;
+}
+
+.sidebar .cat-btn {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  width: 100%;
+  padding: 0 14px;
+  height: 46px;
+  border: 0;
+  border-radius: 12px;
+  background: transparent;
+  color: var(--text);
+  font-size: 16px;
+  font-weight: 600;
+  text-align: left;
+  transform: none;
+}
+
+.sidebar .cat-btn:hover {
+  background: var(--chip);
+  transform: none;
+}
+
+.sidebar .cat-btn.active,
+.sidebar .cat-btn.active:hover {
+  background: var(--chip);
+  color: var(--text);
+}
+
+.cat-ico {
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+}
+
+.cat-label {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.cat-count {
+  font-size: 13px;
+  opacity: 0.75;
+}
+
+.scrim {
+  display: none;
+}
+
+#view-home .container {
+  max-width: none;
+  margin: 0;
+  padding: calc(var(--topbar-h) + 26px) 28px 0 28px;
+}
+
+#view-home .site-tagline {
+  display: none;
+}
+
+.sidebar {
+  transform: translateX(calc(-100% - 20px));
+  opacity: 0;
+  pointer-events: none;
+  z-index: 40;
+}
+
+body.side-open .sidebar {
+  transform: none;
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.scrim {
+  display: block;
+  position: fixed;
+  inset: 0;
+  z-index: 35;
+  background: rgba(8, 10, 22, 0.62);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s var(--ease);
+}
+
+body.side-open .scrim {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+body.side-open {
+  overflow: hidden;
+}
+
+.play-shell {
+  padding-top: calc(var(--topbar-h) + 18px);
+}
+
+.topbar {
+  z-index: 50;
+}
+
+#view-home .section {
+  margin-bottom: 30px;
+}
+
+#view-home .section-title {
+  font-size: 24px;
+  font-weight: 800;
+}
+
+#view-home .section-toggle {
+  width: auto;
+}
+
+#rows {
+  container-type: inline-size;
+  container-name: rows;
+}
+
+.game-card {
+  container-type: inline-size;
+  animation: none;
+  margin: 0;
+  width: auto;
+  max-width: none;
+  height: auto;
+  max-height: none;
+  aspect-ratio: 4 / 1;
+  background-color: var(--bg-card);
+}
+
+.game-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--bg-url) center / cover no-repeat;
+  opacity: 0;
+  transition: opacity 0.35s ease;
+}
+
+.game-card.bg-ready::before {
+  opacity: 1;
+}
+
+.game-card .game-title {
+  font-size: clamp(13px, 7cqw, 40px);
+  z-index: 1;
+}
+
+#view-home .section {
+  animation: none;
+  margin-bottom: 34px;
+}
+
+#view-home .section-head {
+  margin-bottom: 14px;
+}
+
+.row-wrap {
+  position: relative;
+}
+
+.row-wrap:has(> .games-row[hidden]) {
+  display: none;
+}
+
+.games-row {
+  --per: 3;
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 16px;
+  overflow-x: auto;
+  scroll-snap-type: x proximity;
+  scrollbar-width: none;
+  padding: 0;
+}
+
+.games-row::-webkit-scrollbar {
+  display: none;
+}
+
+.games-row .game-card {
+  flex: 0 0 calc((100% - (var(--per) - 1) * 16px) / var(--per));
+  scroll-snap-align: start;
+}
+
+@container rows (min-width: 1280px) {
+  .games-row { --per: 4; }
+}
+
+@container rows (max-width: 760px) {
+  .games-row { --per: 2; }
+}
+
+@container rows (max-width: 480px) {
+  .games-row { --per: 1; }
+}
+
+.row-nav {
+  position: absolute;
+  top: 50%;
+  z-index: 4;
+  width: 40px;
+  height: 40px;
+  margin-top: -20px;
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  background: var(--bar);
+  color: var(--text);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  padding: 0;
+}
+
+.row-nav:hover {
+  background: var(--chip-hover);
+}
+
+.row-nav svg {
+  width: 20px;
+  height: 20px;
+}
+
+.row-nav.prev {
+  left: -14px;
+}
+
+.row-nav.next {
+  right: -14px;
+}
+
+.row-wrap:hover .row-nav.show {
+  display: inline-flex;
+}
+
+.cat-body[hidden] {
+  display: none;
+}
+
+.cat-body > .row-wrap {
+  margin-top: 16px;
+}
+
+.games-grid.banners {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin: 0;
+}
+
+.banners .b-big {
+  grid-column: span 2;
+  grid-row: span 2;
+  aspect-ratio: auto;
+}
+
+.banners .b-big .game-title {
+  font-size: clamp(18px, 6cqw, 44px);
+}
+
+@container rows (max-width: 1279px) {
+  .games-grid.banners {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .banners .game-card:nth-child(n+7) {
+    display: none;
+  }
+}
+
+@container rows (max-width: 640px) {
+  .games-grid.banners {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .banners .b-big {
+    grid-column: 1 / -1;
+    grid-row: auto;
+    aspect-ratio: 4 / 1;
+  }
+  .banners .game-card:nth-child(n+6) {
+    display: none;
+  }
+}
+
+.games-grid:not(.games-row):not(.banners):not(.cat-body) {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 16px;
+  margin: 0;
+}
+
+@media (max-width: 900px) {
+  #view-home .container {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+  .topbar {
+    padding-right: 12px;
+    gap: 8px;
+  }
+  .topbar .search-wrap {
+    position: static;
+    transform: none;
+    width: auto;
+    flex: 1;
+  }
+  .topbar .site-title {
+    font-size: 24px;
+    margin-right: 6px;
+  }
+}
+
+@media (max-width: 640px) {
+  .topbar .site-title {
+    display: none;
+  }
+  .top-actions .discord-btn {
+    display: none;
+  }
+}
+
+:root {
+  --topbar-h: 56px;
+  --side-w: 232px;
+}
+.topbar {
+  padding: 0 20px 0 12px;
+  gap: 10px;
+}
+.menu-btn {
+  width: 38px;
+  height: 38px;
+}
+.menu-btn svg {
+  width: 20px;
+  height: 20px;
+}
+.topbar .site-title {
+  font-size: 22px;
+  margin: 0 12px 0 0;
+}
+.home-link {
+  color: inherit;
+  text-decoration: none;
+}
+.topbar .search-wrap {
+  width: min(560px, calc(100% - 560px));
+}
+.topbar .search-bar {
+  height: 40px;
+  padding: 0 16px;
+}
+.search-bar input {
+  font-size: 14px;
+}
+.top-actions {
+  gap: 8px;
+}
+.top-actions .settings-btn {
+  width: 38px;
+  height: 38px;
+}
+.top-actions .settings-btn svg {
+  width: 18px;
+  height: 18px;
+}
+.sidebar {
+  top: var(--topbar-h);
+  left: 0;
+  bottom: 0;
+  width: var(--side-w);
+  border-radius: 0;
+  border-width: 0 1px 0 0;
+  padding: 8px;
+}
+.sidebar .categories {
+  gap: 2px;
+}
+.sidebar .cat-btn {
+  height: 40px;
+  gap: 12px;
+  padding: 0 12px;
+  font-size: 14px;
+  border-radius: 10px;
+}
+.cat-ico {
+  width: 20px;
+  height: 20px;
+}
+.cat-count {
+  font-size: 12px;
+}
+#view-home .container {
+  padding: calc(var(--topbar-h) + 20px) 24px 0 24px;
+}
+.play-shell {
+  padding-top: calc(var(--topbar-h) + 16px);
+}
+#view-home .section {
+  margin-bottom: 26px;
+}
+#view-home .section-head {
+  margin-bottom: 10px;
+}
+#view-home .section-title {
+  font-size: 18px;
+}
+.section-pin svg {
+  width: 16px;
+  height: 16px;
+}
+.games-row {
+  --per: 4;
+  gap: 14px;
+}
+.games-row .game-card {
+  flex-basis: calc((100% - (var(--per) - 1) * 14px) / var(--per));
+}
+@container rows (min-width: 1500px) {
+  .games-row { --per: 5; }
+}
+@container rows (max-width: 900px) {
+  .games-row { --per: 3; }
+}
+@container rows (max-width: 640px) {
+  .games-row { --per: 2; }
+}
+@container rows (max-width: 420px) {
+  .games-row { --per: 1; }
+}
+.games-grid:not(.games-row):not(.banners):not(.cat-body) {
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 14px;
+}
+.game-card {
+  border-width: 2px;
+  border-radius: 12px;
+}
+.game-card .game-title {
+  font-size: clamp(14px, 7.4cqw, 26px);
+  padding: 0 8px;
+}
+.fav-btn {
+  top: 5px;
+  right: 5px;
+  width: 24px;
+  height: 24px;
+}
+.fav-btn svg {
+  width: 13px;
+  height: 13px;
+}
+.recommended .games-grid {
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 12px;
+}
+.site-footer {
+  font-size: 12px;
+}
+@media (max-width: 900px) {
+  #view-home .container {
+    padding-left: 14px;
+    padding-right: 14px;
+  }
+  .topbar .site-title {
+    font-size: 19px;
+  }
+  .topbar .search-wrap {
+    width: auto;
+  }
+}
+
+.ad-wrap:not(:has(.ad-live)) {
+  display: none;
+}
+.ad-zone:not(:has(.ad-live)) {
+  display: none;
+}
+.ad-zone .ad-wrap:not(:has(.ad-live)) {
+  display: none;
+}
+.ad-wrap:has(.ad-live) {
+  margin: 14px auto;
+}
+.games-row {
+  --per: 3;
+}
+@container rows (min-width: 1500px) {
+  .games-row { --per: 3; }
+}
+@container rows (max-width: 900px) {
+  .games-row { --per: 3; }
+}
+@container rows (max-width: 640px) {
+  .games-row { --per: 3; }
+}
+@container rows (max-width: 420px) {
+  .games-row { --per: 3; }
+}
+.games-grid:not(.games-row):not(.banners):not(.cat-body),
+.recommended .games-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+.game-card .game-title {
+  font-size: clamp(11px, 7.4cqw, 28px);
+}
+@media (max-width: 520px) {
+  .games-row { --per: 2; }
+  @container rows (max-width: 1000px) { .games-row { --per: 2; } }
+  .games-grid:not(.games-row):not(.banners):not(.cat-body),
+  .recommended .games-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
 }
   </style>
   <script src="https://pl31909741.profitableratecpmnetwork.com/ad/e0/f6/ade0f6e09d18cf0696d19ed91c9a96d2.js"></script>
@@ -1326,50 +1971,60 @@ body::before {
     <span>loading boii...</span>
   </div>
 
-  <div id="view-home">
-  <div class="container">
-    <header>
-      <div class="top-bar">
-        <div class="search-wrap">
-          <div class="search-bar">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
-            </svg>
-            <input type="text" id="search-input" placeholder="search through games" autocomplete="off" spellcheck="false">
-          </div>
-        </div>
+  <header class="topbar">
+    <button type="button" class="menu-btn" id="menu-btn" aria-label="toggle menu" aria-expanded="false" aria-controls="sidebar">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+    </button>
+    <h1 class="site-title"><a href="./" class="home-link" id="home-link">jaxsons math!<sup class="ver-tag">v3</sup></a></h1>
+    <div class="search-wrap">
+      <div class="search-bar">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+        </svg>
+        <input type="text" id="search-input" placeholder="search through games" autocomplete="off" spellcheck="false">
+      </div>
+    </div>
+    <div class="top-actions">
+        <a class="settings-btn discord-btn" href="https://discord.gg/7C8ykGV3YT" target="_blank" rel="noopener noreferrer" aria-label="discord" title="discord"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512" fill="currentColor"><path d="M524.531,69.836a1.5,1.5,0,0,0-.764-.7A485.065,485.065,0,0,0,404.081,32.03a1.816,1.816,0,0,0-1.923.91,337.461,337.461,0,0,0-14.9,30.6,447.848,447.848,0,0,0-134.426,0,309.541,309.541,0,0,0-15.135-30.6,1.89,1.89,0,0,0-1.924-.91A483.689,483.689,0,0,0,116.085,69.137a1.712,1.712,0,0,0-.788.676C39.068,183.651,18.186,294.69,28.43,404.354a2.016,2.016,0,0,0,.765,1.375A487.666,487.666,0,0,0,176.02,479.918a1.9,1.9,0,0,0,2.063-.676A348.2,348.2,0,0,0,208.12,430.4a1.86,1.86,0,0,0-1.019-2.588,321.173,321.173,0,0,1-45.868-21.853,1.885,1.885,0,0,1-.185-3.126c3.082-2.309,6.166-4.711,9.109-7.137a1.819,1.819,0,0,1,1.9-.256c96.229,43.917,200.41,43.917,295.5,0a1.812,1.812,0,0,1,1.924.233c2.944,2.426,6.027,4.851,9.132,7.16a1.884,1.884,0,0,1-.162,3.126,301.407,301.407,0,0,1-45.89,21.83,1.875,1.875,0,0,0-1,2.611,391.055,391.055,0,0,0,30.014,48.815,1.864,1.864,0,0,0,2.063.7A486.048,486.048,0,0,0,610.7,405.729a1.882,1.882,0,0,0,.765-1.352C623.729,277.594,590.933,167.465,524.531,69.836ZM222.491,337.58c-28.972,0-52.844-26.587-52.844-59.239S193.056,219.1,222.491,219.1c29.665,0,53.306,26.82,52.843,59.239C275.334,310.993,251.924,337.58,222.491,337.58Zm195.38,0c-28.971,0-52.843-26.587-52.843-59.239S388.437,219.1,417.871,219.1c29.667,0,53.307,26.82,52.844,59.239C470.715,310.993,447.538,337.58,417.871,337.58Z"/></svg></a>
         <button type="button" class="settings-btn" id="settings-btn" aria-label="settings" title="settings">
           <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <circle cx="12" cy="12" r="3"/>
             <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/>
           </svg>
         </button>
-        <a class="settings-btn discord-btn" href="https://discord.gg/7C8ykGV3YT" target="_blank" rel="noopener noreferrer" aria-label="discord" title="discord"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512" fill="currentColor"><path d="M524.531,69.836a1.5,1.5,0,0,0-.764-.7A485.065,485.065,0,0,0,404.081,32.03a1.816,1.816,0,0,0-1.923.91,337.461,337.461,0,0,0-14.9,30.6,447.848,447.848,0,0,0-134.426,0,309.541,309.541,0,0,0-15.135-30.6,1.89,1.89,0,0,0-1.924-.91A483.689,483.689,0,0,0,116.085,69.137a1.712,1.712,0,0,0-.788.676C39.068,183.651,18.186,294.69,28.43,404.354a2.016,2.016,0,0,0,.765,1.375A487.666,487.666,0,0,0,176.02,479.918a1.9,1.9,0,0,0,2.063-.676A348.2,348.2,0,0,0,208.12,430.4a1.86,1.86,0,0,0-1.019-2.588,321.173,321.173,0,0,1-45.868-21.853,1.885,1.885,0,0,1-.185-3.126c3.082-2.309,6.166-4.711,9.109-7.137a1.819,1.819,0,0,1,1.9-.256c96.229,43.917,200.41,43.917,295.5,0a1.812,1.812,0,0,1,1.924.233c2.944,2.426,6.027,4.851,9.132,7.16a1.884,1.884,0,0,1-.162,3.126,301.407,301.407,0,0,1-45.89,21.83,1.875,1.875,0,0,0-1,2.611,391.055,391.055,0,0,0,30.014,48.815,1.864,1.864,0,0,0,2.063.7A486.048,486.048,0,0,0,610.7,405.729a1.882,1.882,0,0,0,.765-1.352C623.729,277.594,590.933,167.465,524.531,69.836ZM222.491,337.58c-28.972,0-52.844-26.587-52.844-59.239S193.056,219.1,222.491,219.1c29.665,0,53.306,26.82,52.843,59.239C275.334,310.993,251.924,337.58,222.491,337.58Zm195.38,0c-28.971,0-52.843-26.587-52.843-59.239S388.437,219.1,417.871,219.1c29.667,0,53.307,26.82,52.844,59.239C470.715,310.993,447.538,337.58,417.871,337.58Z"/></svg></a>
-      </div>
-      <h1 class="site-title">jaxsons math!<sup class="ver-tag">v2</sup></h1>
-      <p class="site-tagline"></p>
-      <nav class="categories">
-        <button type="button" class="cat-btn active" data-category="all">all</button>
-        <button type="button" class="cat-btn" data-category="favorites">favorites</button>
-        <button type="button" class="cat-btn" data-category="flash">flash</button>
-        <button type="button" class="cat-btn" data-category="2 player">2 player</button>
-        <button type="button" class="cat-btn" data-category="emulator">emulator</button>
-        <button type="button" class="cat-btn" data-category="apps">apps</button>
-        <button type="button" class="cat-btn" data-category="ports">ports</button>
-        <button type="button" class="cat-btn" data-category="adventure">adventure</button>
-        <button type="button" class="cat-btn" data-category="arcade">arcade</button>
-        <button type="button" class="cat-btn" data-category="horror">horror</button>
-        <button type="button" class="cat-btn" data-category=".io">.io</button>
-        <button type="button" class="cat-btn" data-category="platformer">platformer</button>
-        <button type="button" class="cat-btn" data-category="puzzle">puzzle</button>
-        <button type="button" class="cat-btn" data-category="racing">racing</button>
-        <button type="button" class="cat-btn" data-category="rpg">rpg</button>
-        <button type="button" class="cat-btn" data-category="shooter">shooter</button>
-        <button type="button" class="cat-btn" data-category="simulation">simulation</button>
-        <button type="button" class="cat-btn" data-category="sports">sports</button>
-        <button type="button" class="cat-btn" data-category="strategy">strategy</button>
-      </nav>
-    </header>
+    </div>
+  </header>
+  <aside class="sidebar" id="sidebar" aria-label="categories">
+    <nav class="categories">
+        <button type="button" class="cat-btn active" data-category="all"><svg class="cat-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/></svg><span class="cat-label">all games</span><span class="cat-count"></span></button>
+        <button type="button" class="cat-btn" data-category="favorites"><svg class="cat-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg><span class="cat-label">favorites</span><span class="cat-count"></span></button>
+        <button type="button" class="cat-btn" data-category="flash"><svg class="cat-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"/></svg><span class="cat-label">flash</span><span class="cat-count"></span></button>
+        <button type="button" class="cat-btn" data-category="2 player"><svg class="cat-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg><span class="cat-label">2 player</span><span class="cat-count"></span></button>
+        <button type="button" class="cat-btn" data-category="emulator"><svg class="cat-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/><path d="M15 2v2M15 20v2M2 15h2M2 9h2M20 15h2M20 9h2M9 2v2M9 20v2"/></svg><span class="cat-label">emulator</span><span class="cat-count"></span></button>
+        <button type="button" class="cat-btn" data-category="apps"><svg class="cat-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M10 4v4M2 8h20M6 4v4"/></svg><span class="cat-label">apps</span><span class="cat-count"></span></button>
+        <button type="button" class="cat-btn" data-category="ports"><svg class="cat-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m7.5 4.27 9 5.15"/><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5M12 22V12"/></svg><span class="cat-label">ports</span><span class="cat-count"></span></button>
+        <button type="button" class="cat-btn" data-category=".io"><svg class="cat-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg><span class="cat-label">.io</span><span class="cat-count"></span></button>
+        <button type="button" class="cat-btn" data-category="adventure"><svg class="cat-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m8 3 4 8 5-5 5 15H2L8 3z"/></svg><span class="cat-label">adventure</span><span class="cat-count"></span></button>
+        <button type="button" class="cat-btn" data-category="arcade"><svg class="cat-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="2" width="16" height="20" rx="2"/><path d="M8 7h8M9 17h.01M15 17h.01M12 12h.01"/></svg><span class="cat-label">arcade</span><span class="cat-count"></span></button>
+        <button type="button" class="cat-btn" data-category="horror"><svg class="cat-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 10h.01M15 10h.01M12 2a8 8 0 0 0-8 8v12l3-3 2.5 2.5L12 19l2.5 2.5L17 19l3 3V10a8 8 0 0 0-8-8z"/></svg><span class="cat-label">horror</span><span class="cat-count"></span></button>
+        <button type="button" class="cat-btn" data-category="platformer"><svg class="cat-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 11h4M8 9v4M15 12h.01M18 10h.01"/><path d="M17.32 5H6.68a4 4 0 0 0-3.978 3.59C2.604 9.416 2 14.456 2 16a3 3 0 0 0 3 3c1 0 1.5-.5 2-1l1.414-1.414A2 2 0 0 1 9.828 16h4.344a2 2 0 0 1 1.414.586L17 18c.5.5 1 1 2 1a3 3 0 0 0 3-3c0-1.545-.604-6.584-.685-7.258A4 4 0 0 0 17.32 5z"/></svg><span class="cat-label">platformer</span><span class="cat-count"></span></button>
+        <button type="button" class="cat-btn" data-category="puzzle"><svg class="cat-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19.439 7.85c-.049.322.059.648.289.878l1.568 1.568c.47.47.706 1.087.706 1.704s-.235 1.233-.706 1.704l-1.611 1.611a.98.98 0 0 1-.837.276c-.47-.07-.802-.48-.968-.925a2.501 2.501 0 1 0-3.214 3.214c.446.166.855.497.925.968a.979.979 0 0 1-.276.837l-1.61 1.61a2.404 2.404 0 0 1-1.705.707 2.402 2.402 0 0 1-1.704-.706l-1.568-1.568a1.026 1.026 0 0 0-.877-.29c-.493.074-.84.504-1.02.968a2.5 2.5 0 1 1-3.237-3.237c.464-.18.894-.527.967-1.02a1.026 1.026 0 0 0-.289-.877l-1.568-1.568A2.402 2.402 0 0 1 1.998 12c0-.617.236-1.234.706-1.704L4.23 8.77c.24-.24.581-.353.917-.303.515.077.877.528 1.073 1.01a2.5 2.5 0 1 0 3.259-3.259c-.482-.196-.933-.558-1.01-1.073-.05-.336.062-.676.303-.917l1.525-1.525A2.402 2.402 0 0 1 12 1.998c.617 0 1.234.236 1.704.706l1.568 1.568c.23.23.556.338.877.29.493-.074.84-.504 1.02-.968a2.5 2.5 0 1 1 3.236 3.236c-.464.18-.894.527-.967 1.02Z"/></svg><span class="cat-label">puzzle</span><span class="cat-count"></span></button>
+        <button type="button" class="cat-btn" data-category="racing"><svg class="cat-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><path d="M4 22v-7"/></svg><span class="cat-label">racing</span><span class="cat-count"></span></button>
+        <button type="button" class="cat-btn" data-category="rpg"><svg class="cat-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 2 3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><span class="cat-label">rpg</span><span class="cat-count"></span></button>
+        <button type="button" class="cat-btn" data-category="shooter"><svg class="cat-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M22 12h-4M6 12H2M12 6V2M12 22v-4"/></svg><span class="cat-label">shooter</span><span class="cat-count"></span></button>
+        <button type="button" class="cat-btn" data-category="simulation"><svg class="cat-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg><span class="cat-label">simulation</span><span class="cat-count"></span></button>
+        <button type="button" class="cat-btn" data-category="sports"><svg class="cat-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="m12 8 4 3-1.5 4.5h-5L8 11z"/><path d="M12 2v6M16 11l5.5-1.5M14.5 15.5l3 5M9.5 15.5l-3 5M8 11 2.5 9.5"/></svg><span class="cat-label">sports</span><span class="cat-count"></span></button>
+        <button type="button" class="cat-btn" data-category="strategy"><svg class="cat-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m2 4 3 12h14l3-12-6 7-4-7-4 7-6-7z"/><path d="M5 20h14"/></svg><span class="cat-label">strategy</span><span class="cat-count"></span></button>
+    </nav>
+  </aside>
+  <div class="scrim" id="scrim"></div>
+  <div id="view-home">
+  <div class="container">
+    <p class="site-tagline"></p>
+    <noscript><p>jxmath is a free game site. turn on javascript to play.</p></noscript>
+    <main id="rows"></main>
+    <div class="ad-zone">
+
     <div class="ad-wrap">
       <div class="ad-unit ad-unit-728">
         <script>
@@ -1384,9 +2039,6 @@ body::before {
         <script src="https://www.highrevenueformat.com/73423bc7920d67ce5643893dae21559b/invoke.js"></script>
       </div>
     </div>
-
-    <noscript><p>jxmath is a free game site. turn on javascript to play.</p></noscript>
-    <main id="rows"></main>
 
     <div class="ad-wrap">
       <div class="ad-unit ad-unit-300">
@@ -1459,6 +2111,8 @@ body::before {
       </div>
     </div>
 
+    </div>
+
     <footer class="site-footer">
       all games playable on this website are complete copyright & property of their respective owners
       · <a href="https://www.profitableratecpmnetwork.com/fdeqdjx6sb?key=62864191810c26115574186bebf2c2e5" target="_blank" rel="noopener" style="color:inherit;opacity:.7;text-decoration:none">more</a>
@@ -1474,16 +2128,6 @@ body::before {
     <div class="page-transition-label">jaxsons math</div>
   </div>
   <div class="play-shell">
-    <div class="play-top">
-      <button type="button" class="back-btn" id="back-btn">back</button>
-      <button type="button" class="settings-btn play-settings" id="settings-btn-play" aria-label="settings" title="settings">
-        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <circle cx="12" cy="12" r="3"/>
-          <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/>
-        </svg>
-      </button>
-      <a class="settings-btn discord-btn play-settings" href="https://discord.gg/cPtU2QUnZ8" target="_blank" rel="noopener noreferrer" aria-label="discord" title="discord"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512" fill="currentColor"><path d="M524.531,69.836a1.5,1.5,0,0,0-.764-.7A485.065,485.065,0,0,0,404.081,32.03a1.816,1.816,0,0,0-1.923.91,337.461,337.461,0,0,0-14.9,30.6,447.848,447.848,0,0,0-134.426,0,309.541,309.541,0,0,0-15.135-30.6,1.89,1.89,0,0,0-1.924-.91A483.689,483.689,0,0,0,116.085,69.137a1.712,1.712,0,0,0-.788.676C39.068,183.651,18.186,294.69,28.43,404.354a2.016,2.016,0,0,0,.765,1.375A487.666,487.666,0,0,0,176.02,479.918a1.9,1.9,0,0,0,2.063-.676A348.2,348.2,0,0,0,208.12,430.4a1.86,1.86,0,0,0-1.019-2.588,321.173,321.173,0,0,1-45.868-21.853,1.885,1.885,0,0,1-.185-3.126c3.082-2.309,6.166-4.711,9.109-7.137a1.819,1.819,0,0,1,1.9-.256c96.229,43.917,200.41,43.917,295.5,0a1.812,1.812,0,0,1,1.924.233c2.944,2.426,6.027,4.851,9.132,7.16a1.884,1.884,0,0,1-.162,3.126,301.407,301.407,0,0,1-45.89,21.83,1.875,1.875,0,0,0-1,2.611,391.055,391.055,0,0,0,30.014,48.815,1.864,1.864,0,0,0,2.063.7A486.048,486.048,0,0,0,610.7,405.729a1.882,1.882,0,0,0,.765-1.352C623.729,277.594,590.933,167.465,524.531,69.836ZM222.491,337.58c-28.972,0-52.844-26.587-52.844-59.239S193.056,219.1,222.491,219.1c29.665,0,53.306,26.82,52.843,59.239C275.334,310.993,251.924,337.58,222.491,337.58Zm195.38,0c-28.971,0-52.843-26.587-52.843-59.239S388.437,219.1,417.871,219.1c29.667,0,53.307,26.82,52.844,59.239C470.715,310.993,447.538,337.58,417.871,337.58Z"/></svg></a>
-    </div>
     <div class="play-stage" id="stage">
       <div class="play-frame-wrap">
         <div class="frame-loader" id="frame-loader">
@@ -1604,7 +2248,10 @@ var JM_ASSETS_READY = null;
 
 function jmResolveAssets() {
   if (JM_ASSETS_READY) return JM_ASSETS_READY;
-  JM_ASSETS_READY = fetch("https://api.github.com/repos/" + JM_REPO + "/commits?per_page=1", {
+  var cached = null;
+  try { cached = localStorage.getItem("jm-sha"); } catch (e) {}
+  if (cached && !/^[0-9a-f]{40}$/.test(cached)) cached = null;
+  var refresh = fetch("https://api.github.com/repos/" + JM_REPO + "/commits?per_page=1", {
     headers: { Accept: "application/vnd.github+json" }
   })
     .then(function (r) {
@@ -1614,24 +2261,63 @@ function jmResolveAssets() {
     .then(function (data) {
       var sha = data && data[0] && data[0].sha;
       if (!sha) throw new Error("no commit");
-      JM_ASSETS = "https://cdn.jsdelivr.net/gh/" + JM_REPO + "@" + sha;
-      return JM_ASSETS;
+      try { localStorage.setItem("jm-sha", sha); } catch (e) {}
+      return sha;
     });
+  var pick = cached ? Promise.resolve(cached) : refresh.catch(function () { return "main"; });
+  if (cached) refresh.catch(function () {});
+  JM_ASSETS_READY = pick.then(function (sha) {
+    JM_ASSETS = "https://cdn.jsdelivr.net/gh/" + JM_REPO + "@" + sha;
+    return JM_ASSETS;
+  });
   return JM_ASSETS_READY;
 }
+
+function jmLoadBg(el) {
+  var u = el.getAttribute("data-bg");
+  if (!u) return;
+  el.removeAttribute("data-bg");
+  var safe = "url('" + u.replace(/'/g, "%27") + "')";
+  if (!el.classList.contains("game-card")) { el.style.backgroundImage = safe; return; }
+  var img = new Image();
+  img.onload = img.onerror = function () {
+    el.style.setProperty("--bg-url", safe);
+    el.classList.add("bg-ready");
+  };
+  img.src = u;
+}
+
+function jmLoadWithin(root) {
+  var list = root.querySelectorAll("[data-bg]");
+  for (var i = 0; i < list.length; i++) jmLoadBg(list[i]);
+}
+
+var JM_SECTION_IO = ("IntersectionObserver" in window) ? new IntersectionObserver(function (entries) {
+  entries.forEach(function (en) {
+    if (!en.isIntersecting) return;
+    JM_SECTION_IO.unobserve(en.target);
+    jmLoadWithin(en.target);
+  });
+}, { rootMargin: "2400px 0px" }) : null;
 
 var JM_BG_IO = ("IntersectionObserver" in window) ? new IntersectionObserver(function (entries) {
   entries.forEach(function (en) {
     if (!en.isIntersecting) return;
-    var el = en.target;
-    JM_BG_IO.unobserve(el);
-    var u = el.getAttribute("data-bg");
-    if (u) { el.style.backgroundImage = "url('" + u.replace(/'/g, "%27") + "')"; el.removeAttribute("data-bg"); }
+    JM_BG_IO.unobserve(en.target);
+    jmLoadBg(en.target);
   });
-}, { rootMargin: "600px 0px" }) : null;
+}, { rootMargin: "1200px 0px" }) : null;
+
+function jmObserveSections(root) {
+  var secs = root.querySelectorAll(".section");
+  for (var i = 0; i < secs.length; i++) {
+    if (JM_SECTION_IO) JM_SECTION_IO.observe(secs[i]);
+    else jmLoadWithin(secs[i]);
+  }
+}
 
 function jmLazyBg(el, url) {
-  if (!JM_BG_IO) { el.style.backgroundImage = "url('" + String(url).replace(/'/g, "%27") + "')"; return; }
+  if (!JM_BG_IO) { el.setAttribute("data-bg", String(url)); jmLoadBg(el); return; }
   el.setAttribute("data-bg", String(url));
   JM_BG_IO.observe(el);
 }
@@ -1643,7 +2329,7 @@ var JM_SW_READY = (function () {
   }).then(function () { return true; });
   return Promise.race([
     reg,
-    new Promise(function (res) { setTimeout(function () { res(false); }, 6000); })
+    new Promise(function (res) { setTimeout(function () { res(false); }, 2500); })
   ]).catch(function () { return false; });
 })();
 
@@ -2258,7 +2944,8 @@ function gameIndex(game) {
   return 0;
 }
 
-function gridSection(title, games) {
+function gridSection(title, games, opts) {
+  opts = opts || {};
   const section = document.createElement("section");
   section.className = "section";
   const head = document.createElement("div");
@@ -2269,7 +2956,7 @@ function gridSection(title, games) {
   toggle.type = "button";
   toggle.className = "section-toggle";
   const label = document.createElement("span");
-  label.textContent = title + " (" + games.length + ")";
+  label.textContent = opts.count === false ? title : title + " (" + games.length + ")";
   const pin = document.createElement("span");
   pin.className = "section-pin";
   pin.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>';
@@ -2278,7 +2965,7 @@ function gridSection(title, games) {
   h2.appendChild(toggle);
   head.appendChild(h2);
   const grid = document.createElement("div");
-  grid.className = "games-grid";
+  grid.className = false ? "cat-body" : "games-grid" + (opts.kind === "banner" ? " banners" : opts.kind ? " games-row " + opts.kind : "");
   grid.hidden = collapsedSections.indexOf(title) !== -1;
   toggle.setAttribute("aria-expanded", String(!grid.hidden));
   toggle.setAttribute("aria-label", (grid.hidden ? "expand " : "collapse ") + title);
@@ -2293,12 +2980,76 @@ function gridSection(title, games) {
     toggle.setAttribute("aria-label", (grid.hidden ? "expand " : "collapse ") + title);
     toggle.title = (grid.hidden ? "expand " : "collapse ") + title;
   });
-  games.forEach(function (g, i) {
-    grid.appendChild(createCard(g, i));
-  });
   section.appendChild(head);
-  section.appendChild(grid);
+  if (false) {
+    grid.appendChild(bannerGrid(opts.banner));
+    if (games.length) {
+      var rest = document.createElement("div");
+      rest.className = "games-grid games-row " + (opts.kind || "wide");
+      games.forEach(function (g, i) { rest.appendChild(createCard(g, i)); });
+      grid.appendChild(rowWrap(rest));
+    }
+    section.appendChild(grid);
+    return section;
+  }
+  if (opts.kind === "banner") {
+    fillBanners(grid, games);
+  } else {
+    games.forEach(function (g, i) {
+      grid.appendChild(createCard(g, i));
+    });
+  }
+  if (opts.kind && opts.kind !== "banner") {
+    section.appendChild(rowWrap(grid));
+  } else {
+    section.appendChild(grid);
+  }
   return section;
+}
+
+function fillBanners(grid, games) {
+  games.slice(0, 9).forEach(function (g, i) {
+    var c = createCard(g, i);
+    if (i === 0) c.classList.add("b-big");
+    grid.appendChild(c);
+  });
+}
+
+function bannerGrid(games) {
+  var g = document.createElement("div");
+  g.className = "games-grid banners";
+  fillBanners(g, games);
+  return g;
+}
+
+function rowWrap(grid) {
+  var wrap = document.createElement("div");
+  wrap.className = "row-wrap";
+  var chev = function (d) {
+    return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="' + d + '"/></svg>';
+  };
+  var prev = document.createElement("button");
+  prev.type = "button";
+  prev.className = "row-nav prev";
+  prev.setAttribute("aria-label", "scroll left");
+  prev.innerHTML = chev("m15 6-6 6 6 6");
+  var next = document.createElement("button");
+  next.type = "button";
+  next.className = "row-nav next";
+  next.setAttribute("aria-label", "scroll right");
+  next.innerHTML = chev("m9 6 6 6-6 6");
+  function sync() {
+    prev.classList.toggle("show", grid.scrollLeft > 8);
+    next.classList.toggle("show", grid.scrollLeft + grid.clientWidth < grid.scrollWidth - 8);
+  }
+  prev.addEventListener("click", function () { grid.scrollBy({ left: -grid.clientWidth * 0.9, behavior: "smooth" }); });
+  next.addEventListener("click", function () { grid.scrollBy({ left: grid.clientWidth * 0.9, behavior: "smooth" }); });
+  grid.addEventListener("scroll", sync, { passive: true });
+  wrap.addEventListener("mouseenter", sync);
+  wrap.appendChild(prev);
+  wrap.appendChild(grid);
+  wrap.appendChild(next);
+  return wrap;
 }
 
 function updateCategoryCounts() {
@@ -2317,8 +3068,8 @@ function updateCategoryCounts() {
         if (g.category === cat || (Array.isArray(g.categories) && g.categories.indexOf(cat) !== -1)) n++;
       }
     }
-    var label = cat;
-    btn.textContent = label + " (" + n + ")";
+    var c = btn.querySelector(".cat-count");
+    if (c) c.textContent = n;
   }
 }
 
@@ -2338,17 +3089,65 @@ function setSearchPlaceholder() {
   }
 }
 
+var POPULAR_RANK = ["minecraft [v1.8]", "slope", "subway surfers", "basketball stars", "retro bowl", "1v1lol", "drift hunters", "cookie clicker", "geometry dash lite", "happy wheels", "fireboy and watergirl", "bitlife", "motox3m", "basketball legends", "bouncy basketball", "run 3", "stickman hook", "paper.io", "crossy road", "temple run 2", "snow rider 3d", "monkey mart", "friday night funkin", "fnaf 1", "bowmasters", "tunnel rush", "ovo", "drive mad", "tiny fishing", "flappy bird", "2048", "tetris", "pacman", "getting over it", "buckshot roulette", "stick war", "age of war", "vex 3", "vex 6", "papa's pizzaria", "super mario 64", "pokemon emerald", "infinite craft", "rooftop snipers", "ragdoll hit", "house of hazards", "bad ice cream", "fancy pants adventure", "the impossible quiz", "run 2", "duck life 4", "super hot", "doodle jump", "fruit ninja", "wordle", "snake", "gun mayhem", "basket random", "soccer random", "volleyball random", "boxing random", "among us fangame", "geometry dash sky", "stick war: legacy", "hill climb racing lite", "moto x3m 2", "mob control", "chess classic", "8 ball classic", "pool", "1 on 1 soccer", "rocket soccer", "territorial.io", "hole.io", "yohoho.io", "paper.io 3d", "snow battle.io", "state.io", "shell shockers", "krunker", "super mario bros", "pokemon fire red", "the legend of zelda", "kirby's dream land", "doom", "portal", "celeste", "backrooms 2d", "five nights at epsteins", "skibidi toilet 1v100", "baldi's basics", "pizza tower", "the binding of isaac", "sonic the hedgehog", "ecco the dolphin", "theme hotel", "townscaper", "sandtrix", "shop empire", "monster brawl", "clicker heroes", "bob the robber 2", "papa louie", "papa's freezeria", "burrito bison", "learn to fly", "raft wars", "cluster rush", "dadish", "slope ball", "temple run 2", "tag", "race"];
+var HOME_ROWS = ["flash", "2 player", "platformer", "arcade", "adventure", "shooter", "racing", "puzzle", "strategy", "rpg", "simulation", "sports", "horror", ".io", "emulator", "ports"];
+
+function inCategory(g, cat) {
+  return g.category === cat || (Array.isArray(g.categories) && g.categories.indexOf(cat) !== -1);
+}
+
+function topPopular(list, n) {
+  var picked = [];
+  POPULAR_RANK.forEach(function (t) {
+    if (picked.length >= n) return;
+    for (var i = 0; i < list.length; i++) {
+      if (String(list[i].title).toLowerCase() === t && picked.indexOf(list[i]) === -1) { picked.push(list[i]); return; }
+    }
+  });
+  for (var j = 0; j < list.length && picked.length < n; j++) {
+    if (picked.indexOf(list[j]) === -1) picked.push(list[j]);
+  }
+  return picked;
+}
+
+function renderHome(root) {
+  var playable = allGames.filter(function (g) { return !inCategory(g, "apps"); });
+  var top = topPopular(playable, 12);
+  if (top.length) root.appendChild(gridSection("popular games", top, { kind: "compact", count: false }));
+  var fresh = playable.slice(0, 14);
+  if (fresh.length) root.appendChild(gridSection("new games", fresh, { kind: "compact", count: false }));
+  HOME_ROWS.forEach(function (cat) {
+    var list = groupRelated(allGames.filter(function (g) { return inCategory(g, cat); }));
+    if (!list.length) return;
+    var ordered = topPopular(list, list.length);
+    root.appendChild(gridSection(cat, ordered, { kind: "compact" }));
+  });
+}
+
 function render() {
   const root = document.getElementById("rows");
   if (!root) return;
   root.innerHTML = "";
+  renderInner(root);
+  jmObserveSections(root);
+}
+
+function renderInner(root) {
   var showRecent =
     currentCategory === "all" && !currentQuery && recentIds.length > 0;
   if (showRecent) {
     var recent = getRecentGames();
     if (recent.length) {
-      root.appendChild(gridSection("recently played", recent));
+      root.appendChild(gridSection("recently played", recent, { kind: "compact" }));
     }
+  }
+  if (currentCategory === "all" && !currentQuery && favorites.length > 0) {
+    var favGames = allGames.filter(function (g) { return isFavorite(g.id); });
+    if (favGames.length) root.appendChild(gridSection("favorites", favGames, { kind: "compact" }));
+  }
+  if (currentCategory === "all" && !currentQuery) {
+    renderHome(root);
+    return;
   }
   const filtered = groupRelated(allGames.filter(matches));
   if (filtered.length === 0) {
@@ -2384,7 +3183,11 @@ function setCategory(cat, btn) {
     );
   });
   saveViewState();
+  document.body.classList.remove("side-open");
+  var pv = document.getElementById("view-play");
+  if (pv && !pv.hidden && typeof goHome === "function") goHome();
   render();
+  window.scrollTo(0, 0);
 }
 
 
@@ -2738,6 +3541,27 @@ function init() {
       setCategory(btn.getAttribute("data-category") || "all", btn);
     });
   }
+  const homeLink = document.getElementById("home-link");
+  if (homeLink) homeLink.addEventListener("click", function (e) {
+    e.preventDefault();
+    var allBtn = document.querySelector('.cat-btn[data-category="all"]');
+    var s = document.getElementById("search-input");
+    if (s) s.value = "";
+    currentQuery = "";
+    setCategory("all", allBtn);
+  });
+  const menuBtn = document.getElementById("menu-btn");
+  const setSide = function (open) {
+    document.body.classList.toggle("side-open", open);
+    if (menuBtn) menuBtn.setAttribute("aria-expanded", String(open));
+  };
+  if (menuBtn) menuBtn.addEventListener("click", function () { setSide(!document.body.classList.contains("side-open")); });
+  const scrim = document.getElementById("scrim");
+  if (scrim) scrim.addEventListener("click", function () { setSide(false); });
+  document.addEventListener("keydown", function (e) {
+    if (e.key === "Escape") setSide(false);
+  });
+  window.jmCloseSide = function () { setSide(false); };
   const search = document.getElementById("search-input");
   if (search) {
     try { var qp = new URLSearchParams(location.search).get("q"); if (qp) currentQuery = qp.trim().toLowerCase(); } catch (e) {}
@@ -2745,6 +3569,8 @@ function init() {
     search.addEventListener("input", function (e) {
       currentQuery = e.target.value.trim().toLowerCase();
       saveViewState();
+      var pv = document.getElementById("view-play");
+      if (pv && !pv.hidden && typeof goHome === "function") goHome();
       render();
     });
   }
@@ -2911,6 +3737,11 @@ function jmWatchReady(frame, token) {
   var t0 = Date.now();
   var stable = 0;
   if (jmReadyTimer) clearInterval(jmReadyTimer);
+  setTimeout(function () {
+    if (token !== jmGameToken) return;
+    if (loader) loader.classList.remove("active");
+    if (label) label.textContent = base;
+  }, 700);
   jmReadyTimer = setInterval(function () {
     if (token !== jmGameToken) { clearInterval(jmReadyTimer); jmReadyTimer = null; return; }
     var waited = Date.now() - t0;
@@ -3314,6 +4145,9 @@ function show(game) {
     }
     jmFrameOnLoad = onLoad;
     frame.addEventListener("load", onLoad);
+    setTimeout(function () {
+      if (token === jmGameToken && loader) loader.classList.remove("active");
+    }, 6000);
 
     jmLoadGame(frame, game, token);
   } else {
@@ -3402,6 +4236,25 @@ window.jmPlay = { init: init, enter: enter, leave: leave };
 })();
   </script>
 
+<script>
+(function () {
+  var tries = 0;
+  function scan() {
+    var units = document.querySelectorAll(".ad-unit, [id^='container-']");
+    for (var i = 0; i < units.length; i++) {
+      var u = units[i];
+      var f = u.querySelector("iframe, img, ins");
+      if ((f && f.getBoundingClientRect().height > 10) || u.getBoundingClientRect().height > 10) {
+        u.classList.add("ad-live");
+        var w = u.closest(".ad-wrap");
+        if (w) w.classList.add("ad-live");
+      }
+    }
+    if (++tries < 20) setTimeout(scan, 1000);
+  }
+  window.addEventListener("load", function () { setTimeout(scan, 800); });
+})();
+</script>
   <script src="https://pl31909744.profitableratecpmnetwork.com/b6/e4/89/b6e489ab07f638f349fbaafb25137bc6.js"></script>
 </body>
 </html>
