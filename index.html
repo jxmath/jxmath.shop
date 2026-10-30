@@ -1950,7 +1950,7 @@ body.side-open {
   grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 .game-card .game-title {
-  font-size: clamp(11px, 7.4cqw, 28px);
+  font-size: clamp(11px, 6.4cqw, 24px);
 }
 @media (max-width: 520px) {
   .games-row { --per: 2; }
@@ -1958,6 +1958,54 @@ body.side-open {
   .games-grid:not(.games-row):not(.banners):not(.cat-body),
   .recommended .games-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.game-card[style*="--d"] {
+  animation: card-rise 0.28s ease-out both;
+  animation-delay: calc(var(--d, 0) * 14ms);
+}
+@keyframes card-rise {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: none; }
+}
+.game-card {
+  transition: border-color 0.15s ease;
+}
+.game-card:hover {
+  transform: none;
+  box-shadow: none;
+}
+.game-card:hover::before {
+  transform: none;
+}
+.sidebar {
+  transition: transform 0.2s ease-out, opacity 0.2s ease-out;
+}
+.scrim {
+  transition: opacity 0.2s ease-out;
+}
+.recommended .game-card {
+  animation: none;
+}
+.play-frame-wrap {
+  animation: none;
+}
+#view-home .container,
+.play-shell {
+  max-width: 1180px;
+  margin-left: 60px;
+  margin-right: 20px;
+  padding-left: 0;
+  padding-right: 0;
+  width: auto;
+}
+@media (max-width: 900px) {
+  #view-home .container,
+  .play-shell {
+    max-width: none;
+    margin-left: 14px;
+    margin-right: 14px;
   }
 }
   </style>
@@ -3130,6 +3178,18 @@ function render() {
   root.innerHTML = "";
   renderInner(root);
   jmObserveSections(root);
+  jmStagger(root);
+}
+
+function jmStagger(root) {
+  var n = 0, vh = window.innerHeight;
+  var cards = root.querySelectorAll(".game-card");
+  for (var i = 0; i < cards.length && n < 18; i++) {
+    var r = cards[i].getBoundingClientRect();
+    if (r.top > vh) continue;
+    if (r.right < 0 || r.left > window.innerWidth) continue;
+    cards[i].style.setProperty("--d", n++);
+  }
 }
 
 function renderInner(root) {
@@ -3185,9 +3245,11 @@ function setCategory(cat, btn) {
   saveViewState();
   document.body.classList.remove("side-open");
   var pv = document.getElementById("view-play");
-  if (pv && !pv.hidden && typeof goHome === "function") goHome();
-  render();
-  window.scrollTo(0, 0);
+  jmVT(function () {
+    if (pv && !pv.hidden) goHomeNow();
+    render();
+    window.scrollTo(0, 0);
+  });
 }
 
 
@@ -3482,7 +3544,15 @@ function initParticles() {
   });
 }
 
+function jmVT(fn) {
+  fn();
+}
+
 function goHome() {
+  jmVT(goHomeNow);
+}
+
+function goHomeNow() {
   const home = document.getElementById("view-home");
   const play = document.getElementById("view-play");
   if (home) home.hidden = false;
@@ -3501,6 +3571,10 @@ function goHome() {
 }
 
 function goPlay(game) {
+  jmVT(function () { goPlayNow(game); });
+}
+
+function goPlayNow(game) {
   if (!game || !game.id) return;
   pushRecent(game.id);
   currentPlayGame = game;
@@ -3550,6 +3624,7 @@ function init() {
     currentQuery = "";
     setCategory("all", allBtn);
   });
+  document.querySelectorAll(".sidebar .cat-btn").forEach(function (b, i) { b.style.setProperty("--i", i); });
   const menuBtn = document.getElementById("menu-btn");
   const setSide = function (open) {
     document.body.classList.toggle("side-open", open);
