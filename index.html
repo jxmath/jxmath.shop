@@ -3161,14 +3161,17 @@ function topPopular(list, n) {
 function renderHome(root) {
   var playable = allGames.filter(function (g) { return !inCategory(g, "apps"); });
   var top = topPopular(playable, 12);
-  if (top.length) root.appendChild(gridSection("popular games", top, { kind: "compact", count: false }));
+  if (top.length) root.appendChild(gridSection("popular games", top, { kind: "compact" }));
   var fresh = playable.slice(0, 14);
-  if (fresh.length) root.appendChild(gridSection("new games", fresh, { kind: "compact", count: false }));
-  HOME_ROWS.forEach(function (cat) {
+  if (fresh.length) root.appendChild(gridSection("new games", fresh, { kind: "compact" }));
+  var cats = HOME_ROWS.slice();
+  allGames.forEach(function (g) {
+    (g.categories || []).forEach(function (c) { if (c !== "apps" && cats.indexOf(c) === -1) cats.push(c); });
+  });
+  cats.forEach(function (cat) {
     var list = groupRelated(allGames.filter(function (g) { return inCategory(g, cat); }));
     if (!list.length) return;
-    var ordered = topPopular(list, list.length);
-    root.appendChild(gridSection(cat, ordered, { kind: "compact" }));
+    root.appendChild(gridSection(cat, list, { kind: "compact" }));
   });
 }
 
@@ -4208,10 +4211,20 @@ function show(game) {
           const t = (doc.title || "").toLowerCase();
           const h1 = doc.querySelector("h1");
           const h1t = h1 ? (h1.textContent || "").trim() : "";
-          if (t.indexOf("404") !== -1 || h1t === "404") {
+          if (t === "404" && h1t === "404") {
+            if ((frame._jmTry = (frame._jmTry || 0) + 1) <= 3) {
+              frame.addEventListener("load", onLoad);
+              jmFrameOnLoad = onLoad;
+              setTimeout(function () {
+                if (token === jmGameToken) frame.src = jmGameUrl(game) + (jmGameUrl(game).indexOf("?") === -1 ? "?r=" : "&r=") + frame._jmTry;
+              }, 400 * frame._jmTry);
+              return;
+            }
+            frame._jmTry = 0;
             go404();
             return;
           }
+          frame._jmTry = 0;
         }
         muteAlerts(frame.contentWindow);
         applyFrameVolume();

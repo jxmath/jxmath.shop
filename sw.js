@@ -1,7 +1,7 @@
 var CDN = "https://cdn.jsdelivr.net/gh/jxmath/assets@";
 var SCOPE = new URL("./", self.registration.scope).pathname;
 var PFX = SCOPE + "_g/";
-var CACHE = "jm-games-v1";
+var CACHE = "jm-games-v2";
 var CACHE_MAX = 64 * 1024 * 1024;
 
 var TYPES = {
@@ -16,7 +16,23 @@ var TYPES = {
   map: "application/json"
 };
 
+var HOSTS = ["https://cdn.jsdelivr.net/gh/jxmath/assets@", "https://fastly.jsdelivr.net/gh/jxmath/assets@", "https://gcore.jsdelivr.net/gh/jxmath/assets@", "https://cdn.jsdelivr.net/gh/jxmath/assets@"];
 var partsCache = {};
+
+function cfetch(sha, path, opts) {
+  var i = 0;
+  function go() {
+    var h = HOSTS[i];
+    return fetch(h + sha + "/" + path, opts).then(function (r) {
+      if (r.ok || r.status === 206 || r.status === 404 && i >= 1) return r;
+      throw new Error("s" + r.status);
+    }).catch(function (e) {
+      if (++i >= HOSTS.length) throw e;
+      return new Promise(function (ok) { setTimeout(ok, 150 * i); }).then(go);
+    });
+  }
+  return go();
+}
 
 self.addEventListener("install", function () { self.skipWaiting(); });
 self.addEventListener("activate", function (e) { e.waitUntil(self.clients.claim()); });
@@ -30,9 +46,9 @@ function typeFor(path, fallback) {
 
 function getParts(sha) {
   if (!partsCache[sha]) {
-    partsCache[sha] = fetch(CDN + sha + "/parts.json")
-      .then(function (r) { return r.ok ? r.json() : {}; })
-      .catch(function () { return {}; });
+    partsCache[sha] = cfetch(sha, "parts.json")
+      .then(function (r) { return r.json(); })
+      .catch(function () { delete partsCache[sha]; return {}; });
   }
   return partsCache[sha];
 }
@@ -88,8 +104,7 @@ function assemble(sha, path, info, req) {
         if (idx >= jobs.length) { ctrl.close(); return; }
         var j = jobs[idx++];
         var dir = path.slice(0, path.lastIndexOf("/") + 1);
-        var url = CDN + sha + "/" + encodeURI(dir + j.name);
-        return fetch(url).then(function (r) {
+        return cfetch(sha, encodeURI(dir + j.name)).then(function (r) {
           if (!r.ok) throw new Error("part " + r.status);
           if (j.whole) { reader = r.body.getReader(); return next(); }
           return r.arrayBuffer().then(function (b) {
@@ -115,11 +130,10 @@ function serve(req, sha, path) {
   return getParts(sha).then(function (parts) {
     var info = parts[path];
     if (info) return assemble(sha, path, info, req);
-    var url = CDN + sha + "/" + encodeURI(path);
     var hdr = {};
     var rg = req.headers.get("range");
     if (rg) hdr.range = rg;
-    return fetch(url, { headers: hdr }).then(function (r) {
+    return cfetch(sha, encodeURI(path), { headers: hdr }).then(function (r) {
       if (!r.ok && r.status !== 206) return r;
       var ct = typeFor(path, r.headers.get("content-type"));
       if (/\.html?$/i.test(path) && r.status === 200) {
