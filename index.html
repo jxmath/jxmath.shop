@@ -2011,21 +2011,35 @@ body.side-open {
 }
   
 html[data-season="christmas"] {
-  --bg: #1f1215;
-  --bg-card: #2d1a1e;
-  --text: #fff3ef;
-  --chip: #4d222a;
-  --chip-hover: #632c36;
-  --accent: #ff5a5a;
-  --accent-hover: #ff7d7d;
-  --accent-text: #1a0808;
-  --surface: #4d222a;
-  --bar: rgba(26, 9, 12, 0.96);
-  --card-border: rgba(255, 90, 90, 0.42);
-  --card-border-hover: rgba(255, 120, 120, 0.85);
-  --border: rgba(255, 220, 215, 0.15);
-  --bg-fx: radial-gradient(ellipse 75% 50% at 85% 0%, rgba(255,70,70,0.26), transparent 70%), radial-gradient(ellipse 80% 50% at 0% 100%, rgba(220,40,60,0.24), transparent 70%), radial-gradient(ellipse 50% 35% at 50% 100%, rgba(50,160,100,0.14), transparent 70%);
+  --bg: #0f2a1f;
+  --bg-card: #17392a;
+  --text: #fff6e8;
+  --chip: #21503a;
+  --chip-hover: #2b634a;
+  --accent: #ef4b52;
+  --accent-hover: #ff6d73;
+  --accent-text: #fff;
+  --surface: #21503a;
+  --bar: rgba(9, 30, 21, 0.97);
+  --card-border: rgba(255, 232, 190, 0.34);
+  --card-border-hover: rgba(239, 75, 82, 0.95);
+  --border: rgba(255, 240, 215, 0.16);
+  --bg-fx: radial-gradient(ellipse 70% 50% at 92% 0%, rgba(239,75,82,0.3), transparent 70%), radial-gradient(ellipse 80% 55% at 0% 100%, rgba(60,190,120,0.2), transparent 70%), radial-gradient(ellipse 50% 40% at 100% 100%, rgba(239,75,82,0.14), transparent 70%);
 }
+html[data-season="christmas"] .topbar { border-bottom: 0; }
+html[data-season="christmas"] .settings-btn, html[data-season="christmas"] .menu-btn { background: #c4333b; color: #fff; }
+html[data-season="christmas"] .settings-btn:hover, html[data-season="christmas"] .menu-btn:hover { background: #ef4b52; }
+html[data-season="christmas"] .topbar input { border-color: rgba(239, 75, 82, 0.6); }
+html[data-season="christmas"] .topbar [class*="search"] { border-color: rgba(239, 75, 82, 0.6); }
+html[data-season="christmas"] .topbar::after {
+  content: "";
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  height: 4px;
+  background: repeating-linear-gradient(-45deg, #ef4b52 0 10px, #fff6e8 10px 20px);
+  opacity: 0.9;
+}
+html[data-season="christmas"] .section-title, html[data-season="christmas"] .row-title { color: #ffe9c9; }
 html[data-season="halloween"] {
   --bg: #1a1226;
   --bg-card: #261a38;
