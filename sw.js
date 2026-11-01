@@ -1,7 +1,7 @@
 var CDN = "https://cdn.jsdelivr.net/gh/jxmath/assets@";
 var SCOPE = new URL("./", self.registration.scope).pathname;
 var PFX = SCOPE + "_g/";
-var CACHE = "jm-games-v2";
+var CACHE = "jm-games-v3";
 var CACHE_MAX = 64 * 1024 * 1024;
 
 var TYPES = {
@@ -54,7 +54,7 @@ function getParts(sha) {
 }
 
 function syncShim(sha) {
-  return "<script>(function(){var o=XMLHttpRequest.prototype.open,p=" + JSON.stringify(PFX + sha + "/") + ",c=" + JSON.stringify(CDN + sha + "/") +
+  return "<script>(function(){try{navigator.serviceWorker.register=function(){return new Promise(function(){})}}catch(e){}var o=XMLHttpRequest.prototype.open,p=" + JSON.stringify(PFX + sha + "/") + ",c=" + JSON.stringify(CDN + sha + "/") +
     ";XMLHttpRequest.prototype.open=function(m,u,a){if(a===false&&typeof u===\"string\"){try{var x=new URL(u,document.baseURI);if(x.origin===location.origin&&x.pathname.indexOf(p)===0){arguments[1]=c+x.pathname.slice(p.length)+x.search}}catch(e){}}return o.apply(this,arguments)}})();<\/script>";
 }
 

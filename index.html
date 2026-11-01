@@ -2036,8 +2036,8 @@ html[data-season="christmas"] .topbar::after {
   opacity: 0.9;
 }
 html[data-season="christmas"] .topbar { padding-bottom: 14px; }
-html[data-season="christmas"] { --head: #ffe9c9; }
-html[data-season="halloween"] { --head: #ffd9a8; }
+html[data-season="christmas"] { --head: #fff; }
+html[data-season="halloween"] { --head: #fff; }
 html[data-season] .site-title, html[data-season] .site-title .ver-tag { color: var(--head); -webkit-text-fill-color: var(--head); }
 html[data-season] .section-title, html[data-season] .section-title *, html[data-season] .recommended-title, html[data-season] .row-title { color: var(--head); }
 html[data-season="halloween"] {
@@ -2483,6 +2483,12 @@ function jmLazyBg(el, url) {
   el.setAttribute("data-bg", String(url));
   JM_BG_IO.observe(el);
 }
+
+try {
+  if ("serviceWorker" in navigator) navigator.serviceWorker.getRegistrations().then(function (rs) {
+    rs.forEach(function (r) { if (r.scope.indexOf("/_g/") !== -1) r.unregister(); });
+  }).catch(function () {});
+} catch (e) {}
 
 var JM_SW_READY = (function () {
   if (!("serviceWorker" in navigator) || !window.isSecureContext) return Promise.resolve(false);
@@ -3877,7 +3883,7 @@ function jmLoadGame(frame, game, token) {
   });
 }
 
-var JM_PARTS_SHIM = "(function(P,R){function k(u){try{var h=new URL(u,document.baseURI).href;return h.indexOf(R)===0?decodeURIComponent(h.slice(R.length).split('?')[0].split('#')[0]):null}catch(e){return null}}"
+var JM_PARTS_SHIM = "(function(P,R){try{navigator.serviceWorker.register=function(){return new Promise(function(){})}}catch(e){}function k(u){try{var h=new URL(u,document.baseURI).href;return h.indexOf(R)===0?decodeURIComponent(h.slice(R.length).split('?')[0].split('#')[0]):null}catch(e){return null}}"
 + "function g(r){var i=P[r],d=r.slice(0,r.lastIndexOf('/')+1);return Promise.all(i.parts.map(function(n){return fetch(R+encodeURI(d+n)).then(function(x){if(!x.ok)throw new Error(x.status);return x.arrayBuffer()})})).then(function(a){var t=new Uint8Array(i.size),o=0;a.forEach(function(b){t.set(new Uint8Array(b),o);o+=b.byteLength});return t.buffer})}"
 + "var T={wasm:'application/wasm',js:'application/javascript',json:'application/json',swf:'application/x-shockwave-flash'};"
 + "var f=window.fetch;window.fetch=function(u,o){var r=k(typeof u==='string'?u:(u&&u.url)||u);if(r&&P[r])return g(r).then(function(b){var e=(r.split('.').pop()||'').toLowerCase();return new Response(b,{status:200,headers:{'content-type':T[e]||'application/octet-stream'}})});return f.apply(this,arguments)};"
@@ -3906,9 +3912,7 @@ function jmLoadGameDoc(frame, game, token) {
       if (token !== jmGameToken) return;
       var all = res[1] || {}, mine = {};
       Object.keys(all).forEach(function (k) { if (k.indexOf(rel) === 0) mine[k] = all[k]; });
-      var extra = Object.keys(mine).length
-        ? "<script>" + JM_PARTS_SHIM + "(" + JSON.stringify(mine) + "," + JSON.stringify(root) + ")<\/script>"
-        : "";
+      var extra = "<script>" + JM_PARTS_SHIM + "(" + JSON.stringify(mine) + "," + JSON.stringify(root) + ")<\/script>";
       var html = jmInjectBase(res[0], dir, extra);
       var doc = frame.contentDocument || (frame.contentWindow && frame.contentWindow.document);
       doc.open();
