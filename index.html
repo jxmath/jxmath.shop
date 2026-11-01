@@ -2035,7 +2035,10 @@ html[data-season="christmas"] .topbar::after {
   background: repeating-linear-gradient(-45deg, #ef4b52 0 10px, #fff6e8 10px 20px);
   opacity: 0.9;
 }
-html[data-season="christmas"] .section-title, html[data-season="christmas"] .row-title { color: #ffe9c9; }
+html[data-season="christmas"] .topbar { padding-bottom: 14px; }
+html[data-season="christmas"] { --head: #ffe9c9; }
+html[data-season="halloween"] { --head: #ffd9a8; }
+html[data-season] .section-title, html[data-season] .section-title *, html[data-season] .recommended-title, html[data-season] .row-title { color: var(--head); }
 html[data-season="halloween"] {
   --bg: #1a1226;
   --bg-card: #261a38;
