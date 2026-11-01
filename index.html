@@ -3877,18 +3877,39 @@ function jmLoadGame(frame, game, token) {
   });
 }
 
+var JM_PARTS_SHIM = "(function(P,R){function k(u){try{var h=new URL(u,document.baseURI).href;return h.indexOf(R)===0?decodeURIComponent(h.slice(R.length).split('?')[0].split('#')[0]):null}catch(e){return null}}"
++ "function g(r){var i=P[r],d=r.slice(0,r.lastIndexOf('/')+1);return Promise.all(i.parts.map(function(n){return fetch(R+encodeURI(d+n)).then(function(x){if(!x.ok)throw new Error(x.status);return x.arrayBuffer()})})).then(function(a){var t=new Uint8Array(i.size),o=0;a.forEach(function(b){t.set(new Uint8Array(b),o);o+=b.byteLength});return t.buffer})}"
++ "var T={wasm:'application/wasm',js:'application/javascript',json:'application/json',swf:'application/x-shockwave-flash'};"
++ "var f=window.fetch;window.fetch=function(u,o){var r=k(typeof u==='string'?u:(u&&u.url)||u);if(r&&P[r])return g(r).then(function(b){var e=(r.split('.').pop()||'').toLowerCase();return new Response(b,{status:200,headers:{'content-type':T[e]||'application/octet-stream'}})});return f.apply(this,arguments)};"
++ "var O=XMLHttpRequest.prototype.open,S=XMLHttpRequest.prototype.send;XMLHttpRequest.prototype.open=function(m,u){this.__r=k(String(u));return O.apply(this,arguments)};"
++ "XMLHttpRequest.prototype.send=function(){var x=this,r=x.__r;if(!r||!P[r])return S.apply(x,arguments);g(r).then(function(b){var rt=x.responseType,v=b;if(rt===''||rt==='text')v=new TextDecoder().decode(b);else if(rt==='blob')v=new Blob([b]);else if(rt==='json')v=JSON.parse(new TextDecoder().decode(b));function d(n,val){Object.defineProperty(x,n,{configurable:true,get:function(){return val}})}d('readyState',4);d('status',200);d('statusText','OK');d('response',v);if(rt===''||rt==='text')d('responseText',v);x.dispatchEvent(new Event('readystatechange'));var pe=typeof ProgressEvent==='function'?new ProgressEvent('progress',{lengthComputable:true,loaded:b.byteLength,total:b.byteLength}):new Event('progress');x.dispatchEvent(pe);x.dispatchEvent(new Event('load'));x.dispatchEvent(new Event('loadend'))}).catch(function(){Object.defineProperty(x,'readyState',{configurable:true,get:function(){return 4}});Object.defineProperty(x,'status',{configurable:true,get:function(){return 404}});x.dispatchEvent(new Event('readystatechange'));x.dispatchEvent(new Event('error'));x.dispatchEvent(new Event('loadend'))})}})";
+
+function jmFetchRetry(url, signal, tries) {
+  return fetch(url, { signal: signal }).then(function (r) {
+    if (r.ok) return r;
+    throw new Error("s" + r.status);
+  }).catch(function (e) {
+    if (signal && signal.aborted || tries <= 1) throw e;
+    return new Promise(function (ok) { setTimeout(ok, 300); }).then(function () { return jmFetchRetry(url, signal, tries - 1); });
+  });
+}
+
 function jmLoadGameDoc(frame, game, token) {
   var dir = gameDir(game);
   var ctl = new AbortController();
   jmGameAbort = ctl;
-  fetch(dir + "index.html", { signal: ctl.signal })
-    .then(function (r) {
-      if (!r.ok) throw new Error("game " + r.status);
-      return r.text();
-    })
-    .then(function (html) {
+  var root = String(JM_ASSETS) + "/";
+  var rel = dir.slice(root.length);
+  var partsReq = jmFetchRetry(root + "parts.json", ctl.signal, 2).then(function (r) { return r.json(); }).catch(function () { return {}; });
+  Promise.all([jmFetchRetry(dir + "index.html", ctl.signal, 3).then(function (r) { return r.text(); }), partsReq])
+    .then(function (res) {
       if (token !== jmGameToken) return;
-      html = jmInjectBase(html, dir);
+      var all = res[1] || {}, mine = {};
+      Object.keys(all).forEach(function (k) { if (k.indexOf(rel) === 0) mine[k] = all[k]; });
+      var extra = Object.keys(mine).length
+        ? "<script>" + JM_PARTS_SHIM + "(" + JSON.stringify(mine) + "," + JSON.stringify(root) + ")<\/script>"
+        : "";
+      var html = jmInjectBase(res[0], dir, extra);
       var doc = frame.contentDocument || (frame.contentWindow && frame.contentWindow.document);
       doc.open();
       doc.write(html);
