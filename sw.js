@@ -1,7 +1,7 @@
 var CDN = "https://cdn.jsdelivr.net/gh/jxmath/assets@";
 var SCOPE = new URL("./", self.registration.scope).pathname;
 var PFX = SCOPE + "_g/";
-var CACHE = "jm-games-v3";
+var CACHE = "jm-games-v4";
 var CACHE_MAX = 64 * 1024 * 1024;
 
 var TYPES = {
@@ -16,26 +16,52 @@ var TYPES = {
   map: "application/json"
 };
 
-var HOSTS = ["https://cdn.jsdelivr.net/gh/jxmath/assets@", "https://fastly.jsdelivr.net/gh/jxmath/assets@", "https://gcore.jsdelivr.net/gh/jxmath/assets@", "https://cdn.jsdelivr.net/gh/jxmath/assets@"];
+var HOSTS = [
+  function (sha, p) { return "https://cdn.jsdelivr.net/gh/jxmath/assets@" + sha + "/" + p; },
+  function (sha, p) { return "https://fastly.jsdelivr.net/gh/jxmath/assets@" + sha + "/" + p; },
+  function (sha, p) { return "https://raw.githubusercontent.com/jxmath/assets/" + sha + "/" + p; },
+  function (sha, p) { return "https://cdn.jsdelivr.net/gh/jxmath/assets@main/" + p; },
+  function (sha, p) { return "https://gcore.jsdelivr.net/gh/jxmath/assets@" + sha + "/" + p; }
+];
 var partsCache = {};
 
-function cfetch(sha, path, opts) {
-  var i = 0;
-  function go() {
-    var h = HOSTS[i];
-    return fetch(h + sha + "/" + path, opts).then(function (r) {
-      if (r.ok || r.status === 206 || r.status === 404 && i >= 1) return r;
-      throw new Error("s" + r.status);
-    }).catch(function (e) {
-      if (++i >= HOSTS.length) throw e;
-      return new Promise(function (ok) { setTimeout(ok, 150 * i); }).then(go);
-    });
-  }
-  return go();
+function attempt(make, sha, path, opts) {
+  var ctl = new AbortController();
+  var timer = setTimeout(function () { ctl.abort(); }, 12000);
+  var o = {};
+  for (var k in opts) o[k] = opts[k];
+  o.signal = ctl.signal;
+  return fetch(make(sha, path), o).then(function (r) {
+    if (r.ok || r.status === 206) { clearTimeout(timer); return r; }
+    clearTimeout(timer);
+    throw new Error("s" + r.status);
+  }, function (e) { clearTimeout(timer); throw e; });
 }
 
-self.addEventListener("install", function () { self.skipWaiting(); });
-self.addEventListener("activate", function (e) { e.waitUntil(self.clients.claim()); });
+function cfetch(sha, path, opts) {
+  opts = opts || {};
+  return new Promise(function (resolve, reject) {
+    var launched = 0, failed = 0, done = false, errs = [], timer = null;
+    function launch() {
+      if (done || launched >= HOSTS.length) return;
+      var make = HOSTS[launched++];
+      attempt(make, sha, path, opts).then(function (r) {
+        if (done) return;
+        done = true; clearTimeout(timer);
+        resolve(r);
+      }, function (e) {
+        errs.push(e);
+        failed++;
+        if (done) return;
+        if (failed >= HOSTS.length) { done = true; clearTimeout(timer); reject(errs[0]); return; }
+        launch();
+      });
+      clearTimeout(timer);
+      if (launched < HOSTS.length) timer = setTimeout(launch, 2500);
+    }
+    launch();
+  });
+}
 
 function typeFor(path, fallback) {
   var m = /\.([a-z0-9]+)$/i.exec(path.split("?")[0]);
@@ -54,7 +80,7 @@ function getParts(sha) {
 }
 
 function syncShim(sha) {
-  return "<script>(function(){try{navigator.serviceWorker.register=function(){return new Promise(function(){})}}catch(e){}var o=XMLHttpRequest.prototype.open,p=" + JSON.stringify(PFX + sha + "/") + ",c=" + JSON.stringify(CDN + sha + "/") +
+  return "<script>(function(){try{navigator.serviceWorker.register=function(){return Promise.reject(new Error(\"blocked\"))}}catch(e){}var o=XMLHttpRequest.prototype.open,p=" + JSON.stringify(PFX + sha + "/") + ",c=" + JSON.stringify(CDN + sha + "/") +
     ";XMLHttpRequest.prototype.open=function(m,u,a){if(a===false&&typeof u===\"string\"){try{var x=new URL(u,document.baseURI);if(x.origin===location.origin&&x.pathname.indexOf(p)===0){arguments[1]=c+x.pathname.slice(p.length)+x.search}}catch(e){}}return o.apply(this,arguments)}})();<\/script>";
 }
 

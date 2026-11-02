@@ -3883,7 +3883,7 @@ function jmLoadGame(frame, game, token) {
   });
 }
 
-var JM_PARTS_SHIM = "(function(P,R){try{navigator.serviceWorker.register=function(){return new Promise(function(){})}}catch(e){}function k(u){try{var h=new URL(u,document.baseURI).href;return h.indexOf(R)===0?decodeURIComponent(h.slice(R.length).split('?')[0].split('#')[0]):null}catch(e){return null}}"
+var JM_PARTS_SHIM = "(function(P,R){try{navigator.serviceWorker.register=function(){return Promise.reject(new Error('blocked'))}}catch(e){}function k(u){try{var h=new URL(u,document.baseURI).href;return h.indexOf(R)===0?decodeURIComponent(h.slice(R.length).split('?')[0].split('#')[0]):null}catch(e){return null}}"
 + "function g(r){var i=P[r],d=r.slice(0,r.lastIndexOf('/')+1);return Promise.all(i.parts.map(function(n){return fetch(R+encodeURI(d+n)).then(function(x){if(!x.ok)throw new Error(x.status);return x.arrayBuffer()})})).then(function(a){var t=new Uint8Array(i.size),o=0;a.forEach(function(b){t.set(new Uint8Array(b),o);o+=b.byteLength});return t.buffer})}"
 + "var T={wasm:'application/wasm',js:'application/javascript',json:'application/json',swf:'application/x-shockwave-flash'};"
 + "var f=window.fetch;window.fetch=function(u,o){var r=k(typeof u==='string'?u:(u&&u.url)||u);if(r&&P[r])return g(r).then(function(b){var e=(r.split('.').pop()||'').toLowerCase();return new Response(b,{status:200,headers:{'content-type':T[e]||'application/octet-stream'}})});return f.apply(this,arguments)};"
