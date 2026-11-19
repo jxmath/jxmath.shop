@@ -80,7 +80,7 @@ function getParts(sha) {
 }
 
 function syncShim(sha) {
-  return "<script>(function(){try{navigator.serviceWorker.register=function(){return Promise.reject(new Error(\"blocked\"))}}catch(e){}var o=XMLHttpRequest.prototype.open,p=" + JSON.stringify(PFX + sha + "/") + ",c=" + JSON.stringify(CDN + sha + "/") +
+  return "<script>(function(){try{navigator.serviceWorker.register=function(){return Promise.reject(new Error(\"blocked\"))}}catch(e){}try{var N=function(k){var m=/^https?:\\/\\/[^\\/]+\\/_g\\/[^\\/]+\\/([^?#:]*)(?:[?#][^:]*)?:(.*)$/.exec(String(k));return m?'jm:'+m[1]+':'+m[2]:String(k)},S=Storage.prototype,g=S.getItem,t=S.setItem,r=S.removeItem;S.getItem=function(k){var n=N(k),v=g.call(this,n);return v===null&&n!==k?g.call(this,k):v};S.setItem=function(k,v){return t.call(this,N(k),v)};S.removeItem=function(k){return r.call(this,N(k))}}catch(e){}var o=XMLHttpRequest.prototype.open,p=" + JSON.stringify(PFX + sha + "/") + ",c=" + JSON.stringify(CDN + sha + "/") +
     ";XMLHttpRequest.prototype.open=function(m,u,a){if(a===false&&typeof u===\"string\"){try{var x=new URL(u,document.baseURI);if(x.origin===location.origin&&x.pathname.indexOf(p)===0){arguments[1]=c+x.pathname.slice(p.length)+x.search}}catch(e){}}return o.apply(this,arguments)}})();<\/script>";
 }
 

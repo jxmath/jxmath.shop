@@ -2759,6 +2759,187 @@ if (document.readyState === "loading") {
     }
   }
 
+  function jmNormKey(k) {
+    var m = /^https?:\/\/[^\/]+\/_g\/[^\/]+\/([^?#:]*)(?:[?#][^:]*)?:(.*)$/.exec(k);
+    return m ? "jm:" + m[1] + ":" + m[2] : k;
+  }
+
+  function jmCollectStorage() {
+    var out = {}, legacy = {};
+    for (var i = 0; i < localStorage.length; i++) {
+      var k = localStorage.key(i);
+      if (k.indexOf("jm-") === 0 || k === "panicKey" || k === "panicUrl") continue;
+      var n = jmNormKey(k), v = localStorage.getItem(k);
+      if (n === k) out[k] = v; else legacy[n] = v;
+    }
+    Object.keys(legacy).forEach(function (n) { if (!(n in out)) out[n] = legacy[n]; });
+    return out;
+  }
+
+  function jmB64(u8) {
+    var s = "";
+    for (var i = 0; i < u8.length; i += 8192) s += String.fromCharCode.apply(null, u8.subarray(i, i + 8192));
+    return btoa(s);
+  }
+
+  function jmUnB64(str) {
+    var s = atob(str), u = new Uint8Array(s.length);
+    for (var i = 0; i < s.length; i++) u[i] = s.charCodeAt(i);
+    return u;
+  }
+
+  function jmEnc(v) {
+    if (v === null || v === undefined) return null;
+    var t = typeof v;
+    if (t === "string" || t === "boolean") return v;
+    if (t === "number") return isFinite(v) ? v : { $t: "num", v: String(v) };
+    if (v instanceof Date) return { $t: "date", v: v.getTime() };
+    if (v instanceof ArrayBuffer) return { $t: "ab", d: jmB64(new Uint8Array(v)) };
+    if (ArrayBuffer.isView(v)) return { $t: "view", c: v.constructor.name, d: jmB64(new Uint8Array(v.buffer, v.byteOffset, v.byteLength)) };
+    if (Array.isArray(v)) return { $t: "arr", v: v.map(jmEnc) };
+    if (t === "object") {
+      var o = {};
+      Object.keys(v).forEach(function (k) { o[k] = jmEnc(v[k]); });
+      return { $t: "obj", v: o };
+    }
+    return null;
+  }
+
+  function jmDec(v) {
+    if (v === null || typeof v !== "object") return v;
+    switch (v.$t) {
+      case "num": return Number(v.v);
+      case "date": return new Date(v.v);
+      case "ab": return jmUnB64(v.d).buffer;
+      case "view": {
+        var u = jmUnB64(v.d), C = window[v.c];
+        return C === DataView ? new DataView(u.buffer) : new C(u.buffer);
+      }
+      case "arr": return v.v.map(jmDec);
+      case "obj": {
+        var o = {};
+        Object.keys(v.v).forEach(function (k) { o[k] = jmDec(v.v[k]); });
+        return o;
+      }
+    }
+    return null;
+  }
+
+  function jmDumpIDB() {
+    if (!window.indexedDB || !indexedDB.databases) return Promise.resolve([]);
+    return indexedDB.databases().then(function (list) {
+      return Promise.all(list.filter(function (d) { return d.name && d.name.indexOf("jm-") !== 0; }).map(function (info) {
+        return new Promise(function (res) {
+          var rq = indexedDB.open(info.name);
+          rq.onerror = function () { res(null); };
+          rq.onblocked = function () { res(null); };
+          rq.onsuccess = function () {
+            var db = rq.result, names = Array.prototype.slice.call(db.objectStoreNames);
+            if (!names.length) { db.close(); res({ name: info.name, version: db.version, stores: [] }); return; }
+            var tx, stores = [];
+            try { tx = db.transaction(names, "readonly"); } catch (e) { db.close(); res(null); return; }
+            names.forEach(function (sn) {
+              var st = tx.objectStore(sn);
+              var meta = {
+                name: sn, keyPath: st.keyPath, autoIncrement: st.autoIncrement, records: [],
+                indexes: Array.prototype.slice.call(st.indexNames).map(function (n) {
+                  var ix = st.index(n);
+                  return { name: n, keyPath: ix.keyPath, unique: ix.unique, multiEntry: ix.multiEntry };
+                })
+              };
+              stores.push(meta);
+              var cur = st.openCursor();
+              cur.onsuccess = function () {
+                var c = cur.result;
+                if (c) { meta.records.push({ k: jmEnc(c.key), v: jmEnc(c.value) }); c.continue(); }
+              };
+            });
+            tx.oncomplete = function () { var v = db.version; db.close(); res({ name: info.name, version: v, stores: stores }); };
+            tx.onabort = function () { db.close(); res(null); };
+          };
+        });
+      })).then(function (arr) { return arr.filter(Boolean); });
+    }).catch(function () { return []; });
+  }
+
+  function jmRestoreDB(d) {
+    return new Promise(function (resolve, reject) {
+      var probe = indexedDB.open(d.name);
+      probe.onerror = function () { reject(probe.error); };
+      probe.onsuccess = function () {
+        var db = probe.result, have = Array.prototype.slice.call(db.objectStoreNames), ver = db.version;
+        db.close();
+        var missing = d.stores.filter(function (s) { return have.indexOf(s.name) === -1; });
+        var go = function (v) {
+          var rq = indexedDB.open(d.name, v);
+          rq.onerror = function () { reject(rq.error); };
+          rq.onblocked = function () { reject(new Error("blocked")); };
+          rq.onupgradeneeded = function () {
+            var u = rq.result;
+            missing.forEach(function (s) {
+              var opts = { autoIncrement: !!s.autoIncrement };
+              if (s.keyPath !== null && s.keyPath !== undefined) opts.keyPath = s.keyPath;
+              var st = u.createObjectStore(s.name, opts);
+              (s.indexes || []).forEach(function (ix) { try { st.createIndex(ix.name, ix.keyPath, { unique: ix.unique, multiEntry: ix.multiEntry }); } catch (e) {} });
+            });
+          };
+          rq.onsuccess = function () {
+            var w = rq.result, names = d.stores.filter(function (s) { return s.records.length; }).map(function (s) { return s.name; });
+            if (!names.length) { w.close(); resolve(); return; }
+            var tx = w.transaction(names, "readwrite");
+            d.stores.forEach(function (s) {
+              if (!s.records.length) return;
+              var st = tx.objectStore(s.name), inline = s.keyPath !== null && s.keyPath !== undefined;
+              s.records.forEach(function (r) {
+                try { if (inline) st.put(jmDec(r.v)); else st.put(jmDec(r.v), jmDec(r.k)); } catch (e) {}
+              });
+            });
+            tx.oncomplete = function () { w.close(); resolve(); };
+            tx.onabort = function () { w.close(); reject(tx.error); };
+          };
+        };
+        go(missing.length ? Math.max(ver + 1, d.version || 1) : ver);
+      };
+    });
+  }
+
+  function jmRestoreIDB(list) {
+    return list.reduce(function (p, d) {
+      return p.then(function () { return jmRestoreDB(d); }).catch(function () {});
+    }, Promise.resolve());
+  }
+
+  function jmSetSaveField(text, name, arr) {
+    var enc = "a" + arr.map(function (n) { return n === 0 ? "z" : "i" + n; }).join("") + "h";
+    var key = "y" + name.length + ":" + name;
+    var re = new RegExp("(" + key + ")a(?:i-?\\d+|z|u\\d+)*h");
+    if (re.test(text)) return text.replace(re, function (m, k) { return k + enc; });
+    if (text.charAt(text.length - 1) === "g") return text.slice(0, -1) + key + enc + "g";
+    return null;
+  }
+
+  function jmApplyGameSaves(games) {
+    Object.keys(games).forEach(function (id) {
+      var spec = games[id];
+      if (!spec || !spec.save || !spec.set) return;
+      var path = "g/" + id + "/index.html";
+      var key = "jm:" + path + ":" + spec.save;
+      var cur = localStorage.getItem(key);
+      if (cur == null) {
+        for (var j = 0; j < localStorage.length; j++) {
+          var k = localStorage.key(j);
+          if (k.indexOf("/g/" + id + "/") !== -1 && k.slice(-(spec.save.length + 1)) === ":" + spec.save) { cur = localStorage.getItem(k); break; }
+        }
+      }
+      var text = cur && cur.charAt(0) === "o" ? cur : "og";
+      Object.keys(spec.set).forEach(function (f) {
+        var r = jmSetSaveField(text, f, spec.set[f]);
+        if (r != null) text = r;
+      });
+      localStorage.setItem(key, text);
+    });
+  }
+
   function bindDataUI() {
     const exp = document.getElementById("exportData");
     if (exp) {
@@ -2773,13 +2954,16 @@ if (document.readyState === "loading") {
           lastCat: localStorage.getItem("jm-last-cat"),
           lastQuery: localStorage.getItem("jm-last-query")
         };
-        const blob = new Blob([JSON.stringify(data, null, 2)], { type: "application/json" });
-        const a = document.createElement("a");
-        a.href = URL.createObjectURL(blob);
-        a.download = "jaxsons-math-data.json";
-        a.click();
-        URL.revokeObjectURL(a.href);
-        toast("exported");
+        jmDumpIDB().then(function (idb) {
+          data.gameData = { localStorage: jmCollectStorage(), indexedDB: idb };
+          const blob = new Blob([JSON.stringify(data, null, 2)], { type: "application/json" });
+          const a = document.createElement("a");
+          a.href = URL.createObjectURL(blob);
+          a.download = "jaxsons-math-data.json";
+          a.click();
+          URL.revokeObjectURL(a.href);
+          toast("exported with game saves");
+        });
       });
     }
     const imp = document.getElementById("importData");
@@ -2803,6 +2987,16 @@ if (document.readyState === "loading") {
               if (d.collapsed != null) localStorage.setItem("jm-collapsed", typeof d.collapsed === "string" ? d.collapsed : JSON.stringify(d.collapsed));
               if (d.lastCat) localStorage.setItem("jm-last-cat", d.lastCat);
               if (d.lastQuery != null) localStorage.setItem("jm-last-query", d.lastQuery);
+              if (d.games && typeof d.games === "object") jmApplyGameSaves(d.games);
+              if (d.gameData && d.gameData.localStorage) {
+                Object.keys(d.gameData.localStorage).forEach(function (k) {
+                  if (typeof d.gameData.localStorage[k] === "string") localStorage.setItem(k, d.gameData.localStorage[k]);
+                });
+              }
+              if (d.gameData && Array.isArray(d.gameData.indexedDB) && d.gameData.indexedDB.length) {
+                jmRestoreIDB(d.gameData.indexedDB).then(function () { toast("imported with game saves, reload recommended"); });
+                return;
+              }
               toast("imported, reload recommended");
             } catch (e) {
               toast("invalid file");
