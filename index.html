@@ -2937,6 +2937,9 @@ if (document.readyState === "loading") {
         if (r != null) text = r;
       });
       localStorage.setItem(key, text);
+      try {
+        if (typeof jmGameUrl === "function") localStorage.setItem(jmGameUrl({ id: id, path: path }) + ":" + spec.save, text);
+      } catch (e) {}
     });
   }
 
