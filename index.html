@@ -7,7 +7,7 @@
   <meta name="description" content="free browser games you can play at school. no downloads, no sign up. arcade, io, puzzle, racing, shooter, platformer and 2 player games.">
   <meta name="keywords" content="jxmath, jaxsons math, school games, free games, browser games, html5 games, games for school, chromebook games, 2 player games, io games, flash games">
   <meta name="robots" content="index, follow, max-image-preview:large">
-  <meta name="theme-color" content="#171a30">
+  <meta name="theme-color" content="#99cafc">
   <link rel="canonical" href="https://jxmath.shop/">
   <link rel="icon" type="image/png" href="/assets/favicon.png">
   <link rel="apple-touch-icon" href="/assets/favicon.png">
@@ -26,8 +26,10 @@
   </script>
   <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
   <link rel="dns-prefetch" href="https://api.github.com">
-  <script>(function(){try{var d=new Date(),m=d.getMonth(),n=d.getDate(),q=(location.search.match(/[?&]season=(\w+)/)||[])[1],v=q||(m===9?"halloween":(m===10||m===11&&n<=25)?"christmas":"");if(v==="halloween"||v==="christmas")document.documentElement.setAttribute("data-season",v)}catch(e){}})()</script>
   <script>try{if("scrollRestoration"in history)history.scrollRestoration="manual"}catch(e){}</script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap">
   <style>
 :root {
   --bg: #171a30;
@@ -400,6 +402,21 @@ header {
 
 .game-card:hover .game-title {
   background: transparent;
+}
+
+.tiles,
+.view-title {
+  transition: opacity 0.12s ease;
+}
+
+#rows.swap-out .tiles,
+#rows.swap-out .view-title,
+#rows.swap-out .no-results {
+  opacity: 0;
+}
+
+.view-title {
+  animation: tile-in 0.3s ease-out backwards;
 }
 
 .no-results {
@@ -2009,179 +2026,930 @@ body.side-open {
     margin-right: 14px;
   }
 }
-  
-html[data-season="christmas"] {
-  --bg: #0f2a1f;
-  --bg-card: #17392a;
-  --text: #fff6e8;
-  --chip: #21503a;
-  --chip-hover: #2b634a;
-  --accent: #ef4b52;
-  --accent-hover: #ff6d73;
-  --accent-text: #fff;
-  --surface: #21503a;
-  --bar: rgba(9, 30, 21, 0.97);
-  --card-border: rgba(255, 232, 190, 0.34);
-  --card-border-hover: rgba(239, 75, 82, 0.95);
-  --border: rgba(255, 240, 215, 0.16);
-  --bg-fx: radial-gradient(ellipse 70% 50% at 92% 0%, rgba(239,75,82,0.3), transparent 70%), radial-gradient(ellipse 80% 55% at 0% 100%, rgba(60,190,120,0.2), transparent 70%), radial-gradient(ellipse 50% 40% at 100% 100%, rgba(239,75,82,0.14), transparent 70%);
+
+:root {
+  --bg: #28313d;
+  --bg-card: #232b37;
+  --text: #ffffff;
+  --text-2: #aeb9c9;
+  --chip: #344051;
+  --chip-hover: #3e4c60;
+  --accent: #99cafc;
+  --accent-hover: #b0d8fd;
+  --accent-text: #0a1423;
+  --surface: #2f3947;
+  --surface-2: #3b475a;
+  --bar: #2f3947;
+  --border: #445265;
+  --card-border: #415166;
+  --card-border-hover: #6f86a6;
+  --radius: 10.3px;
+  --field: #3f4b5f;
+  --btn: #3b475a;
+  --btn-hover: #46556b;
+  --pill: #344051;
+  --pill-hover: #3e4c60;
+  --tag: #374253;
+  --font: Roboto, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
 }
-html[data-season="christmas"] .topbar { border-bottom: 0; }
-html[data-season="christmas"] .topbar::after {
-  content: "";
-  position: absolute;
-  left: 0; right: 0; bottom: 0;
-  height: 4px;
-  background: repeating-linear-gradient(-45deg, #ef4b52 0 10px, #fff6e8 10px 20px);
-  opacity: 0.9;
+
+html {
+  background: linear-gradient(170deg, #303a47 0%, #2b3541 45%, #28313d 100%) fixed;
+  background-color: #28313d;
 }
-html[data-season="christmas"] .topbar { padding-bottom: 14px; }
-html[data-season="christmas"] { --head: #fff; }
-html[data-season="halloween"] { --head: #fff; }
-html[data-season] .site-title, html[data-season] .site-title .ver-tag { color: var(--head); -webkit-text-fill-color: var(--head); }
-html[data-season] .section-title, html[data-season] .section-title *, html[data-season] .recommended-title, html[data-season] .row-title { color: var(--head); }
-html[data-season="halloween"] {
-  --bg: #1a1226;
-  --bg-card: #261a38;
-  --text: #f4e9ff;
-  --chip: #3a2753;
-  --chip-hover: #4a3369;
-  --accent: #ff9a3c;
-  --accent-hover: #ffb468;
-  --accent-text: #1e1006;
-  --surface: #3a2753;
-  --bar: rgba(16, 10, 26, 0.96);
-  --card-border: rgba(255, 154, 60, 0.32);
-  --card-border-hover: rgba(255, 154, 60, 0.75);
-  --border: rgba(244, 220, 255, 0.13);
-  --bg-fx: radial-gradient(circle at 91% 10%, #ffd9a0 0 15px, rgba(255,170,80,0.5) 16px, rgba(255,140,40,0.16) 64px, transparent 150px), radial-gradient(ellipse 80% 50% at 0% 100%, rgba(140,60,200,0.22), transparent 70%);
+
+body {
+  font-family: var(--font);
+  font-weight: 500;
+  color: #fff;
+  background: transparent;
+  min-height: 100vh;
 }
-html[data-season] .site-title::after {
-  margin-left: 8px;
-  font-size: 0.9em;
-  -webkit-text-fill-color: initial;
+
+body::before,
+body::after,
+#particles {
+  display: none !important;
 }
-html[data-season="christmas"] .site-title::after { content: "\1F384"; }
-html[data-season="halloween"] .site-title::after { content: "\1F383"; }
-html[data-season="christmas"] body::after {
-  content: "";
-  position: fixed;
-  inset: -100px 0 0 0;
+
+body,
+body.play-body {
+  display: flex;
+  flex-direction: column;
+}
+
+body.play-body {
+  overflow: hidden;
+  background: transparent;
+}
+
+.nav {
+  position: sticky;
+  top: 12px;
+  z-index: 40;
+  margin: 12px 31px 0;
+  padding: 0;
+  height: auto;
+  background: none;
+  border: 0;
+  box-shadow: none;
+  display: block;
+}
+
+.nav-bar {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr minmax(0, 438.6px) 1fr;
+  align-items: center;
+  height: 55px;
+  padding: 0 24.1px;
+  border-radius: 27.5px;
+  background: #2f3947;
+  border: 1px solid #445265;
+  box-shadow: 0 5.2px 13.8px rgba(10, 14, 20, 0.22), inset 0 1px 0 rgba(255, 255, 255, 0.025);
+}
+
+.brand {
+  margin: 0;
+  justify-self: start;
+  margin-left: 16.3px;
+  font-size: 23.2px;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.005em;
+}
+
+.brand a {
+  color: #fff;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.brand sup {
+  margin-left: 1.7px;
+  font-size: 12px;
+  font-weight: 500;
+  vertical-align: top;
+  position: relative;
+  top: -1.7px;
+  line-height: 1;
+}
+
+.nav-search {
+  display: flex;
+  align-items: center;
+  gap: 12.9px;
+  height: 36.1px;
+  padding: 0 17.2px 0 13.8px;
+  border-radius: 18.1px;
+  background: #3f4b5f;
+  border: 1px solid transparent;
+  transition: border-color 0.15s ease, background-color 0.15s ease;
+}
+
+.nav-search:hover {
+  background: #435064;
+}
+
+.nav-search:focus-within {
+  border-color: #99cafc;
+}
+
+.nav-search svg {
+  flex: 0 0 auto;
+  width: 18.9px;
+  height: 18.9px;
+  color: #fff;
+}
+
+.nav-search input {
+  flex: 1;
+  min-width: 0;
+  height: 100%;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  color: #fff;
+  font: 500 12.6px var(--font);
+}
+
+.nav-search input::placeholder {
+  color: rgba(255, 255, 255, 0.9);
+  opacity: 1;
+}
+
+.nav-actions {
+  justify-self: end;
+  display: flex;
+  align-items: center;
+  gap: 14.6px;
+}
+
+.nav-btn {
+  display: grid;
+  place-items: center;
+  width: 40.4px;
+  height: 40.4px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: #3b475a;
+  color: #fff;
+  cursor: pointer;
+  box-shadow: 0 3.4px 8.6px rgba(10, 14, 20, 0.28);
+  transition: background-color 0.15s ease, transform 0.15s ease;
+}
+
+.nav-btn:hover {
+  background: #46556b;
+}
+
+.nav-btn svg {
+  width: 20.6px;
+  height: 20.6px;
+}
+
+.page {
+  position: relative;
   z-index: 1;
-  pointer-events: none;
-  background-image:
-    radial-gradient(2.5px 2.5px at 10% 20%, #fff 50%, transparent 52%),
-    radial-gradient(2px 2px at 30% 60%, #fff 50%, transparent 52%),
-    radial-gradient(3px 3px at 52% 10%, #fff 50%, transparent 52%),
-    radial-gradient(2px 2px at 70% 45%, #fff 50%, transparent 52%),
-    radial-gradient(2.5px 2.5px at 88% 75%, #fff 50%, transparent 52%),
-    radial-gradient(2px 2px at 20% 90%, #fff 50%, transparent 52%),
-    radial-gradient(3px 3px at 62% 85%, #fff 50%, transparent 52%),
-    radial-gradient(2px 2px at 95% 25%, #fff 50%, transparent 52%);
-  background-size: 420px 420px;
-  opacity: 0.75;
-  animation: jm-snow 26s linear infinite;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  width: auto;
+  max-width: none;
+  margin: 0 31px;
+  padding: 18.1px 33.5px 34.4px;
+}
+
+.site-tagline {
+  display: none;
+}
+
+nav.pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 14px;
+  margin: 0 0 22px;
+  padding: 0;
+}
+
+nav.pills .cat-btn {
+  all: unset;
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 26px;
+  padding: 0 12px;
+  border-radius: 13px;
+  background: #344051;
+  color: #fff;
+  font: 700 11.8px/1 var(--font);
+  white-space: nowrap;
+  cursor: pointer;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+nav.pills .cat-btn:hover {
+  background: #3e4c60;
+}
+
+nav.pills .cat-btn:focus-visible {
+  outline: 1.7px solid #99cafc;
+  outline-offset: 1.7px;
+}
+
+nav.pills .cat-btn.active,
+nav.pills .cat-btn.active:hover {
+  background: #99cafc;
+  color: #0a1423;
+}
+
+nav.pills .cat-label,
+nav.pills .cat-count {
+  all: unset;
+  font: inherit;
+  color: inherit;
+}
+
+nav.pills .cat-count:empty {
+  display: none;
+}
+
+.view-title {
+  margin: 0 0 18.9px;
+  font-size: 24.1px;
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  color: #fff;
+  text-align: left;
+}
+
+.tiles {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 13.8px 22.4px;
+}
+
+.tile {
+  display: block;
+  min-width: 0;
+  cursor: pointer;
+  outline: 0;
+}
+
+.tile-art {
   will-change: transform;
+  backface-visibility: hidden;
+  position: relative;
+  aspect-ratio: 3.14 / 1;
+  border-radius: 10.3px;
+  border: 1px solid #415166;
+  background: #232b37 center / cover no-repeat;
+  overflow: hidden;
+  transition: transform 0.22s ease-out, border-color 0.22s ease-out;
 }
-@keyframes jm-snow {
-  from { transform: translate3d(0, 0, 0); }
-  to { transform: translate3d(-40px, 420px, 0); }
+
+.tile:hover,
+.tile:focus-visible {
+  position: relative;
+  z-index: 2;
 }
-html[data-season="halloween"] body::after {
-  content: "";
+
+.tile:hover .tile-art,
+.tile:focus-visible .tile-art {
+  transform: scale(1.045);
+  border-color: #6f86a6;
+}
+
+.tile:focus-visible .tile-art {
+  outline: 1.7px solid #99cafc;
+  outline-offset: 1.7px;
+}
+
+.tile-fav {
+  all: unset;
+  box-sizing: border-box;
+  position: absolute;
+  top: 6.9px;
+  right: 6.9px;
+  display: grid;
+  place-items: center;
+  width: 24.1px;
+  height: 24.1px;
+  border-radius: 50%;
+  background: rgba(20, 26, 36, 0.55);
+  color: rgba(255, 255, 255, 0.92);
+  cursor: pointer;
+  transition: background-color 0.15s ease, color 0.15s ease, transform 0.15s ease;
+}
+
+.tile-fav:hover {
+  background: rgba(20, 26, 36, 0.85);
+}
+
+.tile-fav:focus-visible {
+  outline: 1.7px solid #99cafc;
+}
+
+.tile-fav svg {
+  width: 12.9px;
+  height: 12.9px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linejoin: round;
+}
+
+.tile-fav.active {
+  color: #ffd166;
+}
+
+.tile-fav.active svg {
+  fill: currentColor;
+}
+
+.tile-title {
+  margin: 6.9px 0 0;
+  font-size: 16.1px;
+  font-weight: 700;
+  line-height: 1.3;
+  letter-spacing: 0;
+  color: #fff;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.tile-tags {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 8.6px;
+  margin-top: 5.2px;
+  overflow: hidden;
+}
+
+.tile-tag {
+  flex: 0 0 auto;
+  height: 22.4px;
+  padding: 0 11.2px;
+  border-radius: 11.2px;
+  background: #374253;
+  color: #eef2f8;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 22.4px;
+  white-space: nowrap;
+}
+
+.tile[style*="--d"] {
+  animation: tile-in 0.3s ease-out both;
+  animation-delay: calc(var(--d, 0) * 14ms);
+}
+
+@keyframes tile-in {
+  from { opacity: 0; transform: translateY(6.9px); }
+  to { opacity: 1; transform: none; }
+}
+
+.no-results {
+  padding: 51.6px 0;
+  text-align: center;
+  color: #aeb9c9;
+  font-size: 13.8px;
+  font-weight: 400;
+}
+
+.site-footer {
+  margin-top: auto;
+  padding: 29px 0 12px;
+  text-align: center;
+  color: #fff;
+  opacity: 1;
+  font-size: 11px;
+  font-weight: 500;
+}
+
+#view-home {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+#view-home[hidden] {
+  display: none;
+}
+
+#view-play {
   position: fixed;
-  left: 0; right: 0; bottom: 0;
-  height: 160px;
-  z-index: 0;
-  pointer-events: none;
-  background: radial-gradient(ellipse 60% 100% at 50% 130%, rgba(255,140,40,0.2), transparent 70%);
+  inset: 0;
+  z-index: 60;
+  display: flex;
+  background: linear-gradient(170deg, #303a47 0%, #2b3541 45%, #28313d 100%);
 }
-html[data-season="christmas"] body:has(#view-play:not([hidden]))::after { display: none; }
-html[data-season="halloween"] .jm-ghost {
-  position: fixed;
-  top: 0; left: 0;
-  z-index: 1;
-  pointer-events: none;
-  font-size: 34px;
+
+#view-play[hidden] {
+  display: none;
+}
+
+#view-play .page-transition,
+#view-play .recommended,
+#view-play .ad-wrap,
+#view-play .site-footer {
+  display: none !important;
+}
+
+#view-play .play-shell {
+  position: relative;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  margin: 0;
+  padding: 0;
+  animation: none;
+}
+
+#view-play .play-stage {
+  flex: 1;
+  min-height: 0;
+  width: 100%;
+  max-height: none;
+  aspect-ratio: auto;
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  background: transparent;
+  overflow: hidden;
+  flex-direction: column-reverse;
+}
+
+#view-play .play-frame-wrap {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+  width: 100%;
+  height: auto;
+  aspect-ratio: auto;
+  border-radius: 0;
+  background: transparent;
+}
+
+#view-play #play-frame {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  background: transparent;
+}
+
+#view-play #play-frame {
+  transition: opacity 0.25s ease;
+}
+
+#view-play .frame-loader.active ~ #play-frame {
   opacity: 0;
-  filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.45));
-  will-change: transform, opacity;
-  animation: jm-ghost 22s linear infinite;
 }
-@keyframes jm-ghost {
-  0% { transform: translate3d(-8vw, var(--y), 0); opacity: 0; }
-  8% { opacity: 0.55; }
-  25% { transform: translate3d(22vw, calc(var(--y) - 40px), 0); }
-  50% { transform: translate3d(50vw, calc(var(--y) + 30px), 0); }
-  75% { transform: translate3d(78vw, calc(var(--y) - 30px), 0); }
-  92% { opacity: 0.55; }
-  100% { transform: translate3d(108vw, var(--y), 0); opacity: 0; }
+
+#view-play .play-bar {
+  flex: 0 0 55px;
+  height: 55px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 13.8px;
+  padding: 0 15.5px;
+  background: #2f3947;
+  border: 0;
+  border-bottom: 1px solid #445265;
+  box-shadow: none;
 }
-html[data-season="halloween"] body:has(#view-play:not([hidden])) .jm-ghost { display: none; }
-@media (prefers-reduced-motion: reduce) { html[data-season="halloween"] .jm-ghost { display: none; } }
+
+.play-left {
+  display: flex;
+  align-items: center;
+  gap: 13.8px;
+  min-width: 0;
+}
+
+.play-close {
+  all: unset;
+  box-sizing: border-box;
+  flex: 0 0 auto;
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: #3b475a;
+  color: #fff;
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+}
+
+.play-close svg {
+  width: 15.5px;
+  height: 15.5px;
+}
+
+.play-close:hover {
+  background: #e5484d;
+}
+
+.play-close:focus-visible {
+  outline: 1.7px solid #99cafc;
+  outline-offset: 1.7px;
+}
+
+#view-play .play-bar-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 2.6px;
+  min-width: 0;
+}
+
+#view-play .play-title {
+  color: #fff;
+  font-size: 14.6px;
+  font-weight: 700;
+  line-height: 1.15;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+#view-play .play-cat {
+  color: #9fb0c6;
+  font-size: 11.2px;
+  font-weight: 500;
+  line-height: 1.1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+#view-play .play-bar-actions {
+  display: flex;
+  align-items: center;
+  gap: 10.3px;
+  flex: 0 0 auto;
+}
+
+#view-play .play-vol {
+  display: flex;
+  align-items: center;
+  gap: 6.9px;
+  height: 36.1px;
+  padding: 0 13.8px 0 5.2px;
+  border-radius: 18.1px;
+  background: #3b475a;
+}
+
+#view-play .play-vol-icon {
+  all: unset;
+  box-sizing: border-box;
+  display: grid;
+  place-items: center;
+  width: 27.5px;
+  height: 27.5px;
+  border-radius: 50%;
+  color: #fff;
+  cursor: pointer;
+}
+
+#view-play .play-vol-icon svg {
+  width: 15.5px;
+  height: 15.5px;
+}
+
+#view-play .play-vol-slider {
+  width: 79.1px;
+  accent-color: #99cafc;
+  cursor: pointer;
+}
+
+#view-play .play-action {
+  height: 36.1px;
+  padding: 0 15.5px;
+  border: 0;
+  border-radius: 18.1px;
+  background: #3b475a;
+  color: #fff;
+  font: 700 12px/1 var(--font);
+  cursor: pointer;
+  box-shadow: none;
+  transition: background-color 0.15s ease;
+}
+
+#view-play .play-action:hover {
+  background: #46556b;
+}
+
+#view-play.opening {
+  animation: jm-reveal 0.6s cubic-bezier(0.7, 0, 0.2, 1) both;
+}
+
+#view-play.closing {
+  animation: jm-conceal 0.5s cubic-bezier(0.7, 0, 0.2, 1) both;
+}
+
+@keyframes jm-reveal {
+  from { clip-path: inset(0 0 100% 0); }
+  to { clip-path: inset(0 0 0 0); }
+}
+
+@keyframes jm-conceal {
+  from { clip-path: inset(0 0 0 0); }
+  to { clip-path: inset(0 0 100% 0); }
+}
+
+.modal {
+  z-index: 200;
+}
+
+.modal-backdrop {
+  background: rgba(14, 18, 26, 0.62);
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+
+.modal-panel {
+  background: #2f3947;
+  border: 1px solid #445265;
+  border-radius: 20.6px;
+  box-shadow: 0 24.1px 60.2px rgba(6, 9, 14, 0.55);
+  color: #fff;
+}
+
+.modal-head h2,
+.settings-section h3 {
+  color: #fff;
+  font-weight: 500;
+}
+
+.modal-close {
+  background: #3b475a;
+  border: 0;
+  border-radius: 50%;
+  color: #fff;
+}
+
+.modal-close:hover {
+  background: #46556b;
+}
+
+.settings-section select,
+.settings-section input[type="text"],
+.settings-section input[type="url"] {
+  background: #3f4b5f;
+  border: 1px solid transparent;
+  border-radius: 12px;
+  color: #fff;
+  font-family: var(--font);
+  font-weight: 400;
+}
+
+.settings-section select:focus,
+.settings-section input:focus {
+  border-color: #99cafc;
+  outline: none;
+  box-shadow: none;
+}
+
+.settings-section input::placeholder {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.settings-action {
+  background: #3b475a;
+  border: 0;
+  border-radius: 17.2px;
+  color: #fff;
+  font-family: var(--font);
+  font-weight: 500;
+}
+
+.settings-action:hover {
+  background: #46556b;
+}
+
+.toggle {
+  background: #3f4b5f;
+}
+
+.toggle[aria-checked="true"] {
+  background: #99cafc;
+}
+
+.toast {
+  background: #3b475a;
+  border: 1px solid #445265;
+  border-radius: 12px;
+  color: #fff;
+  font-weight: 400;
+  box-shadow: 0 12px 29.2px rgba(6, 9, 14, 0.45);
+}
+
+.app-loader,
+.frame-loader {
+  background: #28313d;
+  color: #aeb9c9;
+}
+
+#view-play .frame-loader {
+  background: transparent;
+}
+
+.frame-notfound-code {
+  color: #fff;
+}
+
+.frame-notfound-text {
+  color: #aeb9c9;
+}
+
+::-webkit-scrollbar {
+  width: 10.3px;
+  height: 10.3px;
+}
+
+::-webkit-scrollbar-track {
+  background: #28313d;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #3b475a;
+  border: 2.6px solid #28313d;
+  border-radius: 6.9px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #4b5a72;
+}
+
+@media (max-width: 1180px) {
+  .tiles {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 860px) {
+  .nav {
+    margin: 10.3px 12px 0;
+    top: 10.3px;
+  }
+  .nav-bar {
+    display: flex;
+    gap: 12px;
+    height: 49.9px;
+    padding: 0 12px 0 18.9px;
+  }
+  .brand {
+    font-size: 18.9px;
+  }
+  .nav-search {
+    flex: 1;
+    min-width: 0;
+    height: 34.4px;
+  }
+  .nav-actions {
+    gap: 8.6px;
+  }
+  .nav-btn {
+    width: 36.1px;
+    height: 36.1px;
+  }
+  .page {
+    margin: 0 12px;
+    padding: 15.5px 6.9px 27.5px;
+  }
+  .tiles {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 15.5px 13.8px;
+  }
+}
+
+@media (max-width: 640px) {
+  nav.pills {
+    flex-wrap: nowrap;
+    gap: 8.6px;
+    overflow-x: auto;
+    margin: 0 -6.9px 18.9px;
+    padding: 0 6.9px;
+    scrollbar-width: none;
+  }
+  nav.pills::-webkit-scrollbar {
+    display: none;
+  }
+  nav.pills .cat-btn {
+    flex: 0 0 auto;
+  }
+  .tiles {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .brand sup {
+    display: none;
+  }
+  #nav-discord {
+    display: none;
+  }
+  .view-title {
+    font-size: 20.6px;
+  }
+  #view-play .play-bar {
+    padding: 0 10.3px;
+    gap: 8.6px;
+  }
+  .play-close span {
+    display: none;
+  }
+  .play-close {
+    padding: 0;
+    width: 36.1px;
+    justify-content: center;
+  }
+  #view-play .play-vol-slider,
+  #btn-blank {
+    display: none;
+  }
+  #view-play .play-vol {
+    padding: 0 4.3px;
+  }
+}
+
+@media (max-width: 480px) {
+  .brand {
+    display: none;
+  }
+  .nav-bar {
+    gap: 8.6px;
+    padding: 0 6.9px 0 6.9px;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
-  html[data-season="christmas"] body::after { animation: none; }
+  .tile[style*="--d"],
+  #view-play.opening,
+  #view-play.closing,
+
 }
 </style>
   <script src="https://pl31909741.profitableratecpmnetwork.com/ad/e0/f6/ade0f6e09d18cf0696d19ed91c9a96d2.js"></script>
 </head>
 <body>
-  <canvas id="particles"></canvas>
-
+  
   <div class="app-loader" id="app-loader" aria-label="loading">
     <div class="loading-spinner"></div>
-    <span>loading boii...</span>
+    <span>loading</span>
   </div>
 
-  <header class="topbar">
-    <button type="button" class="menu-btn" id="menu-btn" aria-label="toggle menu" aria-expanded="false" aria-controls="sidebar">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
-    </button>
-    <h1 class="site-title"><a href="./" class="home-link" id="home-link">jaxsons math!<sup class="ver-tag">v3</sup></a></h1>
-    <div class="search-wrap">
-      <div class="search-bar">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
-        </svg>
-        <input type="text" id="search-input" placeholder="search through games" autocomplete="off" spellcheck="false">
+  <header class="nav">
+    <div class="nav-bar">
+      <h1 class="brand"><a href="./" id="home-link">jaxsons math!<sup>v4</sup></a></h1>
+      <div class="nav-search">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+        <input type="text" id="search-input" placeholder="search through games" autocomplete="off" spellcheck="false" aria-label="search games">
       </div>
-    </div>
-    <div class="top-actions">
-        <a class="settings-btn discord-btn" href="https://discord.gg/7C8ykGV3YT" target="_blank" rel="noopener noreferrer" aria-label="discord" title="discord"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512" fill="currentColor"><path d="M524.531,69.836a1.5,1.5,0,0,0-.764-.7A485.065,485.065,0,0,0,404.081,32.03a1.816,1.816,0,0,0-1.923.91,337.461,337.461,0,0,0-14.9,30.6,447.848,447.848,0,0,0-134.426,0,309.541,309.541,0,0,0-15.135-30.6,1.89,1.89,0,0,0-1.924-.91A483.689,483.689,0,0,0,116.085,69.137a1.712,1.712,0,0,0-.788.676C39.068,183.651,18.186,294.69,28.43,404.354a2.016,2.016,0,0,0,.765,1.375A487.666,487.666,0,0,0,176.02,479.918a1.9,1.9,0,0,0,2.063-.676A348.2,348.2,0,0,0,208.12,430.4a1.86,1.86,0,0,0-1.019-2.588,321.173,321.173,0,0,1-45.868-21.853,1.885,1.885,0,0,1-.185-3.126c3.082-2.309,6.166-4.711,9.109-7.137a1.819,1.819,0,0,1,1.9-.256c96.229,43.917,200.41,43.917,295.5,0a1.812,1.812,0,0,1,1.924.233c2.944,2.426,6.027,4.851,9.132,7.16a1.884,1.884,0,0,1-.162,3.126,301.407,301.407,0,0,1-45.89,21.83,1.875,1.875,0,0,0-1,2.611,391.055,391.055,0,0,0,30.014,48.815,1.864,1.864,0,0,0,2.063.7A486.048,486.048,0,0,0,610.7,405.729a1.882,1.882,0,0,0,.765-1.352C623.729,277.594,590.933,167.465,524.531,69.836ZM222.491,337.58c-28.972,0-52.844-26.587-52.844-59.239S193.056,219.1,222.491,219.1c29.665,0,53.306,26.82,52.843,59.239C275.334,310.993,251.924,337.58,222.491,337.58Zm195.38,0c-28.971,0-52.843-26.587-52.843-59.239S388.437,219.1,417.871,219.1c29.667,0,53.307,26.82,52.844,59.239C470.715,310.993,447.538,337.58,417.871,337.58Z"/></svg></a>
-        <button type="button" class="settings-btn" id="settings-btn" aria-label="settings" title="settings">
-          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <div class="nav-actions">
+        <a class="nav-btn" id="nav-discord" href="https://discord.gg/7C8ykGV3YT" target="_blank" rel="noopener noreferrer" aria-label="discord" title="discord"><svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512" fill="currentColor"><path d="M524.531,69.836a1.5,1.5,0,0,0-.764-.7A485.065,485.065,0,0,0,404.081,32.03a1.816,1.816,0,0,0-1.923.91,337.461,337.461,0,0,0-14.9,30.6,447.848,447.848,0,0,0-134.426,0,309.541,309.541,0,0,0-15.135-30.6,1.89,1.89,0,0,0-1.924-.91A483.689,483.689,0,0,0,116.085,69.137a1.712,1.712,0,0,0-.788.676C39.068,183.651,18.186,294.69,28.43,404.354a2.016,2.016,0,0,0,.765,1.375A487.666,487.666,0,0,0,176.02,479.918a1.9,1.9,0,0,0,2.063-.676A348.2,348.2,0,0,0,208.12,430.4a1.86,1.86,0,0,0-1.019-2.588,321.173,321.173,0,0,1-45.868-21.853,1.885,1.885,0,0,1-.185-3.126c3.082-2.309,6.166-4.711,9.109-7.137a1.819,1.819,0,0,1,1.9-.256c96.229,43.917,200.41,43.917,295.5,0a1.812,1.812,0,0,1,1.924.233c2.944,2.426,6.027,4.851,9.132,7.16a1.884,1.884,0,0,1-.162,3.126,301.407,301.407,0,0,1-45.89,21.83,1.875,1.875,0,0,0-1,2.611,391.055,391.055,0,0,0,30.014,48.815,1.864,1.864,0,0,0,2.063.7A486.048,486.048,0,0,0,610.7,405.729a1.882,1.882,0,0,0,.765-1.352C623.729,277.594,590.933,167.465,524.531,69.836ZM222.491,337.58c-28.972,0-52.844-26.587-52.844-59.239S193.056,219.1,222.491,219.1c29.665,0,53.306,26.82,52.843,59.239C275.334,310.993,251.924,337.58,222.491,337.58Zm195.38,0c-28.971,0-52.843-26.587-52.843-59.239S388.437,219.1,417.871,219.1c29.667,0,53.307,26.82,52.844,59.239C470.715,310.993,447.538,337.58,417.871,337.58Z"/></svg></a>
+        <button type="button" class="nav-btn" id="settings-btn" aria-label="settings" title="settings"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <circle cx="12" cy="12" r="3"/>
             <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/>
-          </svg>
-        </button>
+          </svg></button>
+      </div>
     </div>
   </header>
-  <aside class="sidebar" id="sidebar" aria-label="categories">
-    <nav class="categories">
-        <button type="button" class="cat-btn active" data-category="all"><svg class="cat-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/></svg><span class="cat-label">all games</span><span class="cat-count"></span></button>
-        <button type="button" class="cat-btn" data-category="favorites"><svg class="cat-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg><span class="cat-label">favorites</span><span class="cat-count"></span></button>
-        <button type="button" class="cat-btn" data-category="flash"><svg class="cat-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"/></svg><span class="cat-label">flash</span><span class="cat-count"></span></button>
-        <button type="button" class="cat-btn" data-category="2 player"><svg class="cat-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg><span class="cat-label">2 player</span><span class="cat-count"></span></button>
-        <button type="button" class="cat-btn" data-category="emulator"><svg class="cat-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/><path d="M15 2v2M15 20v2M2 15h2M2 9h2M20 15h2M20 9h2M9 2v2M9 20v2"/></svg><span class="cat-label">emulator</span><span class="cat-count"></span></button>
-        <button type="button" class="cat-btn" data-category="apps"><svg class="cat-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M10 4v4M2 8h20M6 4v4"/></svg><span class="cat-label">apps</span><span class="cat-count"></span></button>
-        <button type="button" class="cat-btn" data-category="ports"><svg class="cat-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m7.5 4.27 9 5.15"/><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5M12 22V12"/></svg><span class="cat-label">ports</span><span class="cat-count"></span></button>
-        <button type="button" class="cat-btn" data-category=".io"><svg class="cat-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg><span class="cat-label">.io</span><span class="cat-count"></span></button>
-        <button type="button" class="cat-btn" data-category="adventure"><svg class="cat-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m8 3 4 8 5-5 5 15H2L8 3z"/></svg><span class="cat-label">adventure</span><span class="cat-count"></span></button>
-        <button type="button" class="cat-btn" data-category="arcade"><svg class="cat-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="2" width="16" height="20" rx="2"/><path d="M8 7h8M9 17h.01M15 17h.01M12 12h.01"/></svg><span class="cat-label">arcade</span><span class="cat-count"></span></button>
-        <button type="button" class="cat-btn" data-category="horror"><svg class="cat-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 10h.01M15 10h.01M12 2a8 8 0 0 0-8 8v12l3-3 2.5 2.5L12 19l2.5 2.5L17 19l3 3V10a8 8 0 0 0-8-8z"/></svg><span class="cat-label">horror</span><span class="cat-count"></span></button>
-        <button type="button" class="cat-btn" data-category="platformer"><svg class="cat-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 11h4M8 9v4M15 12h.01M18 10h.01"/><path d="M17.32 5H6.68a4 4 0 0 0-3.978 3.59C2.604 9.416 2 14.456 2 16a3 3 0 0 0 3 3c1 0 1.5-.5 2-1l1.414-1.414A2 2 0 0 1 9.828 16h4.344a2 2 0 0 1 1.414.586L17 18c.5.5 1 1 2 1a3 3 0 0 0 3-3c0-1.545-.604-6.584-.685-7.258A4 4 0 0 0 17.32 5z"/></svg><span class="cat-label">platformer</span><span class="cat-count"></span></button>
-        <button type="button" class="cat-btn" data-category="puzzle"><svg class="cat-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19.439 7.85c-.049.322.059.648.289.878l1.568 1.568c.47.47.706 1.087.706 1.704s-.235 1.233-.706 1.704l-1.611 1.611a.98.98 0 0 1-.837.276c-.47-.07-.802-.48-.968-.925a2.501 2.501 0 1 0-3.214 3.214c.446.166.855.497.925.968a.979.979 0 0 1-.276.837l-1.61 1.61a2.404 2.404 0 0 1-1.705.707 2.402 2.402 0 0 1-1.704-.706l-1.568-1.568a1.026 1.026 0 0 0-.877-.29c-.493.074-.84.504-1.02.968a2.5 2.5 0 1 1-3.237-3.237c.464-.18.894-.527.967-1.02a1.026 1.026 0 0 0-.289-.877l-1.568-1.568A2.402 2.402 0 0 1 1.998 12c0-.617.236-1.234.706-1.704L4.23 8.77c.24-.24.581-.353.917-.303.515.077.877.528 1.073 1.01a2.5 2.5 0 1 0 3.259-3.259c-.482-.196-.933-.558-1.01-1.073-.05-.336.062-.676.303-.917l1.525-1.525A2.402 2.402 0 0 1 12 1.998c.617 0 1.234.236 1.704.706l1.568 1.568c.23.23.556.338.877.29.493-.074.84-.504 1.02-.968a2.5 2.5 0 1 1 3.236 3.236c-.464.18-.894.527-.967 1.02Z"/></svg><span class="cat-label">puzzle</span><span class="cat-count"></span></button>
-        <button type="button" class="cat-btn" data-category="racing"><svg class="cat-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><path d="M4 22v-7"/></svg><span class="cat-label">racing</span><span class="cat-count"></span></button>
-        <button type="button" class="cat-btn" data-category="rpg"><svg class="cat-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 2 3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><span class="cat-label">rpg</span><span class="cat-count"></span></button>
-        <button type="button" class="cat-btn" data-category="shooter"><svg class="cat-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M22 12h-4M6 12H2M12 6V2M12 22v-4"/></svg><span class="cat-label">shooter</span><span class="cat-count"></span></button>
-        <button type="button" class="cat-btn" data-category="simulation"><svg class="cat-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg><span class="cat-label">simulation</span><span class="cat-count"></span></button>
-        <button type="button" class="cat-btn" data-category="sports"><svg class="cat-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="m12 8 4 3-1.5 4.5h-5L8 11z"/><path d="M12 2v6M16 11l5.5-1.5M14.5 15.5l3 5M9.5 15.5l-3 5M8 11 2.5 9.5"/></svg><span class="cat-label">sports</span><span class="cat-count"></span></button>
-        <button type="button" class="cat-btn" data-category="strategy"><svg class="cat-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m2 4 3 12h14l3-12-6 7-4-7-4 7-6-7z"/><path d="M5 20h14"/></svg><span class="cat-label">strategy</span><span class="cat-count"></span></button>
-    </nav>
-  </aside>
-  <div class="scrim" id="scrim"></div>
+  
   <div id="view-home">
-  <div class="container">
+  <div class="page">
+    <nav class="categories pills" aria-label="categories">
+      <button type="button" class="cat-btn active" data-category="all"><span class="cat-label">All games</span><span class="cat-count"></span></button>
+      <button type="button" class="cat-btn" data-category="favorites"><span class="cat-label">Favorites</span><span class="cat-count"></span></button>
+      <button type="button" class="cat-btn" data-category="flash"><span class="cat-label">Flash</span><span class="cat-count"></span></button>
+      <button type="button" class="cat-btn" data-category="2 player"><span class="cat-label">2 player</span><span class="cat-count"></span></button>
+      <button type="button" class="cat-btn" data-category="emulator"><span class="cat-label">Emulator</span><span class="cat-count"></span></button>
+      <button type="button" class="cat-btn" data-category="apps"><span class="cat-label">Apps</span><span class="cat-count"></span></button>
+      <button type="button" class="cat-btn" data-category="ports"><span class="cat-label">Ports</span><span class="cat-count"></span></button>
+      <button type="button" class="cat-btn" data-category=".io"><span class="cat-label">.io</span><span class="cat-count"></span></button>
+      <button type="button" class="cat-btn" data-category="adventure"><span class="cat-label">Adventure</span><span class="cat-count"></span></button>
+      <button type="button" class="cat-btn" data-category="arcade"><span class="cat-label">Arcade</span><span class="cat-count"></span></button>
+      <button type="button" class="cat-btn" data-category="horror"><span class="cat-label">Horror</span><span class="cat-count"></span></button>
+      <button type="button" class="cat-btn" data-category="platformer"><span class="cat-label">Platformer</span><span class="cat-count"></span></button>
+      <button type="button" class="cat-btn" data-category="puzzle"><span class="cat-label">Puzzle</span><span class="cat-count"></span></button>
+      <button type="button" class="cat-btn" data-category="racing"><span class="cat-label">Racing</span><span class="cat-count"></span></button>
+      <button type="button" class="cat-btn" data-category="rpg"><span class="cat-label">RPG</span><span class="cat-count"></span></button>
+      <button type="button" class="cat-btn" data-category="shooter"><span class="cat-label">Shooter</span><span class="cat-count"></span></button>
+      <button type="button" class="cat-btn" data-category="simulation"><span class="cat-label">Simulation</span><span class="cat-count"></span></button>
+      <button type="button" class="cat-btn" data-category="sports"><span class="cat-label">Sports</span><span class="cat-count"></span></button>
+      <button type="button" class="cat-btn" data-category="strategy"><span class="cat-label">Strategy</span><span class="cat-count"></span></button>
+    </nav>
     <p class="site-tagline"></p>
     <noscript><p>jxmath is a free game site. turn on javascript to play.</p></noscript>
     <main id="rows"></main>
@@ -2276,9 +3044,7 @@ html[data-season="halloween"] body:has(#view-play:not([hidden])) .jm-ghost { dis
     </div>
 
     <footer class="site-footer">
-      all games playable on this website are complete copyright & property of their respective owners
-      · <a href="https://www.profitableratecpmnetwork.com/fdeqdjx6sb?key=62864191810c26115574186bebf2c2e5" target="_blank" rel="noopener" style="color:inherit;opacity:.7;text-decoration:none">more</a>
-    </footer>
+      all games playable on this website are complete copyright & property of their respective owners</footer>
   </div>
   </div>
 
@@ -2305,9 +3071,11 @@ html[data-season="halloween"] body:has(#view-play:not([hidden])) .jm-ghost { dis
         <iframe id="play-frame" title="game" allow="autoplay; fullscreen; gamepad; clipboard-read; clipboard-write" allowfullscreen referrerpolicy="no-referrer" sandbox="allow-scripts allow-same-origin allow-forms allow-pointer-lock allow-downloads allow-popups allow-popups-to-escape-sandbox allow-orientation-lock allow-presentation"></iframe>
       </div>
       <div class="play-bar">
+        <div class="play-left">
         <div class="play-bar-meta">
           <span id="play-title" class="play-title">loading</span>
           <span id="play-cat" class="play-cat"></span>
+        </div>
         </div>
         <div class="play-bar-actions">
           <div class="play-vol" id="play-vol">
@@ -2318,6 +3086,7 @@ html[data-season="halloween"] body:has(#view-play:not([hidden])) .jm-ghost { dis
           </div>
           <button class="play-action" id="btn-full" type="button">fullscreen</button>
           <button class="play-action" id="btn-blank" type="button">open in about:blank</button>
+          <button type="button" class="play-close" id="play-close" aria-label="close game" title="close (esc)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
         </div>
       </div>
     </div>
@@ -3168,10 +3937,27 @@ function normalizeGamePath(game) {
   return path;
 }
 
+function jmCatLabel(c) {
+  c = String(c || "").trim();
+  if (c.toLowerCase() === "rpg") return "RPG";
+  return c.charAt(0).toUpperCase() + c.slice(1);
+}
+
+function jmGameCats(game) {
+  var raw = Array.isArray(game.categories) && game.categories.length ? game.categories : game.category ? [game.category] : [];
+  var seen = {}, out = [];
+  for (var i = 0; i < raw.length; i++) {
+    var c = String(raw[i] || "").trim();
+    if (!c || seen[c.toLowerCase()]) continue;
+    seen[c.toLowerCase()] = 1;
+    out.push(c);
+  }
+  return out;
+}
+
 function createCard(game, index) {
   const a = document.createElement("div");
-  a.className = "game-card";
-  a.style.animationDelay = (index % 20) * 25 + "ms";
+  a.className = "tile";
   a.setAttribute("data-id", game.id || "");
   a.setAttribute("role", "button");
   a.tabIndex = 0;
@@ -3181,36 +3967,51 @@ function createCard(game, index) {
   });
 
   a.addEventListener("keydown", function (e) {
+    if (e.target !== a) return;
     if (e.key === "Enter" || e.key === " ") {
       e.preventDefault();
       goPlay(game);
     }
   });
 
-  if (game.thumbnail) {
-    jmLazyBg(a, game.thumbnail);
-  }
-
-  const title = document.createElement("h2");
-  title.className = "game-title";
-  title.textContent = game.title || game.id;
-  a.appendChild(title);
+  const art = document.createElement("div");
+  art.className = "tile-art";
+  if (game.thumbnail) jmLazyBg(art, game.thumbnail);
 
   const fav = document.createElement("button");
   fav.type = "button";
-  fav.className = "fav-btn" + (isFavorite(game.id) ? " active" : "");
+  fav.className = "tile-fav" + (isFavorite(game.id) ? " active" : "");
   fav.setAttribute("aria-label", "favorite");
-  fav.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="1.5"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>';
+  fav.setAttribute("aria-pressed", String(isFavorite(game.id)));
+  fav.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.8l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5-5.8-3.1-5.8 3.1 1.1-6.5-4.7-4.6 6.5-.9z"/></svg>';
   fav.addEventListener("click", function (e) {
     e.preventDefault();
     e.stopPropagation();
     toggleFavorite(game.id);
     fav.classList.toggle("active", isFavorite(game.id));
-    if (currentCategory === "favorites") {
-      render();
-    }
+    fav.setAttribute("aria-pressed", String(isFavorite(game.id)));
+    if (currentCategory === "favorites") render();
   });
-  a.appendChild(fav);
+  art.appendChild(fav);
+  a.appendChild(art);
+
+  const title = document.createElement("h3");
+  title.className = "tile-title";
+  title.textContent = game.title || game.id;
+  a.appendChild(title);
+
+  const cats = jmGameCats(game).slice(0, 2);
+  if (cats.length) {
+    const tags = document.createElement("div");
+    tags.className = "tile-tags";
+    cats.forEach(function (c) {
+      const tg = document.createElement("span");
+      tg.className = "tile-tag";
+      tg.textContent = jmCatLabel(c);
+      tags.appendChild(tg);
+    });
+    a.appendChild(tags);
+  }
   return a;
 }
 
@@ -3321,7 +4122,13 @@ function gridSection(title, games, opts) {
   toggle.type = "button";
   toggle.className = "section-toggle";
   const label = document.createElement("span");
-  label.textContent = opts.count === false ? title : title + " (" + games.length + ")";
+  label.textContent = title;
+  if (opts.count !== false) {
+    const num = document.createElement("span");
+    num.className = "section-num";
+    num.textContent = " (" + games.length + ")";
+    label.appendChild(num);
+  }
   const pin = document.createElement("span");
   pin.className = "section-pin";
   pin.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>';
@@ -3503,8 +4310,8 @@ function render() {
 
 function jmStagger(root) {
   var n = 0, vh = window.innerHeight;
-  var cards = root.querySelectorAll(".game-card");
-  for (var i = 0; i < cards.length && n < 18; i++) {
+  var cards = root.querySelectorAll(".tile");
+  for (var i = 0; i < cards.length && n < 20; i++) {
     var r = cards[i].getBoundingClientRect();
     if (r.top > vh) continue;
     if (r.right < 0 || r.left > window.innerWidth) continue;
@@ -3512,46 +4319,40 @@ function jmStagger(root) {
   }
 }
 
+function jmPageTitle() {
+  var c = currentCategory, q = currentQuery;
+  if (c === "all") return q ? 'Results for "' + q + '"' : "";
+  if (c === "favorites") return "Favorites";
+  if (c === "apps") return "Apps";
+  if (c === "ports") return "Ported games";
+  return jmCatLabel(c) + " games";
+}
+
 function renderInner(root) {
-  var showRecent =
-    currentCategory === "all" && !currentQuery && recentIds.length > 0;
-  if (showRecent) {
-    var recent = getRecentGames();
-    if (recent.length) {
-      root.appendChild(gridSection("recently played", recent, { kind: "compact" }));
-    }
+  var home = currentCategory === "all" && !currentQuery;
+  var list = home ? allGames.slice() : allGames.filter(matches);
+  var title = jmPageTitle();
+  if (title) {
+    var h = document.createElement("h2");
+    h.className = "view-title";
+    h.textContent = title;
+    root.appendChild(h);
   }
-  if (currentCategory === "all" && !currentQuery && favorites.length > 0) {
-    var favGames = allGames.filter(function (g) { return isFavorite(g.id); });
-    if (favGames.length) root.appendChild(gridSection("favorites", favGames, { kind: "compact" }));
-  }
-  if (currentCategory === "all" && !currentQuery) {
-    renderHome(root);
+  if (!list.length) {
+    var empty = document.createElement("div");
+    empty.className = "no-results";
+    empty.textContent = currentCategory === "favorites" && !currentQuery
+      ? "no favorites yet, click the star on a game"
+      : "no games found";
+    root.appendChild(empty);
     return;
   }
-  const filtered = groupRelated(allGames.filter(matches));
-  if (filtered.length === 0) {
-    if (!showRecent || !getRecentGames().length) {
-      const empty = document.createElement("div");
-      empty.className = "no-results";
-      if (currentCategory === "favorites") {
-        empty.textContent = currentQuery
-          ? "no favorites"
-          : "no favorites yet, click the star on a game";
-      } else {
-        empty.textContent = "no games found";
-      }
-      root.appendChild(empty);
-    }
-    return;
-  }
-  const title =
-    currentCategory === "all"
-      ? "all games"
-      : currentCategory === "favorites"
-        ? "favorites"
-        : currentCategory;
-  root.appendChild(gridSection(title, filtered));
+  var grid = document.createElement("div");
+  grid.className = "tiles";
+  var frag = document.createDocumentFragment();
+  for (var i = 0; i < list.length; i++) frag.appendChild(createCard(list[i], i));
+  grid.appendChild(frag);
+  root.appendChild(grid);
 }
 
 function setCategory(cat, btn) {
@@ -3565,307 +4366,53 @@ function setCategory(cat, btn) {
   saveViewState();
   document.body.classList.remove("side-open");
   var pv = document.getElementById("view-play");
-  jmVT(function () {
-    if (pv && !pv.hidden) goHomeNow();
+  var rows = document.getElementById("rows");
+  var playing = !!(pv && !pv.hidden);
+  if (playing) {
+    jmVT(function () {
+      goHomeNow();
+      render();
+      window.scrollTo(0, 0);
+    });
+    return;
+  }
+  if (rows) rows.classList.add("swap-out");
+  clearTimeout(window.__jmSwap);
+  window.__jmSwap = setTimeout(function () {
     render();
     window.scrollTo(0, 0);
-  });
+    if (rows) rows.classList.remove("swap-out");
+  }, rows ? 120 : 0);
 }
 
-
-function initParticles() {
-  const canvas = document.getElementById("particles");
-  if (!canvas) return;
-  const ctx = canvas.getContext("2d");
-  if (!ctx) return;
-  const reduce = !!(window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches);
-  let w = 0;
-  let h = 0;
-  let particles = [];
-  let kind = "snow";
-  let shoot = null;
-  let nextShoot = 0;
-  let running = false;
-  const R = function (a, b) { return a + Math.random() * (b - a); };
-  const pick = function (arr) { return arr[Math.floor(Math.random() * arr.length)]; };
-  function themeKind() {
-    return "stars";
-  }
-  function resize() {
-    w = canvas.width = window.innerWidth;
-    h = canvas.height = window.innerHeight;
-  }
-  function glow(x, y, r, rgb, a) {
-    const g = ctx.createRadialGradient(x, y, 0, x, y, r);
-    g.addColorStop(0, "rgba(" + rgb + "," + a + ")");
-    g.addColorStop(1, "rgba(" + rgb + ",0)");
-    ctx.fillStyle = g;
-    ctx.beginPath();
-    ctx.arc(x, y, r, 0, Math.PI * 2);
-    ctx.fill();
-  }
-  function spawn() {
-    kind = themeKind();
-    particles = [];
-    shoot = null;
-    nextShoot = performance.now() / 1000 + R(3, 7);
-    let i;
-    if (kind === "snow") {
-      for (i = 0; i < 55; i++) {
-        particles.push({ x: Math.random() * w, y: Math.random() * h, r: Math.random() * 3.2 + 1.4,
-          vx: (Math.random() - 0.5) * 0.15, vy: Math.random() * 0.9 + 0.35, a: Math.random() * 0.4 + 0.15 });
-      }
-    } else if (kind === "stars") {
-      const n = Math.max(90, Math.min(240, Math.round((w * h) / 9000)));
-      for (i = 0; i < n; i++) {
-        const big = Math.random() < 0.06;
-        particles.push({ x: R(0, w), y: R(0, h), r: big ? R(1.6, 2.4) : R(0.4, 1.5), a: R(0.35, 1), ph: R(0, 6.28),
-          sp: R(1.4, 4.2), big: big, c: pick(["255,255,255", "214,222,255", "170,184,255"]) });
-      }
-    } else if (kind === "orbs") {
-      const cols = ["124,58,237", "217,70,239", "79,70,229", "168,85,247"];
-      for (i = 0; i < 6; i++) {
-        particles.push({ orb: true, x: R(0, w), y: R(0, h), r: R(150, 300), vx: R(-0.18, 0.18), vy: R(-0.14, 0.14),
-          c: pick(cols), a: R(0.1, 0.18) });
-      }
-      for (i = 0; i < 40; i++) {
-        particles.push({ x: R(0, w), y: R(0, h), r: R(0.5, 1.7), vy: -R(0.08, 0.34), a: R(0.3, 0.85), ph: R(0, 6.28), sp: R(0.8, 2.4) });
-      }
-    } else if (kind === "bubbles") {
-      for (i = 0; i < 28; i++) {
-        particles.push({ x: R(0, w), y: R(0, h), r: R(3, 13), vy: R(0.35, 1.1), ph: R(0, 6.28), sw: R(0.25, 0.7) });
-      }
-    } else if (kind === "fireflies") {
-      for (i = 0; i < 36; i++) {
-        particles.push({ x: R(0, w), y: R(0, h), r: R(1.4, 2.6), ang: R(0, 6.28), sp: R(0.15, 0.45), ph: R(0, 6.28), ps: R(0.8, 2) });
-      }
-    } else if (kind === "embers") {
-      for (i = 0; i < 68; i++) {
-        particles.push({ x: R(0, w), y: R(0, h), r: R(0.7, 2.4), vy: -R(0.5, 1.7), vx: R(-0.25, 0.25), life: R(0, 1),
-          decay: R(0.002, 0.007), ph: R(0, 6.28) });
-      }
-    } else if (kind === "dust") {
-      for (i = 0; i < 50; i++) {
-        particles.push({ x: R(0, w), y: R(0, h), r: R(0.7, 2.1), vx: R(0.05, 0.25), vy: R(-0.04, 0.09), a: R(0.08, 0.28), ph: R(0, 6.28) });
-      }
-    } else if (kind === "petals") {
-      for (i = 0; i < 30; i++) {
-        const pw = R(4, 8);
-        particles.push({ x: R(0, w), y: R(0, h), pw: pw, ph2: pw * R(0.5, 0.7), rot: R(0, 6.28), vr: R(-0.02, 0.02),
-          vy: R(0.35, 0.9), vx: -R(0.1, 0.5), ph: R(0, 6.28), a: R(0.5, 0.85), c: pick(["255,170,200", "255,205,222"]) });
-      }
-    }
-  }
-  function frame(t, move) {
-    ctx.clearRect(0, 0, w, h);
-    let i, p;
-    if (kind === "snow") {
-      for (i = 0; i < particles.length; i++) {
-        p = particles[i];
-        if (move) {
-          p.x += p.vx;
-          p.y += p.vy;
-          if (p.x < 0) p.x = w;
-          if (p.x > w) p.x = 0;
-          if (p.y > h) {
-            p.y = -4;
-            p.x = Math.random() * w;
-          }
-        }
-        ctx.beginPath();
-        ctx.fillStyle = "rgba(255,255,255," + p.a + ")";
-        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-        ctx.fill();
-      }
-    } else if (kind === "stars") {
-      for (i = 0; i < particles.length; i++) {
-        p = particles[i];
-        const a = p.a * (0.35 + 0.65 * (0.5 + 0.5 * Math.sin(t * p.sp + p.ph)));
-        if (p.big) glow(p.x, p.y, p.r * 5, p.c, a * 0.35);
-        ctx.beginPath();
-        ctx.fillStyle = "rgba(" + p.c + "," + a + ")";
-        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-        ctx.fill();
-      }
-      if (move) {
-        if (!shoot && t > nextShoot) {
-          shoot = { x: R(w * 0.35, w), y: R(0, h * 0.35), vx: -R(8, 11), vy: R(3.5, 5), life: 1 };
-          nextShoot = t + R(6, 12);
-        }
-        if (shoot) {
-          const sx = shoot.x - shoot.vx * 7;
-          const sy = shoot.y - shoot.vy * 7;
-          const g = ctx.createLinearGradient(shoot.x, shoot.y, sx, sy);
-          g.addColorStop(0, "rgba(255,255,255," + 0.9 * shoot.life + ")");
-          g.addColorStop(1, "rgba(170,184,255,0)");
-          ctx.strokeStyle = g;
-          ctx.lineWidth = 1.6;
-          ctx.beginPath();
-          ctx.moveTo(shoot.x, shoot.y);
-          ctx.lineTo(sx, sy);
-          ctx.stroke();
-          shoot.x += shoot.vx;
-          shoot.y += shoot.vy;
-          shoot.life -= 0.012;
-          if (shoot.life <= 0 || shoot.x < -80 || shoot.y > h + 80) shoot = null;
-        }
-      }
-    } else if (kind === "orbs") {
-      for (i = 0; i < particles.length; i++) {
-        p = particles[i];
-        if (move) {
-          p.x += p.vx;
-          p.y += p.vy;
-          if (p.orb) {
-            if (p.x < -p.r) p.x = w + p.r;
-            if (p.x > w + p.r) p.x = -p.r;
-            if (p.y < -p.r) p.y = h + p.r;
-            if (p.y > h + p.r) p.y = -p.r;
-          } else if (p.y < -4) {
-            p.y = h + 4;
-            p.x = Math.random() * w;
-          }
-        }
-        if (p.orb) {
-          glow(p.x, p.y, p.r, p.c, p.a);
-        } else {
-          ctx.beginPath();
-          ctx.fillStyle = "rgba(233,213,255," + p.a * (0.5 + 0.5 * Math.sin(t * p.sp + p.ph)) + ")";
-          ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-          ctx.fill();
-        }
-      }
-    } else if (kind === "bubbles") {
-      for (i = 0; i < particles.length; i++) {
-        p = particles[i];
-        if (move) {
-          p.y -= p.vy;
-          p.x += Math.sin(t * 0.8 + p.ph) * p.sw;
-          if (p.y < -p.r * 2) {
-            p.y = h + p.r * 2;
-            p.x = Math.random() * w;
-          }
-        }
-        ctx.beginPath();
-        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-        ctx.fillStyle = "rgba(150,235,255,0.05)";
-        ctx.fill();
-        ctx.strokeStyle = "rgba(150,235,255,0.34)";
-        ctx.lineWidth = 1.2;
-        ctx.stroke();
-        ctx.beginPath();
-        ctx.arc(p.x - p.r * 0.35, p.y - p.r * 0.35, p.r * 0.35, Math.PI * 1.1, Math.PI * 1.6);
-        ctx.strokeStyle = "rgba(255,255,255,0.4)";
-        ctx.stroke();
-      }
-    } else if (kind === "fireflies") {
-      for (i = 0; i < particles.length; i++) {
-        p = particles[i];
-        if (move) {
-          p.ang += R(-0.08, 0.08);
-          p.x += Math.cos(p.ang) * p.sp;
-          p.y += Math.sin(p.ang) * p.sp;
-          if (p.x < -10) p.x = w + 10;
-          if (p.x > w + 10) p.x = -10;
-          if (p.y < -10) p.y = h + 10;
-          if (p.y > h + 10) p.y = -10;
-        }
-        const pulse = 0.25 + 0.75 * (0.5 + 0.5 * Math.sin(t * p.ps + p.ph));
-        glow(p.x, p.y, 16, "214,255,120", pulse * 0.5);
-        ctx.beginPath();
-        ctx.fillStyle = "rgba(240,255,170," + pulse + ")";
-        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-        ctx.fill();
-      }
-    } else if (kind === "embers") {
-      for (i = 0; i < particles.length; i++) {
-        p = particles[i];
-        if (move) {
-          p.y += p.vy;
-          p.x += p.vx + Math.sin(t * 1.5 + p.ph) * 0.25;
-          p.life -= p.decay;
-          if (p.life <= 0 || p.y < -10) {
-            p.y = h + R(0, 40);
-            p.x = Math.random() * w;
-            p.life = 1;
-          }
-        }
-        const rgb = p.life > 0.6 ? "255,200,90" : p.life > 0.3 ? "255,120,50" : "220,60,30";
-        glow(p.x, p.y, p.r * 5, rgb, p.life * 0.35);
-        ctx.beginPath();
-        ctx.fillStyle = "rgba(" + rgb + "," + Math.min(1, p.life * (0.75 + 0.25 * Math.sin(t * 9 + p.ph))) + ")";
-        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-        ctx.fill();
-      }
-    } else if (kind === "dust") {
-      for (i = 0; i < particles.length; i++) {
-        p = particles[i];
-        if (move) {
-          p.x += p.vx;
-          p.y += p.vy;
-          if (p.x > w + 4) p.x = -4;
-          if (p.y < -4) p.y = h + 4;
-          if (p.y > h + 4) p.y = -4;
-        }
-        ctx.beginPath();
-        ctx.fillStyle = "rgba(235,200,140," + p.a * (0.7 + 0.3 * Math.sin(t * 0.9 + p.ph)) + ")";
-        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-        ctx.fill();
-      }
-    } else if (kind === "petals") {
-      for (i = 0; i < particles.length; i++) {
-        p = particles[i];
-        if (move) {
-          p.y += p.vy;
-          p.x += p.vx + Math.sin(t * 0.9 + p.ph) * 0.5;
-          p.rot += p.vr;
-          if (p.y > h + 12 || p.x < -14) {
-            p.y = -12;
-            p.x = R(0, w + 120);
-          }
-        }
-        ctx.save();
-        ctx.translate(p.x, p.y);
-        ctx.rotate(p.rot);
-        ctx.fillStyle = "rgba(" + p.c + "," + p.a + ")";
-        ctx.beginPath();
-        ctx.ellipse(0, 0, p.pw, p.ph2, 0, 0, Math.PI * 2);
-        ctx.fill();
-        ctx.restore();
-      }
-    }
-  }
-  function tick() {
-    frame(performance.now() / 1000, true);
-    requestAnimationFrame(tick);
-  }
-  function start() {
-    spawn();
-    if (kind !== "snow" && reduce) {
-      frame(0, false);
-      return;
-    }
-    if (!running) {
-      running = true;
-      tick();
-    }
-  }
-  resize();
-  start();
-  window.jmFxRefresh = function () {
-    spawn();
-    if (kind !== "snow" && reduce) frame(0, false);
-    else if (!running) start();
-  };
-  window.addEventListener("resize", function () {
-    resize();
-    spawn();
-    if (kind !== "snow" && reduce) frame(0, false);
-  });
-}
 
 function jmVT(fn) {
   fn();
+}
+
+var jmHomeScroll = 0;
+
+function jmAnimPlay(el, cls, done) {
+  el.classList.remove("opening", "closing");
+  if (window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    done();
+    return;
+  }
+  void el.offsetWidth;
+  el.classList.add(cls);
+  var fin = false;
+  function end() {
+    if (fin) return;
+    fin = true;
+    el.removeEventListener("animationend", onEnd);
+    done();
+    el.classList.remove(cls);
+  }
+  function onEnd(e) {
+    if (e.target === el) end();
+  }
+  el.addEventListener("animationend", onEnd);
+  setTimeout(end, 900);
 }
 
 function goHome() {
@@ -3875,9 +4422,7 @@ function goHome() {
 function goHomeNow() {
   const home = document.getElementById("view-home");
   const play = document.getElementById("view-play");
-  if (home) home.hidden = false;
-  if (play) play.hidden = true;
-  document.body.classList.remove("play-body");
+  const wasPlaying = !!(play && !play.hidden);
   currentPlayGame = null;
   try { localStorage.removeItem("jm-last-play"); } catch (e) {}
   if (window.jmCancelGame) window.jmCancelGame();
@@ -3886,8 +4431,23 @@ function goHomeNow() {
     try { frame.src = "about:blank"; } catch (e) {}
   }
   if (typeof window.jmApplyCloak === "function") window.jmApplyCloak();
+  if (home) home.hidden = false;
   render();
-  window.scrollTo(0, 0);
+  window.scrollTo(0, wasPlaying ? jmHomeScroll : 0);
+  if (!play) {
+    document.body.classList.remove("play-body");
+    return;
+  }
+  if (!wasPlaying) {
+    play.hidden = true;
+    document.body.classList.remove("play-body");
+    return;
+  }
+  jmAnimPlay(play, "closing", function () {
+    if (currentPlayGame) return;
+    play.hidden = true;
+    document.body.classList.remove("play-body");
+  });
 }
 
 function goPlay(game) {
@@ -3901,15 +4461,26 @@ function goPlayNow(game) {
   try { localStorage.setItem("jm-last-play", String(game.id)); } catch (e) {}
   const home = document.getElementById("view-home");
   const play = document.getElementById("view-play");
-  if (home) home.hidden = true;
-  if (play) play.hidden = false;
+  const alreadyOpen = !!(play && !play.hidden);
+  if (!alreadyOpen) jmHomeScroll = window.scrollY || 0;
   document.body.classList.add("play-body");
   if (!window.__jmPlayStarted) {
     window.__jmPlayStarted = true;
     if (window.jmPlay && window.jmPlay.init) window.jmPlay.init();
   }
+  if (play) play.hidden = false;
   if (window.jmPlay && window.jmPlay.enter) window.jmPlay.enter(game);
-  window.scrollTo(0, 0);
+  if (alreadyOpen) {
+    if (home) home.hidden = true;
+    return;
+  }
+  if (play) {
+    jmAnimPlay(play, "opening", function () {
+      if (currentPlayGame && home) home.hidden = true;
+    });
+  } else if (home) {
+    home.hidden = true;
+  }
 }
 
 window.jmGoPlay = goPlay;
@@ -3969,13 +4540,14 @@ function init() {
       render();
     });
   }
-  const back = document.getElementById("back-btn");
-  if (back) {
-    back.addEventListener("click", function () {
-      goHome();
-    });
-  }
-  initParticles();
+  const closeBtn = document.getElementById("play-close");
+  if (closeBtn) closeBtn.addEventListener("click", function () { goHome(); });
+  document.addEventListener("keydown", function (e) {
+    if (e.key !== "Escape" || document.fullscreenElement) return;
+    var pv = document.getElementById("view-play");
+    var modal = document.getElementById("settings-modal");
+    if (pv && !pv.hidden && !(modal && !modal.hidden)) goHome();
+  });
   jmFetchGames()
     .then(function (r) {
       if (!r.ok) throw new Error("games.json " + r.status);
@@ -4613,7 +5185,6 @@ function enter(game) {
     return;
   }
   show(game);
-  loadRecommended(game);
 }
 
 function init() {
@@ -4680,6 +5251,5 @@ window.jmPlay = { init: init, enter: enter, leave: leave };
 })();
 </script>
   <script src="https://pl31909744.profitableratecpmnetwork.com/b6/e4/89/b6e489ab07f638f349fbaafb25137bc6.js"></script>
-<script>(function(){try{if(document.documentElement.getAttribute("data-season")!=="halloween")return;var b=document.body;[[12,0,"18vh",28],[22,-9,"46vh",36],[26,-15,"70vh",30],[20,-4,"30vh",40],[24,-19,"82vh",26]].forEach(function(g){var e=document.createElement("span");e.className="jm-ghost";e.textContent="\uD83D\uDC7B";e.style.setProperty("--y",g[2]);e.style.fontSize=g[3]+"px";e.style.animationDuration=(g[0]+10)+"s";e.style.animationDelay=g[1]+"s";b.appendChild(e)})}catch(e){}})()</script>
 </body>
 </html>
